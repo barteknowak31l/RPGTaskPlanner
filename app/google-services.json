@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "868010022807",
+    "project_id": "rpgtaskplanner",
+    "storage_bucket": "rpgtaskplanner.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:868010022807:android:5fe04f418f4583fd2096d2",
+        "android_client_info": {
+          "package_name": "edu.put.rpgtaskplanner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "868010022807-joaivng6uvbpg4dlnkr088bp0m5hjc7r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.put.rpgtaskplanner",
+            "certificate_hash": "6a265fb116f6db2135658525e766ce97e2e469c4"
+          }
+        },
+        {
+          "client_id": "868010022807-v8dj6475fkumck81h672vf8m8bf0uae1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0XMd_orxxr6XacFQdiQlxW_-DtYCU2Io"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "868010022807-v8dj6475fkumck81h672vf8m8bf0uae1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
