@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -16,12 +15,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import edu.put.rpgtaskplanner.databinding.ActivitySignInBinding
 
-class SignInActivity : AppCompatActivity() {
+class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener {
 
     private lateinit var binding: ActivitySignInBinding
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +27,6 @@ class SignInActivity : AppCompatActivity() {
 
         binding = ActivitySignInBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
         firebaseAuth = FirebaseAuth.getInstance()
 
@@ -39,43 +36,6 @@ class SignInActivity : AppCompatActivity() {
             .build()
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
-
-        binding.buttonSignInGoogle.setOnClickListener{
-            googleSignInClient.signOut().addOnCompleteListener()
-            {
-                signInGoogle()
-            }
-
-        }
-
-
-        binding.textViewSignUp.setOnClickListener {
-            val intent = Intent(this, SignUpActivity::class.java)
-            startActivity(intent)
-        }
-
-
-        binding.buttonSignIn.setOnClickListener {
-            val email = binding.editTextEmail.text.toString()
-            val password = binding.editTextPassword.text.toString()
-
-            if (email.isNotEmpty() && password.isNotEmpty()) {
-                firebaseAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener {
-                        if (it.isSuccessful) {
-                            val intent = Intent(this, MainActivity::class.java)
-                            startActivity(intent)
-
-                        } else {
-                            Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT)
-                                .show()
-                        }
-                    }
-            } else {
-                Toast.makeText(this, "Empty fields are not allowed!", Toast.LENGTH_SHORT).show()
-
-            }
-        }
 
     }
 
@@ -92,8 +52,6 @@ class SignInActivity : AppCompatActivity() {
                 val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
                 handleResults(task)
             }
-
-
     }
 
     private fun handleResults(task: Task<GoogleSignInAccount>) {
@@ -138,6 +96,37 @@ class SignInActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    override fun signInClicked(email: String, password: String) {
+        if (email.isNotEmpty() && password.isNotEmpty()) {
+            firebaseAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
+
+                    } else {
+                        Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+        } else {
+            Toast.makeText(this, "Empty fields are not allowed!", Toast.LENGTH_SHORT).show()
+
+        }
+    }
+
+    override fun signInGoogleClicked() {
+        googleSignInClient.signOut().addOnCompleteListener()
+        {
+            signInGoogle()
+        }
+    }
+
+    override fun signUpClicked() {
+        val intent = Intent(this, SignUpActivity::class.java)
+        startActivity(intent)
     }
 
 
