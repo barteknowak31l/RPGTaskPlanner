@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.fragment.app.FragmentContainerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/characterCreatorFragment"
+        android:name="edu.put.rpgtaskplanner.character_creator.CharacterCreatorFragment"/>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/characterStatisticsFragment"
+        android:name="edu.put.rpgtaskplanner.character_statistics.CharacterStatisticsDisplayFragment"
+        android:layout_below="@id/characterCreatorFragment"
+        android:background="@drawable/rounded_shape"
+        android:layout_marginVertical="30dp"
+        android:layout_marginHorizontal="20dp"
+        android:padding="10dp"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonCreate"
+        android:layout_below="@+id/characterStatisticsFragment"
+        android:text="@string/character_creator_create_button"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/rounded_shape"
+        android:padding="20dp"/>
+
+</RelativeLayout>

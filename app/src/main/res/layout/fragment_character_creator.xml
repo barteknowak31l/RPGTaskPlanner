@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="250dp"
+        android:id="@+id/characterDisplay"
+        android:layout_centerHorizontal="true"
+        android:layout_marginVertical="20dp"
+        android:src="@drawable/rpg_logo_sm"
+        android:background="@drawable/rounded_shape"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonPrevClass"
+        android:text="prev"
+        android:layout_toLeftOf="@+id/characterDisplay"
+        android:layout_marginTop="110dp"
+        android:layout_marginHorizontal="15dp"
+        android:background="@drawable/rounded_shape"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonNextClass"
+        android:text="next"
+        android:layout_toRightOf="@+id/characterDisplay"
+        android:layout_marginTop="110dp"
+        android:layout_marginHorizontal="15dp"
+        android:background="@drawable/rounded_shape"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewClass"
+        android:minWidth="220dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/characterDisplay"
+        android:background="@color/button_color"
+        android:text="Class"
+        android:gravity="center"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextCharacterName"
+        android:minWidth="280dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/textViewClass"
+        android:layout_marginVertical="15dp"
+        android:hint="@string/character_creator_name_hint" />
+
+
+
+
+
+</RelativeLayout>

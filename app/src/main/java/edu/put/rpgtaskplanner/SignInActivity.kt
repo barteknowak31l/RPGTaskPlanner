@@ -13,6 +13,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import edu.put.rpgtaskplanner.character_creator.CharacterCreatorActivity
 import edu.put.rpgtaskplanner.databinding.ActivitySignInBinding
 
 class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener {
@@ -77,6 +78,7 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener {
                 val intent : Intent = Intent(this, MainActivity::class.java)
                 intent.putExtra("email", account.email)
                 intent.putExtra("name", account.displayName)
+
                 startActivity(intent)
             }
             else
@@ -125,7 +127,9 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener {
     }
 
     override fun signUpClicked() {
-        val intent = Intent(this, SignUpActivity::class.java)
+//        val intent = Intent(this, SignUpActivity::class.java)
+
+        val intent = Intent(this, CharacterCreatorActivity::class.java)
         startActivity(intent)
     }
 
