@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -18,7 +19,7 @@ import edu.put.rpgtaskplanner.databinding.ActivityMainBinding
 import edu.put.rpgtaskplanner.databinding.ActivitySignInBinding
 import edu.put.rpgtaskplanner.ui.theme.RPGTaskPlannerTheme
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
     private lateinit var firebaseAuth : FirebaseAuth
