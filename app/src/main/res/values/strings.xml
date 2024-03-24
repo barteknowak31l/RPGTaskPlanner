@@ -12,6 +12,8 @@
     <string name="empty_statistic">Statystyka</string>
     <string name="character_creator_name_hint">Character name</string>
     <string name="character_creator_create_button">Stwórz postać</string>
+    <string name="title_activity_task_list">TaskListActivity</string>
 
+    <string name="task_list_add_task_button_text">Nowe zadanie</string>
 
 </resources>

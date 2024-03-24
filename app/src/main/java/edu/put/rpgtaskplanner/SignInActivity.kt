@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import edu.put.rpgtaskplanner.character_creator.CharacterCreatorActivity
 import edu.put.rpgtaskplanner.databinding.ActivitySignInBinding
+import edu.put.rpgtaskplanner.task_list.TaskListActivity
 
 class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener {
 
@@ -129,7 +130,8 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener {
     override fun signUpClicked() {
 //        val intent = Intent(this, SignUpActivity::class.java)
 
-        val intent = Intent(this, CharacterCreatorActivity::class.java)
+//        val intent = Intent(this, CharacterCreatorActivity::class.java)
+        val intent = Intent(this, TaskListActivity::class.java)
         startActivity(intent)
     }
 

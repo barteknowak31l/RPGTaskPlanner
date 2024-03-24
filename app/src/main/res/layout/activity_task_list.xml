@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.fragment.app.FragmentContainerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/logoFragment"
+        android:layout_marginVertical="20dp"
+        android:name="edu.put.rpgtaskplanner.LogoFragment"/>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:layout_marginVertical="20dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/taskListFragment"
+        android:layout_below="@id/logoFragment"
+        android:name="edu.put.rpgtaskplanner.task_list.TaskListFragment"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonCreate"
+        android:layout_below="@id/taskListFragment"
+        android:layout_marginVertical="10dp"
+        android:text="@string/task_list_add_task_button_text"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/rounded_shape"
+        android:padding="20dp"/>
+
+    <edu.put.rpgtaskplanner.utility.CircleFillView
+        android:id="@+id/circleFillViewResource"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="-350dp"
+        android:layout_marginBottom="-20dp"
+        custom:_fillColor="#6bcae2"
+        custom:_strokeColor="#75b0d0"
+        custom:_strokeWidth="20"
+        custom:_value="65" />
+
+    <edu.put.rpgtaskplanner.utility.CircleFillView
+        android:id="@+id/circleFillViewHealth"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="-350dp"
+        android:layout_marginBottom="-20dp"
+        custom:_fillColor="#7d0729"
+        custom:_strokeColor="#8e183A"
+        custom:_strokeWidth="20"
+        custom:_value="65" />
+
+
+</RelativeLayout>
