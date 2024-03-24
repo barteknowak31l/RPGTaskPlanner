@@ -39,19 +39,6 @@ class Task(val name: String,
             tasks.add(Task("Task 3", "Description 3", 30, 30))
             tasks.add(Task("Task 3", "Description 3", 30, 30))
             tasks.add(Task("Task 3", "Description 3", 30, 30))
-            tasks.add(Task("Task 3", "Description 3", 30, 30))
-            tasks.add(Task("Task 3", "Description 3", 30, 30))
-            tasks.add(Task("Task 3", "Description 3", 30, 30))
-            tasks.add(Task("Task 3", "Description 3", 30, 30))
-            tasks.add(Task("Task 3", "Description 3", 30, 30))
-            tasks.add(Task("Task 3", "Description 3", 30, 30))
-            tasks.add(Task("Task 3", "Description 3", 30, 30))
-            tasks.add(Task("Task 3", "Description 3", 30, 30))
-            tasks.add(Task("Task 3", "Description 3", 30, 30))
-            tasks.add(Task("Task 3", "Description 3", 30, 30))
-            tasks.add(Task("Task 3", "Description 3", 30, 30))
-            tasks.add(Task("Task 3", "Description 3", 30, 30))
-
         }
 
         fun getTasks(): List<Task>

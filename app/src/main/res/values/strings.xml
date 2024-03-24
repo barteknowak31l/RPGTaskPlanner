@@ -15,5 +15,11 @@
     <string name="title_activity_task_list">TaskListActivity</string>
 
     <string name="task_list_add_task_button_text">Nowe zadanie</string>
+    <string name="title_activity_task_detail">TaskDetailActivity</string>
+
+    <string name="task_detail_default_name">Zadanie</string>
+    <string name="task_detail_default_description">Opis zadania</string>
+    <string name="task_detail_complete_task">Zakończ zadanie</string>
+    <string name="task_detail_default_task_statistic">Statystyka</string>
 
 </resources>

@@ -1,5 +1,6 @@
 package edu.put.rpgtaskplanner.task_list
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
@@ -18,8 +19,7 @@ class TaskListActivity : AppCompatActivity(), TaskListFragment.Listener {
     }
 
     override fun itemClicked(id: Int) {
-//        TODO("Not yet implemented")
-
-        return
+        val intent = Intent(this, TaskDetailActivity::class.java)
+        startActivity(intent)
     }
 }
