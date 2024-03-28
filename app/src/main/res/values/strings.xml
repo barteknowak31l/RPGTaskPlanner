@@ -31,6 +31,7 @@
     <string name="add_task_experience">Przewidywane doświadczenie</string>
     <string name="add_task_min_end_date">Minimalna data zakończenia</string>
     <string name="add_task_button">Dodaj zadanie</string>
+    <string name="title_activity_character">CharacterActivity</string>
 
 
 </resources>

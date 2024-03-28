@@ -1,4 +1,4 @@
-package edu.put.rpgtaskplanner.character_statistics
+package edu.put.rpgtaskplanner.character.character_statistics
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

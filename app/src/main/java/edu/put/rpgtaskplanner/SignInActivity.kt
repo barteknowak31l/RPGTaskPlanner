@@ -13,7 +13,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import edu.put.rpgtaskplanner.character_creator.CharacterCreatorActivity
+import edu.put.rpgtaskplanner.character.CharacterActivity
+import edu.put.rpgtaskplanner.character.character_creator.CharacterCreatorActivity
 import edu.put.rpgtaskplanner.databinding.ActivitySignInBinding
 import edu.put.rpgtaskplanner.task_list.TaskListActivity
 
@@ -131,7 +132,8 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener {
 //        val intent = Intent(this, SignUpActivity::class.java)
 
 //        val intent = Intent(this, CharacterCreatorActivity::class.java)
-        val intent = Intent(this, TaskListActivity::class.java)
+//        val intent = Intent(this, TaskListActivity::class.java)
+        val intent = Intent(this, CharacterActivity::class.java)
         startActivity(intent)
     }
 

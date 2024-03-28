@@ -7,13 +7,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/characterCreatorFragment"
-        android:name="edu.put.rpgtaskplanner.character_creator.CharacterCreatorFragment"/>
+        android:name="edu.put.rpgtaskplanner.character.character_creator.CharacterCreatorFragment"/>
 
     <androidx.fragment.app.FragmentContainerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/characterStatisticsFragment"
-        android:name="edu.put.rpgtaskplanner.character_statistics.CharacterStatisticsDisplayFragment"
+        android:name="edu.put.rpgtaskplanner.character.character_statistics.CharacterStatisticsDisplayFragment"
         android:layout_below="@id/characterCreatorFragment"
         android:background="@drawable/rounded_shape"
         android:layout_marginVertical="30dp"

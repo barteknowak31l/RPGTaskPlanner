@@ -1,4 +1,4 @@
-package edu.put.rpgtaskplanner.character_creator.ui.theme
+package edu.put.rpgtaskplanner.character.ui.theme
 
 import android.app.Activity
 import android.os.Build

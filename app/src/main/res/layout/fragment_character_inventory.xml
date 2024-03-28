@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/imageViewHelmet"
+        android:layout_centerHorizontal="true"
+        android:layout_marginVertical="10dp"
+        android:src="@drawable/rpg_logo_sm"
+        android:background="@drawable/rounded_shape"
+        />
+
+    <ImageView
+        android:layout_width="140dp"
+        android:layout_height="150dp"
+        android:id="@+id/imageViewArmour"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/imageViewHelmet"
+        android:src="@drawable/rpg_logo_sm"
+        android:background="@drawable/rounded_shape"
+        />
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="150dp"
+        android:id="@+id/imageViewLeftHand"
+        android:layout_centerHorizontal="true"
+        android:layout_toStartOf="@id/imageViewArmour"
+        android:layout_alignTop="@id/imageViewArmour"
+        android:layout_marginHorizontal="25dp"
+        android:src="@drawable/rpg_logo_sm"
+        android:background="@drawable/rounded_shape"
+        />
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="150dp"
+        android:id="@+id/imageViewRightHand"
+        android:layout_centerHorizontal="true"
+        android:layout_toEndOf="@id/imageViewArmour"
+        android:layout_alignTop="@id/imageViewArmour"
+        android:layout_marginHorizontal="25dp"
+        android:src="@drawable/rpg_logo_sm"
+        android:background="@drawable/rounded_shape"
+        />
+
+    <ImageView
+        android:layout_width="140dp"
+        android:layout_height="60dp"
+        android:id="@+id/imageViewBelt"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/imageViewArmour"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/rpg_logo_sm"
+        android:background="@drawable/rounded_shape"
+        />
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/imageViewRing"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="25dp"
+        android:layout_toStartOf="@id/imageViewBelt"
+        android:layout_alignTop="@id/imageViewBelt"
+        android:src="@drawable/rpg_logo_sm"
+        android:background="@drawable/rounded_shape"
+        />
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/imageViewArtifact"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="25dp"
+        android:layout_toEndOf="@id/imageViewBelt"
+        android:layout_alignTop="@id/imageViewBelt"
+        android:src="@drawable/rpg_logo_sm"
+        android:background="@drawable/rounded_shape"
+        />
+
+    <ImageView
+        android:layout_width="140dp"
+        android:layout_height="120dp"
+        android:id="@+id/imageViewBoots"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/imageViewBelt"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/rpg_logo_sm"
+        android:background="@drawable/rounded_shape"
+        />
+
+
+</RelativeLayout>

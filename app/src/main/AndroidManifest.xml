@@ -13,6 +13,11 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
+            android:name=".character.CharacterActivity"
+            android:exported="false"
+            android:label="@string/title_activity_character"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name=".task_list.AddTaskActivity"
             android:exported="false"
             android:label="@string/title_activity_add_task"
@@ -28,7 +33,7 @@
             android:label="@string/title_activity_task_list"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".character_creator.CharacterCreatorActivity"
+            android:name=".character.character_creator.CharacterCreatorActivity"
             android:exported="false"
             android:label="@string/title_activity_character_creator"
             android:theme="@style/AppTheme" />

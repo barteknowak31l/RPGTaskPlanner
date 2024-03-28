@@ -9,36 +9,37 @@
         android:layout_height="match_parent"
         android:id="@+id/leftColumn"
         android:orientation="vertical"
+        android:gravity="center_horizontal"
         >
         <androidx.fragment.app.FragmentContainerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/statisticLeft1"
-            android:name="edu.put.rpgtaskplanner.character_statistics.StatisticListItemFragment"/>
+            android:name="edu.put.rpgtaskplanner.character.character_statistics.StatisticListItemFragment"/>
 
         <androidx.fragment.app.FragmentContainerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/statisticLeft2"
-            android:name="edu.put.rpgtaskplanner.character_statistics.StatisticListItemFragment"/>
+            android:name="edu.put.rpgtaskplanner.character.character_statistics.StatisticListItemFragment"/>
 
         <androidx.fragment.app.FragmentContainerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/statisticLeft3"
-            android:name="edu.put.rpgtaskplanner.character_statistics.StatisticListItemFragment"/>
+            android:name="edu.put.rpgtaskplanner.character.character_statistics.StatisticListItemFragment"/>
 
         <androidx.fragment.app.FragmentContainerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/statisticLeft4"
-            android:name="edu.put.rpgtaskplanner.character_statistics.StatisticListItemFragment"/>
+            android:name="edu.put.rpgtaskplanner.character.character_statistics.StatisticListItemFragment"/>
 
         <androidx.fragment.app.FragmentContainerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/statisticLeft5"
-            android:name="edu.put.rpgtaskplanner.character_statistics.StatisticListItemFragment"/>
+            android:name="edu.put.rpgtaskplanner.character.character_statistics.StatisticListItemFragment"/>
 
 
     </LinearLayout>
@@ -54,31 +55,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/statisticRight1"
-            android:name="edu.put.rpgtaskplanner.character_statistics.StatisticListItemFragment"/>
+            android:name="edu.put.rpgtaskplanner.character.character_statistics.StatisticListItemFragment"/>
 
         <androidx.fragment.app.FragmentContainerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/statisticRight2"
-            android:name="edu.put.rpgtaskplanner.character_statistics.StatisticListItemFragment"/>
+            android:name="edu.put.rpgtaskplanner.character.character_statistics.StatisticListItemFragment"/>
 
         <androidx.fragment.app.FragmentContainerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/statisticRight3"
-            android:name="edu.put.rpgtaskplanner.character_statistics.StatisticListItemFragment"/>
+            android:name="edu.put.rpgtaskplanner.character.character_statistics.StatisticListItemFragment"/>
 
         <androidx.fragment.app.FragmentContainerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/statisticRight4"
-            android:name="edu.put.rpgtaskplanner.character_statistics.StatisticListItemFragment"/>
+            android:name="edu.put.rpgtaskplanner.character.character_statistics.StatisticListItemFragment"/>
 
         <androidx.fragment.app.FragmentContainerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/statisticRight5"
-            android:name="edu.put.rpgtaskplanner.character_statistics.StatisticListItemFragment"/>
+            android:name="edu.put.rpgtaskplanner.character.character_statistics.StatisticListItemFragment"/>
 
 
     </LinearLayout>

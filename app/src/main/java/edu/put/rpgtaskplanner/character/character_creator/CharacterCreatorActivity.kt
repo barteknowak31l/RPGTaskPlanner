@@ -1,4 +1,4 @@
-package edu.put.rpgtaskplanner.character_creator
+package edu.put.rpgtaskplanner.character.character_creator
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

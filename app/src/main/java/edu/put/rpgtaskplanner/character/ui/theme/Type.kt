@@ -1,4 +1,4 @@
-package edu.put.rpgtaskplanner.character_creator.ui.theme
+package edu.put.rpgtaskplanner.character.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
