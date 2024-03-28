@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:inputType="text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextCharacterName"
+        android:minWidth="280dp"
+        android:textAlignment="center"
+
+        android:layout_centerHorizontal="true"
+        android:layout_marginVertical="15dp"
+        android:hint="@string/add_task_hint"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextHp"
+        android:minWidth="60dp"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:layout_below="@+id/editTextCharacterName"
+        android:layout_alignStart="@+id/editTextCharacterName"
+        android:layout_marginVertical="15dp"
+        android:hint="@string/add_task_hp_hint"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextResource"
+        android:minWidth="60dp"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:layout_below="@+id/editTextCharacterName"
+        android:layout_alignEnd="@+id/editTextCharacterName"
+        android:layout_marginVertical="15dp"
+        android:hint="@string/add_task_resource_hint"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewDifficulty"
+        android:minWidth="280dp"
+        android:layout_centerHorizontal="true"
+        android:paddingVertical="5dp"
+        android:layout_below="@+id/editTextHp"
+        android:background="@color/button_color"
+        android:text="@string/add_task_difficulty"
+        android:layout_marginTop="80dp"
+        android:gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewGold"
+        android:minWidth="280dp"
+        android:layout_centerHorizontal="true"
+        android:paddingVertical="5dp"
+        android:layout_below="@+id/textViewDifficulty"
+        android:background="@color/button_color"
+        android:text="@string/add_task_gold"
+        android:layout_marginTop="20dp"
+        android:gravity="center"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewExperience"
+        android:minWidth="280dp"
+        android:layout_centerHorizontal="true"
+        android:paddingVertical="5dp"
+        android:layout_below="@+id/textViewGold"
+        android:background="@color/button_color"
+        android:text="@string/add_task_experience"
+        android:layout_marginTop="20dp"
+        android:gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewMinEndDate"
+        android:minWidth="280dp"
+        android:layout_centerHorizontal="true"
+        android:paddingVertical="5dp"
+        android:layout_below="@+id/textViewExperience"
+        android:background="@color/button_color"
+        android:text="@string/add_task_min_end_date"
+        android:layout_marginTop="20dp"
+        android:gravity="center"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonCreate"
+        android:layout_below="@id/textViewMinEndDate"
+        android:layout_marginVertical="50dp"
+        android:text="@string/add_task_button"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/rounded_shape"
+        android:padding="20dp"/>
+
+
+
+
+
+
+</RelativeLayout>
