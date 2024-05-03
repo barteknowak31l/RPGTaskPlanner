@@ -36,6 +36,9 @@ class EquipmentFragment : Fragment() {
         adapter.setListener(object : CustomRecyclerAdapter.Listener {
             override fun onClick(position: Int) {
                 Toast.makeText(context, "Clicked on "+ names[position], Toast.LENGTH_SHORT).show()
+                val intent = Intent(context, ItemDetailsActivity::class.java);
+                intent.putExtra("name",names[position])
+                startActivity(intent)
             }
         })
 

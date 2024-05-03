@@ -13,6 +13,11 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
+            android:name=".character.equipment.ItemDetailsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_item_details"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name=".character.equipment.EquipmentActivity"
             android:exported="false"
             android:label="@string/title_activity_equipment"

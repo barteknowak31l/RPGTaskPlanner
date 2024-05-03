@@ -47,5 +47,15 @@
     <string name="title_activity_equipment">EquipmentActivity</string>
     <string name="header_activity_equipment">Twój ekwipunek</string>
 
+    <string name="title_activity_item_details">ItemDetailsActivity</string>
+    <string name="item_name_activity_item_details">Nazwa przedmiotu</string>
+    <string name="required_level_activity_item_details">Wymagany poziom postaci</string>
+    <string name="item_type_activity_item_details">Typ przedmiotu</string>
+    <string name="enhanced_stat_activity_item_details">Ulepszona statystyka</string>
+    <string name="enhancement_value_activity_item_details">Wartość ulepszenia</string>
+    <string name="item_description_header_activity_item_details">Opis przedmiotu</string>
+    <string name="equip_button_activity_item_details">Załóż przedmiot</string>
+
+
 
 </resources>
