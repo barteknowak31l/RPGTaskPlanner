@@ -44,6 +44,8 @@
     <string name="medium_trophies_activity_character">Średnie</string>
     <string name="hard_trophies_activity_character">Trudne</string>
 
+    <string name="title_activity_equipment">EquipmentActivity</string>
+    <string name="header_activity_equipment">Twój ekwipunek</string>
 
 
 </resources>
