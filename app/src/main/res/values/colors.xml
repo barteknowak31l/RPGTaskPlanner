@@ -13,5 +13,6 @@
     <color name="background_color">#20364D</color>
     <color name="text_color">#FFFFFF</color>
     <color name="button_color">#0E1E33</color>
+    <color name="accent_color">#193559</color>
 
 </resources>

@@ -56,6 +56,19 @@
     <string name="item_description_header_activity_item_details">Opis przedmiotu</string>
     <string name="equip_button_activity_item_details">Załóż przedmiot</string>
 
+    <string name="title_activity_shop">ShopActivity</string>
+    <string name="header_activity_shop">Sklep</string>
+    <string name="price_activity_shop">Cena</string>
+    <string name="buy_activity_shop">Kup</string>
+    <string name="reset_activity_shop">Reset sklepu</string>
+    <string name="item_type_activity_shop">Typ przedmiotu</string>
+    <string name="item_stat_activity_shop">Statystyka przedmiotu</string>
+    <string name="current_stat_activity_shop">Obecna statystyka</string>
+    <string name="item_name_activity_shop">Nazwa</string>
+
+
+
+
 
 
 </resources>

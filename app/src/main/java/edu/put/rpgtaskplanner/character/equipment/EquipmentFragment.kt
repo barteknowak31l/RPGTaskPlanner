@@ -48,19 +48,30 @@ class EquipmentFragment : Fragment() {
         return recyclerView
     }
 
-    class EquipmentItem(var id: Int, var name: String, var imageResourceId: Int)
+    enum class ItemType{
+        HELMET,
+        ARMOUR,
+        WEAPON,
+        OFFHAND,
+        BELT,
+        RING,
+        ARTIFACT,
+        BOOTS
+    }
+
+    class EquipmentItem(var id: Int, var name: String, var imageResourceId: Int, var price: Int, var type: ItemType, var statisticBoost: Int)
     companion object{
         private val equipment = mutableListOf<EquipmentItem>()
 
         init{
-            equipment.add(EquipmentItem(0,"test0", R.drawable.rpg_logo_sm))
-            equipment.add(EquipmentItem(1,"test1", R.drawable.rpg_logo_sm))
-            equipment.add(EquipmentItem(2,"test2", R.drawable.rpg_logo_sm))
-            equipment.add(EquipmentItem(3,"test3", R.drawable.rpg_logo_sm))
-            equipment.add(EquipmentItem(4,"test4", R.drawable.rpg_logo_sm))
-            equipment.add(EquipmentItem(5,"test5", R.drawable.rpg_logo_sm))
-            equipment.add(EquipmentItem(6,"test6", R.drawable.rpg_logo_sm))
-            equipment.add(EquipmentItem(7,"test7", R.drawable.rpg_logo_sm))
+            equipment.add(EquipmentItem(0,"test0", R.drawable.rpg_logo_sm, 1, ItemType.HELMET, 1))
+            equipment.add(EquipmentItem(1,"test1", R.drawable.rpg_logo_sm, 100, ItemType.ARMOUR, 10))
+            equipment.add(EquipmentItem(2,"test2", R.drawable.rpg_logo_sm, 200, ItemType.WEAPON, 20))
+            equipment.add(EquipmentItem(3,"test3", R.drawable.rpg_logo_sm, 300, ItemType.OFFHAND, 30))
+            equipment.add(EquipmentItem(4,"test4", R.drawable.rpg_logo_sm, 400, ItemType.BELT, 40))
+            equipment.add(EquipmentItem(5,"test5", R.drawable.rpg_logo_sm, 500, ItemType.RING, 50))
+            equipment.add(EquipmentItem(6,"test6", R.drawable.rpg_logo_sm, 600, ItemType.ARTIFACT, 60))
+            equipment.add(EquipmentItem(7,"test7", R.drawable.rpg_logo_sm, 700, ItemType.BOOTS, 70))
         }
 
         fun getItems(): List<EquipmentItem>
