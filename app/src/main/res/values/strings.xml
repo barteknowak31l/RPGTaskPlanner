@@ -4,7 +4,6 @@
     <string name="title_activity_sign_up">SignUpActivity</string>
 
     <string name="main_activity_sign_out_button">Sign out</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_character_creator">CharacterCreator</string>
 
@@ -31,7 +30,20 @@
     <string name="add_task_experience">Przewidywane doświadczenie</string>
     <string name="add_task_min_end_date">Minimalna data zakończenia</string>
     <string name="add_task_button">Dodaj zadanie</string>
+
     <string name="title_activity_character">CharacterActivity</string>
+    <string name="tab1_activity_character">Ekwipunek</string>
+    <string name="tab2_activity_character">Statystyki</string>
+    <string name="current_level_activity_character">Aktualny poziom</string>
+    <string name="current_exp_activity_character">Doświadczenie</string>
+    <string name="next_level_exp_activity_character">Następny poziom</string>
+
+
+    <string name="trophies_activity_character">Osiągnięcia</string>
+    <string name="easy_trophies_activity_character">Łatwe</string>
+    <string name="medium_trophies_activity_character">Średnie</string>
+    <string name="hard_trophies_activity_character">Trudne</string>
+
 
 
 </resources>
