@@ -66,6 +66,14 @@
     <string name="current_stat_activity_shop">Obecna statystyka</string>
     <string name="item_name_activity_shop">Nazwa</string>
 
+    <string name="menu_task_list">Zadania</string>
+    <string name="menu_character">Postać</string>
+    <string name="menu_shop">Sklep</string>
+    <string name="menu_logout">Wyloguj</string>
+    <string name="user_email">Email</string>
+    <string name="user_name">Nazwa użytkownika</string>
+
+
 
 
 

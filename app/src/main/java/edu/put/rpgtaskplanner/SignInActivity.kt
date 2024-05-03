@@ -134,8 +134,8 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener {
 
 //        val intent = Intent(this, CharacterCreatorActivity::class.java)
 //        val intent = Intent(this, TaskListActivity::class.java)
-//        val intent = Intent(this, CharacterActivity::class.java)
-        val intent = Intent(this, ShopActivity::class.java)
+        val intent = Intent(this, CharacterActivity::class.java)
+//        val intent = Intent(this, ShopActivity::class.java)
         startActivity(intent)
     }
 

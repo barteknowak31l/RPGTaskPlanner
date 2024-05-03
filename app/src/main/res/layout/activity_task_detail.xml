@@ -1,60 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:id="@+id/drawer_layout"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <androidx.fragment.app.FragmentContainerView
+
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/logoFragment"
-        android:layout_marginVertical="20dp"
-        android:name="edu.put.rpgtaskplanner.LogoFragment"/>
+        android:layout_height="match_parent">
 
-    <TextView
+        <androidx.fragment.app.FragmentContainerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/logoFragment"
+            android:layout_marginVertical="20dp"
+            android:name="edu.put.rpgtaskplanner.LogoFragment"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewTaskName"
+            android:minWidth="220dp"
+            android:layout_centerHorizontal="true"
+            android:paddingVertical="5dp"
+            android:layout_below="@+id/logoFragment"
+            android:background="@color/button_color"
+            android:text="@string/task_detail_default_name"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewTaskDescription"
+            android:minWidth="320dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginVertical="15dp"
+            android:paddingVertical="5dp"
+            android:layout_below="@+id/textViewTaskName"
+            android:background="@color/button_color"
+            android:text="@string/task_detail_default_description"
+            android:gravity="center"/>
+
+
+        <androidx.fragment.app.FragmentContainerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/taskDetailFragment"
+            android:layout_below="@id/textViewTaskDescription"
+            android:layout_marginHorizontal="5dp"
+            android:maxHeight="300dp"
+            android:name="edu.put.rpgtaskplanner.task_list.TaskDetailFragment"/>
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonCreate"
+            android:layout_below="@id/taskDetailFragment"
+            android:text="@string/task_detail_complete_task"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/rounded_shape"
+            android:padding="20dp"/>
+
+
+    </RelativeLayout>
+
+
+
+    <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textViewTaskName"
-        android:minWidth="220dp"
-        android:layout_centerHorizontal="true"
-        android:paddingVertical="5dp"
-        android:layout_below="@+id/logoFragment"
-        android:background="@color/button_color"
-        android:text="@string/task_detail_default_name"
-        android:gravity="center"/>
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:id="@+id/nav_view"
+        app:headerLayout="@layout/menu_header"
+        app:menu="@menu/menu_main"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textViewTaskDescription"
-        android:minWidth="320dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginVertical="15dp"
-        android:paddingVertical="5dp"
-        android:layout_below="@+id/textViewTaskName"
-        android:background="@color/button_color"
-        android:text="@string/task_detail_default_description"
-        android:gravity="center"/>
-
-
-    <androidx.fragment.app.FragmentContainerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/taskDetailFragment"
-        android:layout_below="@id/textViewTaskDescription"
-        android:layout_marginHorizontal="5dp"
-        android:maxHeight="300dp"
-        android:name="edu.put.rpgtaskplanner.task_list.TaskDetailFragment"/>
-
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonCreate"
-        android:layout_below="@id/taskDetailFragment"
-        android:text="@string/task_detail_complete_task"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/rounded_shape"
-        android:padding="20dp"/>
-
-
-</RelativeLayout>
+</androidx.drawerlayout.widget.DrawerLayout>
