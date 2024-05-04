@@ -20,39 +20,44 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_horizontal"
+            android:layout_marginEnd="40dp"
             android:orientation="vertical">
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/statisticLeft1"
                 android:name="edu.put.rpgtaskplanner.character.character_statistics.StatisticListItemFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
-                />
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/statisticLeft2"
                 android:name="edu.put.rpgtaskplanner.character.character_statistics.StatisticListItemFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/statisticLeft3"
                 android:name="edu.put.rpgtaskplanner.character.character_statistics.StatisticListItemFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/statisticLeft4"
                 android:name="edu.put.rpgtaskplanner.character.character_statistics.StatisticListItemFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/statisticLeft5"
                 android:name="edu.put.rpgtaskplanner.character.character_statistics.StatisticListItemFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
 
         </LinearLayout>
@@ -68,31 +73,35 @@
                 android:id="@+id/statisticRight1"
                 android:name="edu.put.rpgtaskplanner.character.character_statistics.StatisticListItemFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/statisticRight2"
                 android:name="edu.put.rpgtaskplanner.character.character_statistics.StatisticListItemFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
+                android:layout_height="0dp"
+                android:layout_weight="1" />
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/statisticRight3"
                 android:name="edu.put.rpgtaskplanner.character.character_statistics.StatisticListItemFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/statisticRight4"
                 android:name="edu.put.rpgtaskplanner.character.character_statistics.StatisticListItemFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/statisticRight5"
                 android:name="edu.put.rpgtaskplanner.character.character_statistics.StatisticListItemFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
 
         </LinearLayout>
