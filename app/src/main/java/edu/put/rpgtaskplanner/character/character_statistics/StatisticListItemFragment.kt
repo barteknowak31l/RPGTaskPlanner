@@ -5,13 +5,126 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import edu.put.rpgtaskplanner.R
-class StatisticListItemFragment : Fragment() {
+import edu.put.rpgtaskplanner.model.CharacterClass
+import edu.put.rpgtaskplanner.model.StatisticTypes
+import edu.put.rpgtaskplanner.utility.CharacterManager
+
+class StatisticListItemFragment : Fragment(){
+
+    private var statisticType: StatisticTypes = StatisticTypes.COOLDOWN_REDUCTION
+    private lateinit var statisticTextView: TextView
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_statistic_list_item, container, false)
+
+        val rootView = inflater.inflate(R.layout.fragment_statistic_list_item, container, false)
+        statisticTextView = rootView.findViewById(R.id.tetViewStatisticName)
+
+        arguments?.let {
+            statisticType = StatisticTypes.entries.toTypedArray().getOrNull((it.getInt("statisticType")))!!
+        }
+        setupDisplay()
+
+
+
+
+        return rootView
     }
+
+    private fun setupDisplay()
+    {
+        val character = CharacterManager.getCurrentCharacter()
+        if(character != null)
+        {
+            when(statisticType)
+            {
+                StatisticTypes.CURRENT_EXPERIENCE -> {
+                    statisticTextView.text = getString(R.string.stats_experience,character.current_experience.toString())
+                }
+
+                StatisticTypes.COOLDOWN_REDUCTION -> {
+                    statisticTextView.text = getString(R.string.stats_cooldown_reduction,character.cooldown_reduction.toString())
+                }
+                StatisticTypes.CURRENT_ENERGY ->
+                {
+                    when(character.character_class)
+                    {
+                        CharacterClass.WARRIOR.id -> {
+                            statisticTextView.text = getString(R.string.stats_current_energy_warrior,character.current_energy.toString())
+                        }
+                        CharacterClass.ROGUE.id -> {
+                            statisticTextView.text = getString(R.string.stats_current_energy_rogue,character.current_energy.toString())
+                        }
+                        CharacterClass.MAGE.id -> {
+                            statisticTextView.text = getString(R.string.stats_current_energy_mage,character.current_energy.toString())
+                        }
+                    }
+                }
+                StatisticTypes.CURRENT_HEALTH ->
+                {
+                    statisticTextView.text = getString(R.string.stats_current_health,character.current_health.toString())
+
+                }
+                StatisticTypes.ENERGY_REGEN ->
+                {
+                    when(character.character_class)
+                    {
+                        CharacterClass.WARRIOR.id -> {
+                            statisticTextView.text = getString(R.string.stats_energy_regen_warrior,character.energy_regen.toString())
+                        }
+                        CharacterClass.ROGUE.id -> {
+                            statisticTextView.text = getString(R.string.stats_energy_regen_rogue,character.energy_regen.toString())
+                        }
+                        CharacterClass.MAGE.id -> {
+                            statisticTextView.text = getString(R.string.stats_energy_regen_mage,character.energy_regen.toString())
+                        }
+                    }
+                }
+                StatisticTypes.EXP_MULTIPLIER -> {
+                    statisticTextView.text = getString(R.string.stats_exp_multiplier,character.exp_multiplier.toString())
+                }
+                StatisticTypes.GOLD_MULTIPLIER ->
+                {
+                    statisticTextView.text = getString(R.string.stats_gold_multiplier,character.gold_multiplier.toString())
+
+                }
+                StatisticTypes.HEALTH_REGEN ->
+                {
+                    statisticTextView.text = getString(R.string.stats_health_reneg,character.health_regen.toString())
+
+                }
+                StatisticTypes.LEVEL -> {
+                    statisticTextView.text = getString(R.string.stats_level,character.level.toString())
+
+                }
+                StatisticTypes.MAX_ENERGY ->
+                {
+                    when(character.character_class)
+                    {
+                        CharacterClass.WARRIOR.id -> {
+                            statisticTextView.text = getString(R.string.stats_max_energy_warrior,character.max_energy.toString())
+                        }
+                        CharacterClass.ROGUE.id -> {
+                            statisticTextView.text = getString(R.string.stats_max_energy_rogue,character.max_energy.toString())
+                        }
+                        CharacterClass.MAGE.id -> {
+                            statisticTextView.text = getString(R.string.stats_max_energy_mage,character.max_energy.toString())
+                        }
+                    }
+                }
+                StatisticTypes.MAX_HEALTH ->
+                {
+                    statisticTextView.text = getString(R.string.stats_max_health,character.max_health.toString())
+
+                }
+            }
+        }
+
+    }
+
+
 }

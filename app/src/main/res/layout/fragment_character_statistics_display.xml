@@ -26,7 +26,9 @@
                 android:id="@+id/statisticLeft1"
                 android:name="edu.put.rpgtaskplanner.character.character_statistics.StatisticListItemFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+
+                />
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/statisticLeft2"
@@ -107,7 +109,7 @@
         android:gravity="center_horizontal"
         android:text="@string/current_level_activity_character"
         android:background="@color/button_color"
-        android:textSize="18sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/expTextView"
@@ -119,7 +121,7 @@
         android:text="@string/current_exp_activity_character"
         android:background="@color/button_color"
 
-        android:textSize="18sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/nextLevelTextView"
@@ -131,15 +133,8 @@
         android:text="@string/next_level_exp_activity_character"
         android:background="@color/button_color"
 
-        android:textSize="18sp" />
+        android:textSize="14sp" />
 
-
-    <androidx.fragment.app.FragmentContainerView
-        android:layout_marginTop="20dp"
-        android:id="@+id/trophiesFragment"
-        android:name="edu.put.rpgtaskplanner.character.character_statistics.TrophiesFragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
 </LinearLayout>
 

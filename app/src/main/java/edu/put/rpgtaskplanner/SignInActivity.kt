@@ -24,6 +24,7 @@ import edu.put.rpgtaskplanner.repository.CharacterRepository
 import edu.put.rpgtaskplanner.repository.UserRepository
 import edu.put.rpgtaskplanner.shop.ShopActivity
 import edu.put.rpgtaskplanner.task_list.TaskListActivity
+import edu.put.rpgtaskplanner.utility.UserManager
 
 class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener {
 
@@ -162,6 +163,7 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener {
         userRepository.getUserByEmail(email) { user ->
             if (user != null)
             {
+                UserManager.setCurrentUser(user)
                 if (user.character_id != "")
                 {
                     val intent : Intent = Intent(this, MainActivity::class.java)
@@ -182,6 +184,7 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener {
                     if (success) {
                         val intent : Intent = Intent(this, CharacterCreatorActivity::class.java)
                         startActivity(intent)
+                        UserManager.setCurrentUser(newUser)
                     } else {
                         Toast.makeText(this,getText(R.string.database_save_error),Toast.LENGTH_SHORT).show()
                     }

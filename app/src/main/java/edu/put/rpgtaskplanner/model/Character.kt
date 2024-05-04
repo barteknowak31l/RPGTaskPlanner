@@ -6,6 +6,20 @@ enum class CharacterClass(val id: Int) {
     MAGE(2)
 }
 
+enum class StatisticTypes(val id: Int)
+{
+    COOLDOWN_REDUCTION(0),
+    CURRENT_ENERGY(1),
+    CURRENT_EXPERIENCE(2),
+    CURRENT_HEALTH(3),
+    ENERGY_REGEN(4),
+    EXP_MULTIPLIER(5),
+    GOLD_MULTIPLIER(6),
+    HEALTH_REGEN(7),
+    LEVEL(8),
+    MAX_ENERGY(9),
+    MAX_HEALTH(10),
+}
 
 class Character {
     var character_class: Number = 0

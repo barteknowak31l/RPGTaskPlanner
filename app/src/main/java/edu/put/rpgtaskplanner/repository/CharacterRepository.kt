@@ -39,16 +39,18 @@ class CharacterRepository(private val firestore: FirebaseFirestore) {
             }
     }
 
-    fun saveCharacter(character: Character, onComplete: (Boolean) -> Unit) {
-        collection.document(character.character_name)
-            .set(character, SetOptions.merge())
-            .addOnSuccessListener {
-                onComplete(true)
+    fun saveCharacter(character: Character, onComplete: (Boolean, String?) -> Unit) {
+        collection.add(character)
+            .addOnSuccessListener { documentReference ->
+                val characterId = documentReference.id
+                onComplete(true, characterId)
             }
             .addOnFailureListener { exception ->
-                onComplete(false)
+                onComplete(false, null)
             }
     }
+
+
 
     fun updateCharacter(characterName: String, updates: Map<CharacterFields, Any>, onComplete: (Boolean) -> Unit) {
         val updatesMap = updates.mapKeys { it.key.name }
