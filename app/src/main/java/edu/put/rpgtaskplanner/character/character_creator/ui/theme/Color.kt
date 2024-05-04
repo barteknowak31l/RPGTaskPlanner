@@ -1,4 +1,4 @@
-package edu.put.rpgtaskplanner.character_creator.ui.theme
+package edu.put.rpgtaskplanner.character.character_creator.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

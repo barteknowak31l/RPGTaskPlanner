@@ -4,13 +4,12 @@
     <string name="title_activity_sign_up">SignUpActivity</string>
 
     <string name="main_activity_sign_out_button">Sign out</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_character_creator">CharacterCreator</string>
 
     <string name="character_name_form_hint">Nazwa postaci</string>
     <string name="empty_statistic">Statystyka</string>
-    <string name="character_creator_name_hint">Character name</string>
+    <string name="character_creator_name_hint">Nazwa postaci</string>
     <string name="character_creator_create_button">Stwórz postać</string>
     <string name="title_activity_task_list">TaskListActivity</string>
 
@@ -31,6 +30,78 @@
     <string name="add_task_experience">Przewidywane doświadczenie</string>
     <string name="add_task_min_end_date">Minimalna data zakończenia</string>
     <string name="add_task_button">Dodaj zadanie</string>
+
+    <string name="title_activity_character">CharacterActivity</string>
+    <string name="tab1_activity_character">Ekwipunek</string>
+    <string name="tab2_activity_character">Statystyki</string>
+    <string name="current_level_activity_character">Aktualny poziom: %s</string>
+    <string name="current_exp_activity_character">Doświadczenie: %s</string>
+    <string name="next_level_exp_activity_character">Następny poziom: %s</string>
+
+
+    <string name="trophies_activity_character">Osiągnięcia</string>
+    <string name="easy_trophies_activity_character">Łatwe</string>
+    <string name="medium_trophies_activity_character">Średnie</string>
+    <string name="hard_trophies_activity_character">Trudne</string>
+
+    <string name="title_activity_equipment">EquipmentActivity</string>
+    <string name="header_activity_equipment">Twój ekwipunek</string>
+
+    <string name="title_activity_item_details">ItemDetailsActivity</string>
+    <string name="item_name_activity_item_details">Nazwa przedmiotu</string>
+    <string name="required_level_activity_item_details">Wymagany poziom postaci</string>
+    <string name="item_type_activity_item_details">Typ przedmiotu</string>
+    <string name="enhanced_stat_activity_item_details">Ulepszona statystyka</string>
+    <string name="enhancement_value_activity_item_details">Wartość ulepszenia</string>
+    <string name="item_description_header_activity_item_details">Opis przedmiotu</string>
+    <string name="equip_button_activity_item_details">Załóż przedmiot</string>
+
+    <string name="title_activity_shop">ShopActivity</string>
+    <string name="header_activity_shop">Sklep</string>
+    <string name="price_activity_shop">Cena</string>
+    <string name="buy_activity_shop">Kup</string>
+    <string name="reset_activity_shop">Reset sklepu</string>
+    <string name="item_type_activity_shop">Typ przedmiotu</string>
+    <string name="item_stat_activity_shop">Statystyka przedmiotu</string>
+    <string name="current_stat_activity_shop">Obecna statystyka</string>
+    <string name="item_name_activity_shop">Nazwa</string>
+
+    <string name="menu_task_list">Zadania</string>
+    <string name="menu_character">Postać</string>
+    <string name="menu_shop">Sklep</string>
+    <string name="menu_logout">Wyloguj</string>
+    <string name="user_email">Email</string>
+    <string name="user_name">Nazwa użytkownika</string>
+
+
+    <string name="class_warrior">Wojownik</string>
+    <string name="class_rogue">Łotr</string>
+    <string name="class_mage">Mag</string>
+
+    <string name="stats_cooldown_reduction">Czas odnowienia: %s</string>
+    <string name="stats_current_energy_mage">Mana: %s</string>
+    <string name="stats_current_energy_warrior">Energia: %s</string>
+    <string name="stats_current_energy_rogue">Zwinność: %s</string>
+    <string name="stats_experience">Doświadczenie: %s</string>
+    <string name="stats_current_health">Zdrowie: %s</string>
+    <string name="stats_energy_regen_mage">Regeneracja many: %s</string>
+    <string name="stats_energy_regen_warrior">Regeneracja energii: %s</string>
+    <string name="stats_energy_regen_rogue">Regeneracja zwinności: %s</string>
+    <string name="stats_exp_multiplier">Mnożnik doświadczenia: %s</string>
+    <string name="stats_gold_multiplier">Mnożnik złota: %s</string>
+    <string name="stats_health_reneg">Regeneracja zdrowia: %s</string>
+    <string name="stats_level">Poziom: %s</string>
+    <string name="stats_max_energy_mage">Max mana: %s</string>
+    <string name="stats_max_energy_warrior">Max energia: %s</string>
+    <string name="stats_max_energy_rogue">Max zwinność: %s</string>
+    <string name="stats_max_health">Maksymalne zdrowie: %s</string>
+
+    <string name ="database_save_error">Wystąpił błąd podczas zapisu do bazy danych, spróbuj ponownie później</string>
+
+
+
+
+
 
 
 </resources>
