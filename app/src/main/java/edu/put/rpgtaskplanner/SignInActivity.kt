@@ -162,7 +162,7 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener {
         userRepository.getUserByEmail(email) { user ->
             if (user != null)
             {
-                if (user.character_id != null)
+                if (user.character_id != "")
                 {
                     val intent : Intent = Intent(this, MainActivity::class.java)
                     intent.putExtra("email", email)
