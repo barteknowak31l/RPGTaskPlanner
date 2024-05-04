@@ -24,6 +24,7 @@ import edu.put.rpgtaskplanner.repository.CharacterRepository
 import edu.put.rpgtaskplanner.repository.UserRepository
 import edu.put.rpgtaskplanner.shop.ShopActivity
 import edu.put.rpgtaskplanner.task_list.TaskListActivity
+import edu.put.rpgtaskplanner.utility.CharacterManager
 import edu.put.rpgtaskplanner.utility.UserManager
 
 class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener {
@@ -166,6 +167,12 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener {
                 UserManager.setCurrentUser(user)
                 if (user.character_id != "")
                 {
+                    characterRepository.getCharacter(user.character_id) { character ->
+                        if (character != null) {
+                            CharacterManager.setCurrentCharacter(character)
+                        }
+                    }
+
                     val intent : Intent = Intent(this, MainActivity::class.java)
                     intent.putExtra("email", email)
                     startActivity(intent)

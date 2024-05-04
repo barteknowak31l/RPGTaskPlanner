@@ -1,5 +1,6 @@
 package edu.put.rpgtaskplanner.repository
 
+import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.SetOptions
@@ -19,6 +20,8 @@ class TaskRepository(private val firestore: FirebaseFirestore) {
         start_date,
         status,
         task_name,
+        energy_cost,
+        health_cost
     }
 
     fun getTaskByName(taskName: String, onComplete: (Task?) -> Unit) {
@@ -51,12 +54,13 @@ class TaskRepository(private val firestore: FirebaseFirestore) {
             }
             .addOnFailureListener { exception ->
                 onComplete(emptyList())
+                Log.e("TaskRepository", "Error getting tasks: $exception")
             }
     }
 
     fun saveTask(task: Task, onComplete: (Boolean) -> Unit) {
-        collection.document(task.name)
-            .set(task, SetOptions.merge())
+        collection
+            .add(task)
             .addOnSuccessListener {
                 onComplete(true)
             }

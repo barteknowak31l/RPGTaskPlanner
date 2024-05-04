@@ -11,57 +11,57 @@ class CharacterBuilder {
         return this
     }
 
-    fun cooldownReduction(cooldownReduction: Number): CharacterBuilder {
+    fun cooldownReduction(cooldownReduction: Double): CharacterBuilder {
         character.cooldown_reduction = cooldownReduction
         return this
     }
 
-    fun currentEnergy(currentEnergy: Number): CharacterBuilder {
+    fun currentEnergy(currentEnergy: Double): CharacterBuilder {
         character.current_energy = currentEnergy
         return this
     }
 
-    fun currentExperience(currentExperience: Number): CharacterBuilder {
+    fun currentExperience(currentExperience: Double): CharacterBuilder {
         character.current_experience = currentExperience
         return this
     }
 
-    fun currentHealth(currentHealth: Number): CharacterBuilder {
+    fun currentHealth(currentHealth: Double): CharacterBuilder {
         character.current_health = currentHealth
         return this
     }
 
-    fun energyRegen(energyRegen: Number): CharacterBuilder {
+    fun energyRegen(energyRegen: Double): CharacterBuilder {
         character.energy_regen = energyRegen
         return this
     }
 
-    fun expMultiplier(expMultiplier: Number): CharacterBuilder {
+    fun expMultiplier(expMultiplier: Double): CharacterBuilder {
         character.exp_multiplier = expMultiplier
         return this
     }
 
-    fun goldMultiplier(goldMultiplier: Number): CharacterBuilder {
+    fun goldMultiplier(goldMultiplier: Double): CharacterBuilder {
         character.gold_multiplier = goldMultiplier
         return this
     }
 
-    fun healthRegen(healthRegen: Number): CharacterBuilder {
+    fun healthRegen(healthRegen: Double): CharacterBuilder {
         character.health_regen = healthRegen
         return this
     }
 
-    fun level(level: Number): CharacterBuilder {
+    fun level(level: Int): CharacterBuilder {
         character.level = level
         return this
     }
 
-    fun maxEnergy(maxEnergy: Number): CharacterBuilder {
+    fun maxEnergy(maxEnergy: Double): CharacterBuilder {
         character.max_energy = maxEnergy
         return this
     }
 
-    fun maxHealth(maxHealth: Number): CharacterBuilder {
+    fun maxHealth(maxHealth: Double): CharacterBuilder {
         character.max_health = maxHealth
         return this
     }
@@ -80,17 +80,17 @@ class CharacterBuilder {
     {
         return this
             .characterClass(CharacterClass.WARRIOR)
-            .cooldownReduction(0)
-            .currentEnergy(100)
-            .currentExperience(0)
-            .currentHealth(100)
-            .energyRegen(10)
-            .expMultiplier(1)
-            .goldMultiplier(1)
-            .healthRegen(10)
+            .cooldownReduction(0.0)
+            .currentEnergy(100.0)
+            .currentExperience(0.0)
+            .currentHealth(100.0)
+            .energyRegen(10.0)
+            .expMultiplier(1.0)
+            .goldMultiplier(1.0)
+            .healthRegen(10.0)
             .level(1)
-            .maxEnergy(100)
-            .maxHealth(100)
+            .maxEnergy(100.0)
+            .maxHealth(100.0)
             .characterName("new character")
             .build()
     }
@@ -99,17 +99,17 @@ class CharacterBuilder {
     {
         return this
             .characterClass(CharacterClass.MAGE)
-            .cooldownReduction(0)
-            .currentEnergy(100)
-            .currentExperience(0)
-            .currentHealth(100)
-            .energyRegen(10)
-            .expMultiplier(1)
-            .goldMultiplier(1)
-            .healthRegen(10)
+            .cooldownReduction(0.0)
+            .currentEnergy(100.0)
+            .currentExperience(0.0)
+            .currentHealth(100.0)
+            .energyRegen(10.0)
+            .expMultiplier(1.0)
+            .goldMultiplier(1.0)
+            .healthRegen(10.0)
             .level(1)
-            .maxEnergy(100)
-            .maxHealth(100)
+            .maxEnergy(100.0)
+            .maxHealth(100.0)
             .characterName("new character")
             .build()
     }
@@ -118,17 +118,17 @@ class CharacterBuilder {
     {
         return this
             .characterClass(CharacterClass.ROGUE)
-            .cooldownReduction(0)
-            .currentEnergy(100)
-            .currentExperience(0)
-            .currentHealth(100)
-            .energyRegen(10)
-            .expMultiplier(1)
-            .goldMultiplier(1)
-            .healthRegen(10)
+            .cooldownReduction(0.0)
+            .currentEnergy(100.0)
+            .currentExperience(0.0)
+            .currentHealth(100.0)
+            .energyRegen(10.0)
+            .expMultiplier(1.0)
+            .goldMultiplier(1.0)
+            .healthRegen(10.0)
             .level(1)
-            .maxEnergy(100)
-            .maxHealth(100)
+            .maxEnergy(100.0)
+            .maxHealth(100.0)
             .characterName("new character")
             .build()
     }

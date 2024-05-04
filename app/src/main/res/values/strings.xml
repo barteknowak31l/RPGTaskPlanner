@@ -25,11 +25,12 @@
     <string name="add_task_hint">Wprowadź nazwę zadania</string>
     <string name="add_task_hp_hint">HP</string>
     <string name="add_task_resource_hint">Zasób</string>
-    <string name="add_task_difficulty">Trudność zadania</string>
-    <string name="add_task_gold">Przewwidywane złoto</string>
-    <string name="add_task_experience">Przewidywane doświadczenie</string>
-    <string name="add_task_min_end_date">Minimalna data zakończenia</string>
+    <string name="add_task_difficulty">Trudność zadania: %s</string>
+    <string name="add_task_gold">Złoto: %s</string>
+    <string name="add_task_experience">Doświadczenie: %s</string>
+    <string name="add_task_min_end_date">Minimalna data zakończenia: %s</string>
     <string name="add_task_button">Dodaj zadanie</string>
+    <string name="add_task_current">Obecnie: %s</string>
 
     <string name="title_activity_character">CharacterActivity</string>
     <string name="tab1_activity_character">Ekwipunek</string>
@@ -97,7 +98,12 @@
     <string name="stats_max_health">Maksymalne zdrowie: %s</string>
 
     <string name ="database_save_error">Wystąpił błąd podczas zapisu do bazy danych, spróbuj ponownie później</string>
+    <string name ="database_save_task">Udało się zapisać zadanie</string>
+    <string name ="database_save_task_error">Nie udało się zapisać zadania</string>
 
+    <string name="task_difficulty_easy">Łatwe</string>
+    <string name="task_difficulty_medium">Średnie</string>
+    <string name="task_difficulty_hard">Trudne</string>
 
 
 

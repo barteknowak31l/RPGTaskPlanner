@@ -22,17 +22,17 @@ enum class StatisticTypes(val id: Int)
 }
 
 class Character {
-    var character_class: Number = 0
-    var cooldown_reduction: Number = 0.0f
-    var current_energy: Number = 0.0f
-    var current_experience: Number = 0.0f
-    var current_health: Number = 0.0f
-    var energy_regen: Number = 0.0f
-    var exp_multiplier: Number = 0.0f
-    var gold_multiplier: Number = 0.0f
-    var health_regen: Number = 0.0f
-    var level: Number = 1
-    var max_energy: Number = 100.0f
-    var max_health: Number = 100.0f
+    var character_class: Int = 0
+    var cooldown_reduction: Double = 0.0
+    var current_energy: Double = 0.0
+    var current_experience: Double = 0.0
+    var current_health: Double = 0.0
+    var energy_regen: Double = 0.0
+    var exp_multiplier: Double = 0.0
+    var gold_multiplier: Double = 0.0
+    var health_regen: Double = 0.0
+    var level: Int = 1
+    var max_energy: Double = 100.0
+    var max_health: Double = 100.0
     var character_name: String = ""
 }
