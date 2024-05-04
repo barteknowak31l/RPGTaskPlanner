@@ -13,9 +13,15 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import edu.put.rpgtaskplanner.character.CharacterActivity
 import edu.put.rpgtaskplanner.character.character_creator.CharacterCreatorActivity
 import edu.put.rpgtaskplanner.databinding.ActivitySignInBinding
+import edu.put.rpgtaskplanner.model.Character
+import edu.put.rpgtaskplanner.model.User
+import edu.put.rpgtaskplanner.repository.CharacterRepository
+import edu.put.rpgtaskplanner.repository.UserRepository
 import edu.put.rpgtaskplanner.shop.ShopActivity
 import edu.put.rpgtaskplanner.task_list.TaskListActivity
 
@@ -24,6 +30,10 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener {
     private lateinit var binding: ActivitySignInBinding
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
+
+    val db = Firebase.firestore
+    val userRepository = UserRepository(db)
+    val characterRepository = CharacterRepository(db)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,11 +88,14 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener {
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener{
             if(it.isSuccessful)
             {
-                val intent : Intent = Intent(this, MainActivity::class.java)
-                intent.putExtra("email", account.email)
-                intent.putExtra("name", account.displayName)
+//                val intent : Intent = Intent(this, MainActivity::class.java)
+//                intent.putExtra("email", account.email)
+//                intent.putExtra("name", account.displayName)
+//
+//                startActivity(intent)
 
-                startActivity(intent)
+                onLoginSuccess(account.email.toString())
+
             }
             else
             {
@@ -108,8 +121,9 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener {
             firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
+//                        val intent = Intent(this, MainActivity::class.java)
+//                        startActivity(intent)
+                        onLoginSuccess(email)
 
                     } else {
                         Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT)
@@ -132,11 +146,51 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener {
     override fun signUpClicked() {
 //        val intent = Intent(this, SignUpActivity::class.java)
 
-//        val intent = Intent(this, CharacterCreatorActivity::class.java)
+        val intent = Intent(this, CharacterCreatorActivity::class.java)
 //        val intent = Intent(this, TaskListActivity::class.java)
-        val intent = Intent(this, CharacterActivity::class.java)
+//        val intent = Intent(this, CharacterActivity::class.java)
 //        val intent = Intent(this, ShopActivity::class.java)
         startActivity(intent)
+    }
+
+
+    fun onLoginSuccess(email: String)
+    {
+        //TODO call this function on login succes with google and email auth
+
+        // check if user already has had character created
+        userRepository.getUserByEmail(email) { user ->
+            if (user != null)
+            {
+                if (user.character_id != null)
+                {
+                    val intent : Intent = Intent(this, MainActivity::class.java)
+                    intent.putExtra("email", email)
+                    startActivity(intent)
+                }
+                else
+                {
+                    val intent : Intent = Intent(this, CharacterCreatorActivity::class.java)
+                    startActivity(intent)
+                }
+            } else
+            {
+                val newUser = User()
+                newUser.email = email
+                newUser.character_id = ""
+                userRepository.saveUser(newUser) { success ->
+                    if (success) {
+                        val intent : Intent = Intent(this, CharacterCreatorActivity::class.java)
+                        startActivity(intent)
+                    } else {
+                        Toast.makeText(this,getText(R.string.database_save_error),Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+        }
+
+
     }
 
 

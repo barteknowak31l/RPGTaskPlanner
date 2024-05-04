@@ -73,6 +73,8 @@
     <string name="user_email">Email</string>
     <string name="user_name">Nazwa użytkownika</string>
 
+    <string name ="database_save_error">Wystąpił błąd podczas zapisu do bazy danych, spróbuj ponownie później</string>
+
 
 
 
