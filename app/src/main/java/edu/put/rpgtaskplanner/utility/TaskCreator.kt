@@ -128,6 +128,12 @@ class TaskCreator {
 
         }
 
+        if(character != null)
+        {
+            character.current_health -= task.health_cost
+            character.current_energy -= task.energy_cost
+        }
+
         var characterSaveSuccess = false
         val characterUpdatesMap = mapOf(
             CharacterRepository.CharacterFields.current_health to character?.current_health!!,
