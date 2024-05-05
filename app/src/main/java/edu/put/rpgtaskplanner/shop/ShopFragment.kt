@@ -9,13 +9,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import edu.put.rpgtaskplanner.R
 import edu.put.rpgtaskplanner.character.equipment.EquipmentFragment
 import edu.put.rpgtaskplanner.character.equipment.ItemDetailsActivity
+import edu.put.rpgtaskplanner.model.Item
+import edu.put.rpgtaskplanner.utility.ShopSupplier
 
-class ShopFragment : Fragment() {
+class ShopFragment : Fragment(), ShopSupplier.RefreshShopCallback {
 
     interface  ShopItemClickListener{
         fun onShopItemClick(position: Int)
@@ -23,11 +26,15 @@ class ShopFragment : Fragment() {
 
     private lateinit var itemClickListener: ShopItemClickListener
 
-    private var equipmentItemList: List<EquipmentFragment.EquipmentItem> = listOf()
+    private var shopSupplier: ShopSupplier? = null
+    private var names: List<String> = listOf()
+    private var images: List<Int> = listOf()
+    private lateinit var adapter: EquipmentFragment.CustomRecyclerAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         itemClickListener = context as ShopItemClickListener
+        shopSupplier = ShopSupplier(requireContext(),requireActivity(),lifecycleScope)
     }
 
     override fun onCreateView(
@@ -37,13 +44,14 @@ class ShopFragment : Fragment() {
         // Inflate the layout for this fragment
         val recyclerView = inflater.inflate(R.layout.fragment_shop, container, false) as RecyclerView
 
-        equipmentItemList = EquipmentFragment.getItems()
-        val names = equipmentItemList.map { it.name }
-        val images = equipmentItemList.map { it.imageResourceId }
 
-        val adapter =
-            EquipmentFragment.CustomRecyclerAdapter(names.toTypedArray(), images.toIntArray())
-        recyclerView.setAdapter(adapter)
+        //shopSupplier?.refreshShop(this)
+
+        shopSupplier?.fetchShopFromLocalDb(this)
+
+        // przypisanie listy do adaptera powinio być w on refresh finished
+        adapter = EquipmentFragment.CustomRecyclerAdapter(emptyArray(), IntArray(0))
+        recyclerView.adapter = adapter
 
         adapter.setListener(object : EquipmentFragment.CustomRecyclerAdapter.Listener {
             override fun onClick(position: Int) {
@@ -58,4 +66,32 @@ class ShopFragment : Fragment() {
 
         return recyclerView
     }
+
+    override fun onRefreshFinished() {
+        val itemList = shopSupplier?.itemList()
+        if (itemList != null)
+        {
+            shopItemList = itemList
+            names = itemList.map { it.item_name }
+            //TODO create splasharts for items and set their ids in database
+            // images = itemList.map { it.image_resource_id }
+            images = itemList.map { R.drawable.rpg_logo_sm }
+            adapter.setItemList(names.toTypedArray(), images.toIntArray())
+        }
+    }
+
+    override fun onShopFetchedFromDatabase(itemList: List<Item>) {
+            shopItemList = itemList
+            names = itemList.map { it.item_name }
+            //TODO create splasharts for items and set their ids in database
+            // images = itemList.map { it.image_resource_id }
+            images = itemList.map { R.drawable.rpg_logo_sm }
+            adapter.setItemList(names.toTypedArray(), images.toIntArray())
+    }
+
+    companion object
+    {
+        var shopItemList: List<Item> = listOf()
+    }
+
 }

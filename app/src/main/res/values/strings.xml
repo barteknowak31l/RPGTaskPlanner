@@ -113,9 +113,14 @@
     <string name="toast_task_done">Zadanie zakończone</string>
     <string name="toast_cant_finish_task">Nie możesz jeszcze ukończyć tego zadania</string>
 
-
-
-
+    <string name="item_type_belt">Pas</string>
+    <string name="item_type_boots">Buty</string>
+    <string name="item_type_artifact">Artefakt</string>
+    <string name="item_type_armour">Zbroja</string>
+    <string name="item_type_offhand">Druga ręka</string>
+    <string name="item_type_helmet">Hełm</string>
+    <string name="item_type_ring">Pierścień</string>
+    <string name="item_type_weapon">Broń</string>
 
 
 </resources>

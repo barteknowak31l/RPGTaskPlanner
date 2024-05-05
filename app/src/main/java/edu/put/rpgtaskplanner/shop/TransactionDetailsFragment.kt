@@ -27,26 +27,59 @@ class TransactionDetailsFragment : Fragment() {
             itemNameTextView.text = getString(R.string.item_name_activity_shop) + ": " + itemName
         }
 
-        arguments?.getInt("price").let {
+        arguments?.getDouble("price").let {
             val price = it.toString()
             val priceTextView = view.findViewById<TextView>(R.id.priceTextView)
 
             priceTextView.text = getString(R.string.price_activity_shop) + ": " + price
         }
 
-        arguments?.getString("itemType").let {
-            val type = it.toString()
+        arguments?.getInt("itemType").let {
+
+            var type = ""
+            when(it)
+            {
+                0->{
+                    type = getString(R.string.item_type_armour)
+                }
+                1->{
+                    type = getString(R.string.item_type_artifact)
+
+                }
+                2->{
+                    type = getString(R.string.item_type_belt)
+
+                }
+                3->{
+                    type = getString(R.string.item_type_boots)
+
+                }
+                4->{
+                    type = getString(R.string.item_type_helmet)
+
+                }
+                5->{
+                    type = getString(R.string.item_type_offhand)
+                }
+                6->{
+                    type = getString(R.string.item_type_ring)
+                }
+                7->{
+                    type = getString(R.string.item_type_weapon)
+                }
+            }
+
             val typeTextView = view.findViewById<TextView>(R.id.typeTextView)
             typeTextView.text = getString(R.string.item_type_activity_shop) + ": " +type
         }
 
-        arguments?.getInt("itemStat").let {
+        arguments?.getDouble("itemStat").let {
             val itemStat = it.toString()
             val itemStatTextView = view.findViewById<TextView>(R.id.itemStatTextView)
             itemStatTextView.text = getString(R.string.item_stat_activity_shop) + ": " + itemStat
         }
 
-        arguments?.getInt("currentStat").let {
+        arguments?.getDouble("currentStat").let {
             val currentStat = it.toString()
             val currentStatTextView = view.findViewById<TextView>(R.id.currentStatisticTextView)
             currentStatTextView.text = getString(R.string.current_stat_activity_shop) + ": " + currentStat

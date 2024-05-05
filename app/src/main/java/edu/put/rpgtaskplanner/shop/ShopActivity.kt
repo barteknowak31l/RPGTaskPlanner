@@ -21,39 +21,20 @@ import edu.put.rpgtaskplanner.R
 import edu.put.rpgtaskplanner.character.CharacterActivity
 import edu.put.rpgtaskplanner.character.equipment.EquipmentFragment
 import edu.put.rpgtaskplanner.character.equipment.ItemDetailsFragment
+import edu.put.rpgtaskplanner.model.Item
 import edu.put.rpgtaskplanner.shop.ui.theme.RPGTaskPlannerTheme
 import edu.put.rpgtaskplanner.task_list.TaskListActivity
 
 class ShopActivity : AppCompatActivity(), ShopFragment.ShopItemClickListener {
 
     var shopItemList: List<EquipmentFragment.EquipmentItem> = listOf()
-    private var selectedItem: EquipmentFragment.EquipmentItem = EquipmentFragment.EquipmentItem(-1,"empty",-1, -1, EquipmentFragment.ItemType.BOOTS, -1)
+    private var selectedItem: Item = Item()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shop)
         shopItemList = EquipmentFragment.getItems()
         onShopItemClick(0)
-
-        }
-
-    override fun onShopItemClick(position: Int) {
-        selectedItem = shopItemList[position]
-
-        val fragment = TransactionDetailsFragment()
-
-        val bundle = Bundle()
-        bundle.putString("itemName",selectedItem.name.toString())
-        bundle.putInt("price", selectedItem.price)
-        bundle.putString("itemType",selectedItem.type.toString())
-        bundle.putInt("itemStat", selectedItem.statisticBoost)
-        bundle.putInt("currentStat", 50)
-
-        fragment.arguments = bundle
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.transactionDetailsFragment, fragment)
-            .commit()
-
 
         // navigation
         val navView: NavigationView = findViewById(R.id.nav_view)
@@ -91,6 +72,34 @@ class ShopActivity : AppCompatActivity(), ShopFragment.ShopItemClickListener {
                 else -> false
             }
         }
+
+
+        }
+
+    override fun onShopItemClick(position: Int) {
+
+        val itemList = ShopFragment.shopItemList
+        if(itemList.isNotEmpty())
+        {
+            selectedItem = itemList[position]
+
+            val fragment = TransactionDetailsFragment()
+
+            val bundle = Bundle()
+            bundle.putString("itemName",selectedItem.item_name)
+            bundle.putDouble("price", selectedItem.price)
+            bundle.putInt("itemType",selectedItem.type)
+            bundle.putDouble("itemStat", selectedItem.bonus)
+
+            //TODO change it to true character bonus when equipping items will be implemented
+            bundle.putDouble("currentStat", 50.0)
+
+            fragment.arguments = bundle
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.transactionDetailsFragment, fragment)
+                .commit()
+        }
+
 
     }
 }
