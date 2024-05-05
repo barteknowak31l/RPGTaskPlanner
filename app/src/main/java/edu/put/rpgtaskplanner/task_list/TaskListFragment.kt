@@ -9,15 +9,26 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import androidx.fragment.app.ListFragment
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import edu.put.rpgtaskplanner.R
+import edu.put.rpgtaskplanner.repository.TaskRepository
+import edu.put.rpgtaskplanner.utility.UserManager
+import edu.put.rpgtaskplanner.model.Task
+import edu.put.rpgtaskplanner.model.TaskStatus
+import edu.put.rpgtaskplanner.utility.TaskManager
+
 
 class TaskListFragment : ListFragment() {
-
     interface Listener
     {
         fun itemClicked(id: Int)
     }
     private var listener: Listener? = null
+
+    val db = Firebase.firestore
+    val taskRepository = TaskRepository(db)
+    var taskList: List<Task> = mutableListOf()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -38,10 +49,16 @@ class TaskListFragment : ListFragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_task_list, container, false)
 
-        val taskList = Task.getTasks()
-        val taskNames = taskList.map {it.name}
-        val adapter = ArrayAdapter(inflater.context, android.R.layout.simple_list_item_1, taskNames)
+        val adapter = ArrayAdapter<String>(inflater.context, android.R.layout.simple_list_item_1)
         listAdapter = adapter
+
+        val user = UserManager.getCurrentUser()
+        taskRepository.getTasksByCharacterIdFilterByStatusAsync(user?.character_id!!, TaskStatus.IN_PROGRESS).observe(viewLifecycleOwner) { tasks ->
+            val taskNames = tasks.map { it.task_name }
+            adapter.clear()
+            adapter.addAll(taskNames)
+            taskList = tasks
+        }
 
         return view
     }
@@ -49,5 +66,6 @@ class TaskListFragment : ListFragment() {
     override fun onListItemClick(l: ListView, v: View, position: Int, id: Long) {
         super.onListItemClick(l, v, position, id)
         listener?.itemClicked(position)
+        TaskManager.setCurrentTask(taskList[position])
     }
 }

@@ -15,4 +15,11 @@
     <color name="button_color">#0E1E33</color>
     <color name="accent_color">#193559</color>
 
+    <color name="resource_orb_fill_warrior">#FF9800</color>
+    <color name="resource_orb_stroke_warrior">#B56C00</color>
+    <color name="resource_orb_fill_rogue">#4CAF50</color>
+    <color name="resource_orb_stroke_rogue">#2D6A2F</color>
+    <color name="resource_orb_fill_mage">#3F51B5</color>
+    <color name="resource_orb_stroke_mage">#37469E</color>
+
 </resources>

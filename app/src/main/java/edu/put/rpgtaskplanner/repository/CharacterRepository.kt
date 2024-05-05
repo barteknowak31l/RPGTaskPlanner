@@ -20,11 +20,12 @@ class CharacterRepository(private val firestore: FirebaseFirestore) {
         level,
         max_energy,
         max_health,
-        character_name
+        character_name,
+        current_gold
     }
 
-    fun getCharacter(characterName: String, onComplete: (Character?) -> Unit) {
-        collection.document(characterName)
+    fun getCharacter(characterId: String, onComplete: (Character?) -> Unit) {
+        collection.document(characterId)
             .get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {
@@ -52,9 +53,9 @@ class CharacterRepository(private val firestore: FirebaseFirestore) {
 
 
 
-    fun updateCharacter(characterName: String, updates: Map<CharacterFields, Any>, onComplete: (Boolean) -> Unit) {
+    fun updateCharacter(characterId: String, updates: Map<CharacterFields, Any>, onComplete: (Boolean) -> Unit) {
         val updatesMap = updates.mapKeys { it.key.name }
-        collection.document(characterName)
+        collection.document(characterId)
             .update(updatesMap)
             .addOnSuccessListener {
                 onComplete(true)

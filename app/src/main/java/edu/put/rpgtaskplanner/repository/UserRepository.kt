@@ -10,7 +10,10 @@ class UserRepository(private val firestore: FirebaseFirestore) {
 
     enum class UserFields {
         email,
-        character_id
+        character_id,
+        easy_task_done,
+        medium_task_done,
+        hard_task_done
     }
 
     fun getUserByEmail(userEmail: String, onComplete: (User?) -> Unit) {

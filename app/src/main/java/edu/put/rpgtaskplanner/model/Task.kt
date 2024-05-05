@@ -1,12 +1,20 @@
 package edu.put.rpgtaskplanner.model
 
-import java.sql.Date
+import edu.put.rpgtaskplanner.utility.CharacterManager
+import edu.put.rpgtaskplanner.utility.UserManager
+import edu.put.rpgtaskplanner.utility.plus
+import java.util.Date
 import java.sql.Timestamp
 
 enum class TaskDifficulty(val id: Int) {
     DIFFICULTY_EASY(0),
     DIFFICULTY_MEDIUM(1),
-    DIFFICULTY_HARD(2)
+    DIFFICULTY_HARD(2);
+    companion object {
+        fun getNameById(id: Int): String {
+            return entries.firstOrNull { it.id == id }?.name ?: ""
+        }
+    }
 }
 
 enum class TaskStatus(val id: Int) {
@@ -17,12 +25,13 @@ enum class TaskStatus(val id: Int) {
 class Task {
 
     var character_id: String = ""
-    var difficulty: Number = 0
-    lateinit var estimated_end_date: Timestamp
-    var exp_reward: Number = 0
-    var gold_reward: Number = 0
-    var name: String = ""
-    lateinit var start_date: Timestamp
-    var status: Number = 0
-
+    var difficulty: Int = 0
+    lateinit var estimated_end_date: Date
+    var exp_reward: Double = 0.0
+    var gold_reward: Double = 0.0
+    var task_name: String = ""
+    lateinit var start_date: Date
+    var status: Int = 0
+    var health_cost: Double = 0.0
+    var energy_cost: Double = 0.0
 }

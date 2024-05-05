@@ -40,6 +40,32 @@
         android:hint="@string/add_task_resource_hint"/>
 
     <TextView
+        android:id="@+id/textViewCurrentHp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextHp"
+        android:layout_alignStart="@+id/editTextHp"
+        android:layout_marginTop="10dp"
+        android:background="@color/button_color"
+        android:paddingVertical="5dp"
+        android:minWidth="50dp"
+        android:gravity="center"
+        android:text="@string/add_task_current" />
+
+    <TextView
+        android:id="@+id/textViewCurrentResource"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextResource"
+        android:layout_alignEnd="@+id/editTextResource"
+        android:layout_marginTop="10dp"
+        android:background="@color/button_color"
+        android:paddingVertical="5dp"
+        android:minWidth="50dp"
+        android:gravity="center"
+        android:text="@string/add_task_current" />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textViewDifficulty"
