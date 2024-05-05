@@ -35,4 +35,5 @@ class Character {
     var max_energy: Double = 100.0
     var max_health: Double = 100.0
     var character_name: String = ""
+    var current_gold: Double = 0.0
 }

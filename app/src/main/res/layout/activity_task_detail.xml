@@ -21,37 +21,13 @@
             android:layout_marginVertical="20dp"
             android:name="edu.put.rpgtaskplanner.LogoFragment"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textViewTaskName"
-            android:minWidth="220dp"
-            android:layout_centerHorizontal="true"
-            android:paddingVertical="5dp"
-            android:layout_below="@+id/logoFragment"
-            android:background="@color/button_color"
-            android:text="@string/task_detail_default_name"
-            android:gravity="center"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textViewTaskDescription"
-            android:minWidth="320dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginVertical="15dp"
-            android:paddingVertical="5dp"
-            android:layout_below="@+id/textViewTaskName"
-            android:background="@color/button_color"
-            android:text="@string/task_detail_default_description"
-            android:gravity="center"/>
 
 
         <androidx.fragment.app.FragmentContainerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/taskDetailFragment"
-            android:layout_below="@id/textViewTaskDescription"
+            android:layout_below="@id/logoFragment"
             android:layout_marginHorizontal="5dp"
             android:maxHeight="300dp"
             android:name="edu.put.rpgtaskplanner.task_list.TaskDetailFragment"/>

@@ -35,7 +35,7 @@ class TaskCreator {
     fun updateTask(name: String, health: Double, energy:Double)
     {
 
-        task.name = name
+        task.task_name = name
         task.status = TaskStatus.IN_PROGRESS.id
         task.health_cost = health
         task.energy_cost = energy
@@ -98,7 +98,7 @@ class TaskCreator {
 
     fun saveTask(onComplete: (Boolean, String) -> Unit) {
         taskRepository.getTaskByCharacterId(user?.character_id!!) { tasks ->
-            if(!tasks.stream().anyMatch { t -> t.name == task.name }) {
+            if(!tasks.stream().anyMatch { t -> t.task_name == task.task_name }) {
                 save { saveSuccess, message ->
                     onComplete(saveSuccess, message)
                 }
@@ -110,7 +110,7 @@ class TaskCreator {
 
     private fun save(onComplete: (Boolean, String) -> Unit) {
         if(character != null) {
-            if(task.name == "")
+            if(task.task_name == "")
             {
                 onComplete(false, "Nazwa zadania nie może być pusta")
                 return

@@ -1,15 +1,20 @@
 package edu.put.rpgtaskplanner.repository
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.Timestamp
 import edu.put.rpgtaskplanner.model.Task
+import edu.put.rpgtaskplanner.model.TaskStatus
 
 class TaskRepository(private val firestore: FirebaseFirestore) {
 
     private val collection = firestore.collection("tasks")
+
+    private val tasksLiveData = MutableLiveData<List<Task>>()
 
     enum class TaskFields {
         character_id,
@@ -58,6 +63,28 @@ class TaskRepository(private val firestore: FirebaseFirestore) {
             }
     }
 
+    fun getTasksByCharacterIdFilterByStatusAsync(characterId: String, status: TaskStatus): LiveData<List<Task>> {
+        val tasksLiveData = MutableLiveData<List<Task>>()
+
+        // Wywołaj zapytanie asynchroniczne
+        collection.whereEqualTo(TaskFields.character_id.name, characterId)
+            .whereEqualTo(TaskFields.status.name, status.id)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                val tasks = mutableListOf<Task>()
+                for (document in querySnapshot.documents) {
+                    val task = document.toObject(Task::class.java)
+                    task?.let { tasks.add(it) }
+                }
+                tasksLiveData.value = tasks // Zaktualizuj wartość LiveData
+            }
+            .addOnFailureListener { exception ->
+            }
+
+        return tasksLiveData
+    }
+
+
     fun saveTask(task: Task, onComplete: (Boolean) -> Unit) {
         collection
             .add(task)
@@ -80,4 +107,33 @@ class TaskRepository(private val firestore: FirebaseFirestore) {
                 onComplete(false)
             }
     }
+    fun updateTaskByCharacterId(taskName: String, characterId: String, updates: Map<TaskFields, Any>, onComplete: (Boolean) -> Unit) {
+        val updatesMap = updates.mapKeys { it.key.name }
+
+        // Dodaj warunek dotyczący pola character_id
+        collection.whereEqualTo(TaskFields.task_name.name, taskName)
+            .whereEqualTo(TaskFields.character_id.name, characterId)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                if (!querySnapshot.isEmpty) {
+                    // Jeśli istnieje zadanie o danej nazwie i character_id, wykonaj aktualizację
+                    collection.document(querySnapshot.documents[0].id)
+                        .update(updatesMap)
+                        .addOnSuccessListener {
+                            onComplete(true)
+                        }
+                        .addOnFailureListener { exception ->
+                            onComplete(false)
+                        }
+                } else {
+                    // Jeśli nie ma zadania o danej nazwie i character_id, zakończ z informacją o niepowodzeniu
+                    onComplete(false)
+                }
+            }
+            .addOnFailureListener { exception ->
+                onComplete(false)
+            }
+    }
+
+
 }

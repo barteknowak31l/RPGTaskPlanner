@@ -105,6 +105,14 @@
     <string name="task_difficulty_medium">Średnie</string>
     <string name="task_difficulty_hard">Trudne</string>
 
+    <string name="task_detail_date_from">Od: %s</string>
+    <string name="task_detail_date_to">Do: %s</string>
+    <string name="task_status_in_progress">W trakcie</string>
+    <string name="task_status_done">Zakończone</string>
+
+    <string name="toast_task_done">Zadanie zakończone</string>
+    <string name="toast_cant_finish_task">Nie możesz jeszcze ukończyć tego zadania</string>
+
 
 
 

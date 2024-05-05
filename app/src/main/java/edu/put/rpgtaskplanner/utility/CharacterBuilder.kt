@@ -71,6 +71,12 @@ class CharacterBuilder {
         return this
     }
 
+    fun currentGold(currentGold: Double): CharacterBuilder
+    {
+        character.current_gold = currentGold
+        return this
+    }
+
     fun build(): Character {
         return character
     }
@@ -84,6 +90,7 @@ class CharacterBuilder {
             .currentEnergy(100.0)
             .currentExperience(0.0)
             .currentHealth(100.0)
+            .currentGold(0.0)
             .energyRegen(10.0)
             .expMultiplier(1.0)
             .goldMultiplier(1.0)
@@ -103,6 +110,7 @@ class CharacterBuilder {
             .currentEnergy(100.0)
             .currentExperience(0.0)
             .currentHealth(100.0)
+            .currentGold(0.0)
             .energyRegen(10.0)
             .expMultiplier(1.0)
             .goldMultiplier(1.0)
@@ -110,6 +118,7 @@ class CharacterBuilder {
             .level(1)
             .maxEnergy(100.0)
             .maxHealth(100.0)
+
             .characterName("new character")
             .build()
     }
@@ -122,6 +131,7 @@ class CharacterBuilder {
             .currentEnergy(100.0)
             .currentExperience(0.0)
             .currentHealth(100.0)
+            .currentGold(0.0)
             .energyRegen(10.0)
             .expMultiplier(1.0)
             .goldMultiplier(1.0)

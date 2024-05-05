@@ -29,7 +29,7 @@ class Task {
     lateinit var estimated_end_date: Date
     var exp_reward: Double = 0.0
     var gold_reward: Double = 0.0
-    var name: String = ""
+    var task_name: String = ""
     lateinit var start_date: Date
     var status: Int = 0
     var health_cost: Double = 0.0

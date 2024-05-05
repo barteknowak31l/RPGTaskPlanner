@@ -20,7 +20,8 @@ class CharacterRepository(private val firestore: FirebaseFirestore) {
         level,
         max_energy,
         max_health,
-        character_name
+        character_name,
+        current_gold
     }
 
     fun getCharacter(characterId: String, onComplete: (Character?) -> Unit) {
