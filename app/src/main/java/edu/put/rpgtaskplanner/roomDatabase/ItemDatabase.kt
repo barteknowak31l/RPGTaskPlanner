@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import edu.put.rpgtaskplanner.roomDAO.ItemDAO
 import edu.put.rpgtaskplanner.roomEntity.ItemEntity
 
-@Database(entities = [ItemEntity::class], version = 1)
+@Database(entities = [ItemEntity::class], version = 2)
 abstract class ItemDatabase : RoomDatabase() {
     abstract fun itemDao(): ItemDAO
 }

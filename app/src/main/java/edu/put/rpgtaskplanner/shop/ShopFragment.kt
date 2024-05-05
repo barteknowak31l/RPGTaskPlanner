@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +17,8 @@ import edu.put.rpgtaskplanner.character.equipment.ItemDetailsActivity
 import edu.put.rpgtaskplanner.model.Item
 import edu.put.rpgtaskplanner.utility.ShopSupplier
 
-class ShopFragment : Fragment(), ShopSupplier.RefreshShopCallback {
+class ShopFragment : Fragment(), ShopSupplier.RefreshShopCallback,
+    ShopSupplier.OnDeleteItemListener {
 
     interface  ShopItemClickListener{
         fun onShopItemClick(position: Int)
@@ -35,6 +35,13 @@ class ShopFragment : Fragment(), ShopSupplier.RefreshShopCallback {
         super.onAttach(context)
         itemClickListener = context as ShopItemClickListener
         shopSupplier = ShopSupplier(requireContext(),requireActivity(),lifecycleScope)
+        ShopSupplier.listeners += this
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        ShopSupplier.listeners -= this
+
     }
 
     override fun onCreateView(
@@ -45,7 +52,8 @@ class ShopFragment : Fragment(), ShopSupplier.RefreshShopCallback {
         val recyclerView = inflater.inflate(R.layout.fragment_shop, container, false) as RecyclerView
 
 
-        //shopSupplier?.refreshShop(this)
+        // TODO run this once a day
+        //        shopSupplier?.refreshShop(this)
 
         shopSupplier?.fetchShopFromLocalDb(this)
 
@@ -55,7 +63,6 @@ class ShopFragment : Fragment(), ShopSupplier.RefreshShopCallback {
 
         adapter.setListener(object : EquipmentFragment.CustomRecyclerAdapter.Listener {
             override fun onClick(position: Int) {
-                Toast.makeText(context, "Clicked on "+ names[position], Toast.LENGTH_SHORT).show()
                 itemClickListener.onShopItemClick(position)
 
             }
@@ -92,6 +99,10 @@ class ShopFragment : Fragment(), ShopSupplier.RefreshShopCallback {
     companion object
     {
         var shopItemList: List<Item> = listOf()
+    }
+
+    override fun onDeleteItem(item: Item) {
+        shopSupplier?.fetchShopFromLocalDb(this)
     }
 
 }

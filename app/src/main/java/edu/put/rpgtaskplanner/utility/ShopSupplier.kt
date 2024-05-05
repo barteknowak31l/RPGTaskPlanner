@@ -22,16 +22,28 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
 )
 {
 
+    interface OnDeleteItemListener {
+        fun onDeleteItem(item: Item)
+    }
+
+    companion object
+    {
+        var listeners: List<OnDeleteItemListener> = mutableListOf()
+    }
+
+
+
     interface RefreshShopCallback {
         fun onRefreshFinished()
-
         fun onShopFetchedFromDatabase(itemList: List<Item>)
+
     }
 
     private val db = Room.databaseBuilder(
         context,
         ItemDatabase::class.java, "database-item"
-    ).build()
+    ).fallbackToDestructiveMigration()
+        .build()
 
     private val firedb = Firebase.firestore
     private val itemRepository = ItemRepository(firedb)
@@ -56,6 +68,7 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                     getItemByTypeAndClassFromFirestore(ItemType.ARTIFACT, it) { item ->
                         if (item != null) {
                             artifact = item
+                            artifact.base_bonus *= character.level
                             checkAndCallCallback(callback, itemCount)
                             Log.d("ShopSupplier", "Pobrano artifact " + item.item_name + " lol " + artifact.item_name)
                         }
@@ -67,6 +80,8 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                     getItemByTypeAndClassFromFirestore(ItemType.ARMOUR, it) { item ->
                         if (item != null) {
                             armour = item
+                            armour.base_bonus *= character.level
+
                             checkAndCallCallback(callback, itemCount)
                             Log.d("ShopSupplier", "Pobrano armour")
 
@@ -79,6 +94,8 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                     getItemByTypeAndClassFromFirestore(ItemType.BELT, it) { item ->
                         if (item != null) {
                             belt = item
+                            belt.base_bonus *= character.level
+
                             checkAndCallCallback(callback, itemCount)
                             Log.d("ShopSupplier", "Pobrano belt")
 
@@ -91,6 +108,8 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                     getItemByTypeAndClassFromFirestore(ItemType.BOOTS, it) { item ->
                         if (item != null) {
                             boots = item
+                            boots.base_bonus *= character.level
+
                             checkAndCallCallback(callback, itemCount)
                             Log.d("ShopSupplier", "Pobrano boots")
 
@@ -103,6 +122,8 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                     getItemByTypeAndClassFromFirestore(ItemType.HELMET, it) { item ->
                         if (item != null) {
                             helmet = item
+                            helmet.base_bonus *= character.level
+
                             checkAndCallCallback(callback, itemCount)
                             Log.d("ShopSupplier", "Pobrano helmet")
 
@@ -115,6 +136,8 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                     getItemByTypeAndClassFromFirestore(ItemType.OFFHAND, it) { item ->
                         if (item != null) {
                             offhand = item
+                            offhand.base_bonus *= character.level
+
                             checkAndCallCallback(callback, itemCount)
                             Log.d("ShopSupplier", "Pobrano offhand")
 
@@ -127,6 +150,8 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                     getItemByTypeAndClassFromFirestore(ItemType.RING, it) { item ->
                         if (item != null) {
                             ring = item
+                            ring.base_bonus *= character.level
+
                             checkAndCallCallback(callback, itemCount)
                             Log.d("ShopSupplier", "Pobrano ring")
 
@@ -139,6 +164,8 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                     getItemByTypeAndClassFromFirestore(ItemType.WEAPON, it) { item ->
                         if (item != null) {
                             weapon = item
+                            weapon.base_bonus *= character.level
+
                             checkAndCallCallback(callback, itemCount)
                             Log.d("ShopSupplier", "Pobrano weapon")
 
@@ -206,6 +233,18 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                 }
 
                 callback?.onShopFetchedFromDatabase(itemList)
+        }
+    }
+
+    fun deleteItemFromShop(item: Item) {
+        lifecycleScope.launch {
+
+            val itemEntity = Item.toEntity(item)
+            val deletedEntity = withContext(Dispatchers.IO) {
+                itemDAO.delete(itemEntity)
+
+            }
+            listeners.stream().forEach{ it.onDeleteItem(item)}
         }
     }
 

@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 data class ItemEntity(
     @PrimaryKey
     val item_name: String,
-    @ColumnInfo(name = "bonus") val bonus: Double?,
+    @ColumnInfo(name = "base_bonus") val base_bonus: Double?,
     @ColumnInfo(name = "description") val description: String?,
     @ColumnInfo(name = "image_resource_id") val image_resource_id: Int?,
     @ColumnInfo(name = "level") val level: Int?,

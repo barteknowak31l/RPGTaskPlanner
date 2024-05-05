@@ -3,6 +3,7 @@ package edu.put.rpgtaskplanner.shop
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
@@ -24,17 +25,26 @@ import edu.put.rpgtaskplanner.character.equipment.ItemDetailsFragment
 import edu.put.rpgtaskplanner.model.Item
 import edu.put.rpgtaskplanner.shop.ui.theme.RPGTaskPlannerTheme
 import edu.put.rpgtaskplanner.task_list.TaskListActivity
+import edu.put.rpgtaskplanner.utility.ShopSupplier
 
-class ShopActivity : AppCompatActivity(), ShopFragment.ShopItemClickListener {
+class ShopActivity : AppCompatActivity(), ShopFragment.ShopItemClickListener, ShopSupplier.OnDeleteItemListener {
 
     var shopItemList: List<EquipmentFragment.EquipmentItem> = listOf()
-    private var selectedItem: Item = Item()
 
+    override fun onDestroy() {
+        super.onDestroy()
+        ShopSupplier.listeners -= this
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        ShopSupplier.listeners += this
+
         setContentView(R.layout.activity_shop)
         shopItemList = EquipmentFragment.getItems()
         onShopItemClick(0)
+
+
 
         // navigation
         val navView: NavigationView = findViewById(R.id.nav_view)
@@ -86,10 +96,10 @@ class ShopActivity : AppCompatActivity(), ShopFragment.ShopItemClickListener {
             val fragment = TransactionDetailsFragment()
 
             val bundle = Bundle()
-            bundle.putString("itemName",selectedItem.item_name)
-            bundle.putDouble("price", selectedItem.price)
-            bundle.putInt("itemType",selectedItem.type)
-            bundle.putDouble("itemStat", selectedItem.bonus)
+            bundle.putString("itemName",selectedItem!!.item_name)
+            bundle.putDouble("price", selectedItem!!.price)
+            bundle.putInt("itemType",selectedItem!!.type)
+            bundle.putDouble("itemStat", selectedItem!!.base_bonus)
 
             //TODO change it to true character bonus when equipping items will be implemented
             bundle.putDouble("currentStat", 50.0)
@@ -102,5 +112,14 @@ class ShopActivity : AppCompatActivity(), ShopFragment.ShopItemClickListener {
 
 
     }
+    companion object
+    {
+        var selectedItem: Item? = null
+    }
+
+    override fun onDeleteItem(item: Item) {
+        selectedItem = null
+    }
+
 }
 

@@ -16,7 +16,7 @@
 }
 class Item {
 
-    var bonus: Double = 0.0
+    var base_bonus: Double = 0.0
     var description: String = ""
     var image_resource_id: Int = 0
     var level: Int = 0
@@ -30,7 +30,7 @@ class Item {
         {
             return ItemEntity(
                 item.item_name,
-                item.bonus,
+                item.base_bonus,
                 item.description,
                 item.image_resource_id,
                 item.level,
@@ -43,7 +43,7 @@ class Item {
         {
             var item = Item()
             item.item_name = entity.item_name!!
-            item.bonus = entity.bonus!!
+            item.base_bonus = entity.base_bonus!!
             item.description = entity.description!!
             item.image_resource_id = entity.image_resource_id!!
             item.price = entity.price!!
