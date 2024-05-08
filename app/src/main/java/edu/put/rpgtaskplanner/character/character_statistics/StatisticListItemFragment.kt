@@ -10,6 +10,7 @@ import edu.put.rpgtaskplanner.R
 import edu.put.rpgtaskplanner.model.CharacterClass
 import edu.put.rpgtaskplanner.model.StatisticTypes
 import edu.put.rpgtaskplanner.utility.CharacterManager
+import edu.put.rpgtaskplanner.utility.UserManager
 
 class StatisticListItemFragment : Fragment(){
 
@@ -124,6 +125,11 @@ class StatisticListItemFragment : Fragment(){
             }
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setupDisplay()
     }
 
 
