@@ -6,6 +6,16 @@ import edu.put.rpgtaskplanner.model.CharacterClass
 class CharacterBuilder {
     private val character = Character()
 
+    companion object{
+        val BASE_COOLDOWN = 0.0
+        val BASE_ENERGY = 0.0
+        val BASE_GOLD = 0.0
+        val BASE_ENERGY_REGEN = 10.0
+        val BASE_EXP_MULTIPLIER = 1.0
+        val BASE_GOLD_MULTIPLIER = 1.0
+        val BASE_HEALTH_REGEN = 10.0
+        val BASE_HEALTH = 100.0
+    }
     fun characterClass(characterClass: CharacterClass): CharacterBuilder {
         character.character_class = characterClass.id
         return this
@@ -86,18 +96,18 @@ class CharacterBuilder {
     {
         return this
             .characterClass(CharacterClass.WARRIOR)
-            .cooldownReduction(0.0)
-            .currentEnergy(100.0)
+            .cooldownReduction(BASE_COOLDOWN)
+            .currentEnergy(BASE_ENERGY)
             .currentExperience(0.0)
-            .currentHealth(100.0)
-            .currentGold(0.0)
-            .energyRegen(10.0)
-            .expMultiplier(1.0)
-            .goldMultiplier(1.0)
-            .healthRegen(10.0)
+            .currentHealth(BASE_HEALTH)
+            .currentGold(BASE_GOLD)
+            .energyRegen(BASE_ENERGY_REGEN)
+            .expMultiplier(BASE_EXP_MULTIPLIER)
+            .goldMultiplier(BASE_GOLD_MULTIPLIER)
+            .healthRegen(BASE_HEALTH_REGEN)
             .level(1)
-            .maxEnergy(100.0)
-            .maxHealth(100.0)
+            .maxEnergy(BASE_ENERGY)
+            .maxHealth(BASE_HEALTH)
             .characterName("new character")
             .build()
     }
@@ -106,19 +116,18 @@ class CharacterBuilder {
     {
         return this
             .characterClass(CharacterClass.MAGE)
-            .cooldownReduction(0.0)
-            .currentEnergy(100.0)
+            .cooldownReduction(BASE_COOLDOWN)
+            .currentEnergy(BASE_ENERGY)
             .currentExperience(0.0)
-            .currentHealth(100.0)
-            .currentGold(0.0)
-            .energyRegen(10.0)
-            .expMultiplier(1.0)
-            .goldMultiplier(1.0)
-            .healthRegen(10.0)
+            .currentHealth(BASE_HEALTH)
+            .currentGold(BASE_GOLD)
+            .energyRegen(BASE_ENERGY_REGEN)
+            .expMultiplier(BASE_EXP_MULTIPLIER)
+            .goldMultiplier(BASE_GOLD_MULTIPLIER)
+            .healthRegen(BASE_HEALTH_REGEN)
             .level(1)
-            .maxEnergy(100.0)
-            .maxHealth(100.0)
-
+            .maxEnergy(BASE_ENERGY)
+            .maxHealth(BASE_HEALTH)
             .characterName("new character")
             .build()
     }
@@ -127,18 +136,18 @@ class CharacterBuilder {
     {
         return this
             .characterClass(CharacterClass.ROGUE)
-            .cooldownReduction(0.0)
-            .currentEnergy(100.0)
+            .cooldownReduction(BASE_COOLDOWN)
+            .currentEnergy(BASE_ENERGY)
             .currentExperience(0.0)
-            .currentHealth(100.0)
-            .currentGold(0.0)
-            .energyRegen(10.0)
-            .expMultiplier(1.0)
-            .goldMultiplier(1.0)
-            .healthRegen(10.0)
+            .currentHealth(BASE_HEALTH)
+            .currentGold(BASE_GOLD)
+            .energyRegen(BASE_ENERGY_REGEN)
+            .expMultiplier(BASE_EXP_MULTIPLIER)
+            .goldMultiplier(BASE_GOLD_MULTIPLIER)
+            .healthRegen(BASE_HEALTH_REGEN)
             .level(1)
-            .maxEnergy(100.0)
-            .maxHealth(100.0)
+            .maxEnergy(BASE_ENERGY)
+            .maxHealth(BASE_HEALTH)
             .characterName("new character")
             .build()
     }

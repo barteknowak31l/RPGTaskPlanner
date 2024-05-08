@@ -80,6 +80,12 @@ class ItemDetailsFragment : Fragment(), EquipmentHandler.EquipmentHandlerCallbac
 
     override fun onItemEquipped(item: Item?) {
         Toast.makeText(context,getString(R.string.item_equipped_item_details_fragment, item?.item_name),Toast.LENGTH_SHORT).show()
+        val character = CharacterManager.getCurrentCharacter()
+        if(item != null && character != null)
+        {
+            enhancementValueTextView.text = getString(R.string.enhancement_value_activity_item_details, Character.resolveStatStringOnItemType(item.type, character))
+        }
+
     }
 
     override fun onItemsFetchedFromFirestore(items: List<Item>?) {

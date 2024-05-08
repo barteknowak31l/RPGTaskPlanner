@@ -174,14 +174,14 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener, Equipme
             {
                 UserManager.setCurrentUser(user)
 
-                // fetch user items
-                equipmentHandler?.fetchEquippedItemsFromFirestore(user.character_id, this)
 
                 if (user.character_id != "")
                 {
                     characterRepository.getCharacter(user.character_id) { character ->
                         if (character != null) {
                             CharacterManager.setCurrentCharacter(character)
+                            // fetch character items
+                            equipmentHandler?.fetchEquippedItemsFromFirestore(user.character_id, this)
                         }
                     }
 

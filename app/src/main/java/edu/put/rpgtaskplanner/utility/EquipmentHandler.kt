@@ -40,6 +40,7 @@ class EquipmentHandler(val context: Context, val lifecycleOwner: LifecycleOwner,
                     itemRepository.saveItemToCharacterEquipmentInUse(characterId, item) { success ->
                         if (success) {
                             EquipmentManager.equipItem(item)
+                            CharacterManager.equipItem(item)
                             callback?.onItemEquipped(item)
                         } else {
                             callback?.onItemEquipped(null)
@@ -57,6 +58,7 @@ class EquipmentHandler(val context: Context, val lifecycleOwner: LifecycleOwner,
                 if(success)
                 {
                     EquipmentManager.unequipItem(item)
+                    CharacterManager.unequipItem(item)
                     callback?.onItemEquipped(item)
                 } else {
                     callback?.onItemEquipped(null)
@@ -73,6 +75,7 @@ class EquipmentHandler(val context: Context, val lifecycleOwner: LifecycleOwner,
                 if(equipped != null)
                 {
                     equipped.forEach{EquipmentManager.equipItem(it)}
+                    equipped.forEach{CharacterManager.equipItem(it)}
                     callback?.onItemsFetchedFromFirestore(equipped)
                 }
                 else
