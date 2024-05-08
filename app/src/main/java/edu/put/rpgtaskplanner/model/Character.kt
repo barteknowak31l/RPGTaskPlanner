@@ -42,4 +42,27 @@ class Character {
     var max_health: Double = 100.0
     var character_name: String = ""
     var current_gold: Double = 0.0
+
+    companion object
+    {
+        fun resolveStatStringOnItemType(itemType: Int, character: Character): String
+        {
+            return when(itemType)
+            {
+                0 ->  character.max_health.toString()
+                1 ->  character.energy_regen.toString()
+                2 ->  character.gold_multiplier.toString()
+                3 ->  character.exp_multiplier.toString()
+                4 ->  character.max_energy.toString()
+                5 ->  character.gold_multiplier.toString()
+                6 ->  character.health_regen.toString()
+                7 ->  character.cooldown_reduction.toString()
+                else -> ""
+            }
+
+        }
+
+    }
+
+
 }

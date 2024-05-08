@@ -101,105 +101,27 @@ class TransactionDetailsFragment : Fragment(), ShopSupplier.OnDeleteItemListener
             arguments?.getInt("itemType").let {
 
                 var type = ""
+
                 if (it != null) {
                     itemType = it
                 }
-                when(itemType)
+                val character = CharacterManager.getCurrentCharacter()
+                if(character != null)
                 {
-                    0->{
-                        type = getString(R.string.item_type_armour)
-                    }
-                    1->{
-                        type = getString(R.string.item_type_artifact)
-
-                    }
-                    2->{
-                        type = getString(R.string.item_type_belt)
-
-                    }
-                    3->{
-                        type = getString(R.string.item_type_boots)
-
-                    }
-                    4->{
-                        type = getString(R.string.item_type_helmet)
-
-                    }
-                    5->{
-                        type = getString(R.string.item_type_offhand)
-                    }
-                    6->{
-                        type = getString(R.string.item_type_ring)
-                    }
-                    7->{
-                        type = getString(R.string.item_type_weapon)
-                    }
+                    type = Item.resolveItemTypeStringFromType(itemType, character.character_class, requireContext())
                 }
 
-                typeTextView.text = getString(R.string.item_type_activity_shop) + ": " +type
+                typeTextView.text = getString(R.string.item_type_activity_shop, type)
             }
 
             arguments?.getDouble("itemStat").let {
 
                 var itemStatString = ""
                 val character = CharacterManager.getCurrentCharacter()
-                when(itemType)
+
+                if(character != null)
                 {
-                    0->{
-                        itemStatString = getString(R.string.item_stats_armour, it.toString())
-                    }
-                    1->{
-                        if (character != null) {
-                            when(character.character_class) {
-                                0->{
-                                    itemStatString = getString(R.string.item_stats_artifact_warrior, it.toString())
-                                }
-                                1->{
-                                    itemStatString = getString(R.string.item_stats_artifact_rogue, it.toString())
-
-                                }
-                                2->{
-                                    itemStatString = getString(R.string.item_stats_artifact_mage, it.toString())
-                                }
-                            }
-                        }
-
-                    }
-                    2->{
-                        itemStatString = getString(R.string.item_stats_gold_belt, it.toString())
-
-                    }
-                    3->{
-                        itemStatString = getString(R.string.item_stats_exp_boots, it.toString())
-                    }
-                    4->{
-                        if (character != null) {
-                            when(character.character_class) {
-                                0->{
-                                    itemStatString = getString(R.string.item_stats_helmet_warrior, it.toString())
-                                }
-                                1->{
-                                    itemStatString = getString(R.string.item_stats_helmet_rogue, it.toString())
-
-                                }
-                                2->{
-                                    itemStatString = getString(R.string.item_stats_helmet_mage, it.toString())
-                                }
-                            }
-                        }
-
-                    }
-                    5->{
-                        itemStatString = getString(R.string.item_stats_gold_offhand, it.toString())
-
-                    }
-                    6->{
-                        itemStatString = getString(R.string.item_stats_ring, it.toString())
-
-                    }
-                    7->{
-                        itemStatString = getString(R.string.item_stats_weapon, it.toString())
-                    }
+                    itemStatString = Item.resolveItemStatStringFromType(it.toString(),itemType,character.character_class,requireContext())
                 }
 
                 itemStatTextView.text = itemStatString

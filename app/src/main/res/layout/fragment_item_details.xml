@@ -28,13 +28,6 @@
         tools:src="@drawable/rpg_logo_sm"
         android:layout_marginBottom="20dp"/>
 
-    <TextView
-        android:id="@+id/requiredLevelTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/required_level_activity_item_details"
-        android:textSize="18sp"
-        tools:text="Wymagany poziom postaci: 30" />
 
     <TextView
         android:id="@+id/itemTypeTextView"

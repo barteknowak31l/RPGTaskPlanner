@@ -1,5 +1,7 @@
     package edu.put.rpgtaskplanner.model
 
+    import android.content.Context
+    import edu.put.rpgtaskplanner.R
     import edu.put.rpgtaskplanner.roomDAO.ItemDAO
     import edu.put.rpgtaskplanner.roomEntity.ItemEntity
     import edu.put.rpgtaskplanner.utility.UserManager
@@ -60,7 +62,102 @@ class Item {
             item.level = entity.level!!
             return item
         }
+        fun resolveItemStatStringFromType(statValueString: String, type: Int, character_class: Int, context: Context) : String
+        {
+            var itemStatString = ""
+            when(type)
+            {
+                0->{
+                    itemStatString = context.getString(R.string.item_stats_armour, statValueString)
+                }
+                1->{
+                        when(character_class) {
+                            0->{
+                                itemStatString = context.getString(R.string.item_stats_artifact_warrior, statValueString)
+                            }
+                            1->{
+                                itemStatString = context.getString(R.string.item_stats_artifact_rogue, statValueString)
 
+                            }
+                            2->{
+                                itemStatString = context.getString(R.string.item_stats_artifact_mage, statValueString)
+                            }
+                        }
+
+                }
+                2->{
+                    itemStatString = context.getString(R.string.item_stats_gold_belt, statValueString)
+
+                }
+                3->{
+                    itemStatString = context.getString(R.string.item_stats_exp_boots, statValueString)
+                }
+                4->{
+                        when(character_class) {
+                            0->{
+                                itemStatString = context.getString(R.string.item_stats_helmet_warrior, statValueString)
+                            }
+                            1->{
+                                itemStatString = context.getString(R.string.item_stats_helmet_rogue, statValueString)
+
+                            }
+                            2->{
+                                itemStatString = context.getString(R.string.item_stats_helmet_mage, statValueString)
+                            }
+                        }
+
+                }
+                5->{
+                    itemStatString = context.getString(R.string.item_stats_gold_offhand, statValueString)
+
+                }
+                6->{
+                    itemStatString = context.getString(R.string.item_stats_ring, statValueString)
+
+                }
+                7->{
+                    itemStatString = context.getString(R.string.item_stats_weapon, statValueString)
+                }
+            }
+            return itemStatString
+        }
+
+        fun resolveItemTypeStringFromType(itemType: Int, character_class: Int, context: Context) : String
+        {
+            var typeString: String = ""
+            when(itemType)
+            {
+                0->{
+                    typeString = context.getString(R.string.item_type_armour)
+                }
+                1->{
+                    typeString = context.getString(R.string.item_type_artifact)
+
+                }
+                2->{
+                    typeString = context.getString(R.string.item_type_belt)
+
+                }
+                3->{
+                    typeString = context.getString(R.string.item_type_boots)
+
+                }
+                4->{
+                    typeString = context.getString(R.string.item_type_helmet)
+
+                }
+                5->{
+                    typeString = context.getString(R.string.item_type_offhand)
+                }
+                6->{
+                    typeString = context.getString(R.string.item_type_ring)
+                }
+                7->{
+                    typeString = context.getString(R.string.item_type_weapon)
+                }
+            }
+            return typeString
+        }
     }
 
 }

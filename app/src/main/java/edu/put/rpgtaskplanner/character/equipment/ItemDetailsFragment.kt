@@ -12,13 +12,19 @@ import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import edu.put.rpgtaskplanner.R
 import edu.put.rpgtaskplanner.model.Item
+import edu.put.rpgtaskplanner.utility.CharacterManager
 import edu.put.rpgtaskplanner.utility.EquipmentHandler
 import edu.put.rpgtaskplanner.utility.EquipmentManager
 import edu.put.rpgtaskplanner.utility.UserManager
+import edu.put.rpgtaskplanner.model.Character
 
 class ItemDetailsFragment : Fragment(), EquipmentHandler.EquipmentHandlerCallback {
 
     private var equipmentHandler: EquipmentHandler? = null
+    private lateinit var itemTypeTextView: TextView
+    private lateinit var enhancedStatTextView: TextView
+    private lateinit var enhancementValueTextView: TextView
+    private lateinit var itemDescriptionTextView: TextView
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -39,6 +45,23 @@ class ItemDetailsFragment : Fragment(), EquipmentHandler.EquipmentHandlerCallbac
 
         val equipButton: Button = view.findViewById(R.id.equipButton)
         equipButton.setOnClickListener{equipButtonOnclick()}
+
+        itemTypeTextView = view.findViewById(R.id.itemTypeTextView)
+        enhancedStatTextView = view.findViewById(R.id.enhancedStatTextView)
+        enhancementValueTextView = view.findViewById(R.id.enhancementValueTextView)
+        itemDescriptionTextView = view.findViewById(R.id.itemDescriptionTextView)
+
+        val currentItem = EquipmentManager.getCurrentItem()
+
+        val character = CharacterManager.getCurrentCharacter()
+        if(currentItem != null && character != null)
+        {
+            var typeString = Item.resolveItemTypeStringFromType(currentItem.type, character.character_class, requireContext())
+            itemTypeTextView.text = getString(R.string.item_type_activity_shop, typeString)
+            enhancedStatTextView.text = Item.resolveItemStatStringFromType(currentItem.base_bonus.toString(), currentItem.type, character.character_class, requireContext())
+            enhancementValueTextView.text = getString(R.string.enhancement_value_activity_item_details, Character.resolveStatStringOnItemType(currentItem.type, character))
+            itemDescriptionTextView.text = getString(R.string.item_description_header_activity_item_details, currentItem.description)
+        }
 
 
 
