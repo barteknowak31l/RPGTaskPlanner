@@ -6,6 +6,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.room.Room
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import edu.put.rpgtaskplanner.model.Character
 import edu.put.rpgtaskplanner.model.CharacterClass
 import edu.put.rpgtaskplanner.model.Item
 import edu.put.rpgtaskplanner.model.ItemType
@@ -59,9 +60,10 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
     private var weapon = Item()
     fun refreshShop(callback: RefreshShopCallback?) {
         val character = CharacterManager.getCurrentCharacter()
+        val user = UserManager.getCurrentUser()
         val itemCount = AtomicInteger(8)
 
-        if (character != null) {
+        if (character != null && user != null) {
 
             CharacterClass.fromId(character.character_class)
                 ?.let {
@@ -69,7 +71,7 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                         if (item != null) {
                             artifact = item
                             artifact.base_bonus *= character.level
-                            checkAndCallCallback(callback, itemCount)
+                            checkAndCallCallback(callback, itemCount, user.character_id)
                             Log.d("ShopSupplier", "Pobrano artifact " + item.item_name + " lol " + artifact.item_name)
                         }
                     }
@@ -82,7 +84,7 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                             armour = item
                             armour.base_bonus *= character.level
 
-                            checkAndCallCallback(callback, itemCount)
+                            checkAndCallCallback(callback, itemCount, user.character_id)
                             Log.d("ShopSupplier", "Pobrano armour")
 
                         }
@@ -96,7 +98,7 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                             belt = item
                             belt.base_bonus *= character.level
 
-                            checkAndCallCallback(callback, itemCount)
+                            checkAndCallCallback(callback, itemCount, user.character_id)
                             Log.d("ShopSupplier", "Pobrano belt")
 
                         }
@@ -110,7 +112,7 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                             boots = item
                             boots.base_bonus *= character.level
 
-                            checkAndCallCallback(callback, itemCount)
+                            checkAndCallCallback(callback, itemCount, user.character_id)
                             Log.d("ShopSupplier", "Pobrano boots")
 
                         }
@@ -124,7 +126,7 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                             helmet = item
                             helmet.base_bonus *= character.level
 
-                            checkAndCallCallback(callback, itemCount)
+                            checkAndCallCallback(callback, itemCount, user.character_id)
                             Log.d("ShopSupplier", "Pobrano helmet")
 
                         }
@@ -138,7 +140,7 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                             offhand = item
                             offhand.base_bonus *= character.level
 
-                            checkAndCallCallback(callback, itemCount)
+                            checkAndCallCallback(callback, itemCount, user.character_id)
                             Log.d("ShopSupplier", "Pobrano offhand")
 
                         }
@@ -152,7 +154,7 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                             ring = item
                             ring.base_bonus *= character.level
 
-                            checkAndCallCallback(callback, itemCount)
+                            checkAndCallCallback(callback, itemCount, user.character_id)
                             Log.d("ShopSupplier", "Pobrano ring")
 
                         }
@@ -166,7 +168,7 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                             weapon = item
                             weapon.base_bonus *= character.level
 
-                            checkAndCallCallback(callback, itemCount)
+                            checkAndCallCallback(callback, itemCount,user.character_id)
                             Log.d("ShopSupplier", "Pobrano weapon")
 
                         }
@@ -194,11 +196,11 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
     }
 
 
-    private fun checkAndCallCallback(callback: RefreshShopCallback?, itemCount: AtomicInteger) {
+    private fun checkAndCallCallback(callback: RefreshShopCallback?, itemCount: AtomicInteger, characterId: String) {
         if (itemCount.decrementAndGet() == 0) {
             lifecycleScope.launch {
                 withContext(Dispatchers.IO) {
-                    itemDAO.deleteAll()
+                    itemDAO.deleteAllForCharacter(characterId)
 
                     val artifactEntity = Item.toEntity(artifact)
                     val armourEntity = Item.toEntity(armour)
@@ -212,7 +214,11 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                         artifactEntity, armourEntity, beltEntity, bootsEntity,
                         helmetEntity, offhandEntity, ringEntity, weaponEntity
                     )
-                    itemDAO.insertAll(*itemsToInsert)
+
+                    itemsToInsert.forEach {
+                        it.character_id = characterId
+                        itemDAO.insertItemForCharacter(it) }
+
                 }
 
                 callback?.onRefreshFinished()
@@ -226,23 +232,22 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
         return listOf(artifact,armour,belt,boots,helmet,offhand,ring,weapon)
     }
 
-    fun fetchShopFromLocalDb(callback: RefreshShopCallback?) {
+    fun fetchShopFromLocalDb(callback: RefreshShopCallback?, characterId: String) {
             lifecycleScope.launch {
                 val itemList = withContext(Dispatchers.IO) {
-                    itemDAO.getAll()
+                    itemDAO.getAllForCharacter(characterId)
                 }
 
-                callback?.onShopFetchedFromDatabase(itemList)
+                val items = itemList.map { Item.fromEntity(it) }
+
+                callback?.onShopFetchedFromDatabase(items)
         }
     }
 
-    fun deleteItemFromShop(item: Item) {
+    fun deleteItemFromShop(item: Item, characterId: String) {
         lifecycleScope.launch {
-
-            val itemEntity = Item.toEntity(item)
             val deletedEntity = withContext(Dispatchers.IO) {
-                itemDAO.delete(itemEntity)
-
+                itemDAO.deleteItemForCharacter(characterId,item.item_name)
             }
             listeners.stream().forEach{ it.onDeleteItem(item)}
         }

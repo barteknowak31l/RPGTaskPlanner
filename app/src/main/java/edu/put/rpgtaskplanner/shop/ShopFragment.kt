@@ -16,6 +16,7 @@ import edu.put.rpgtaskplanner.character.equipment.EquipmentFragment
 import edu.put.rpgtaskplanner.character.equipment.ItemDetailsActivity
 import edu.put.rpgtaskplanner.model.Item
 import edu.put.rpgtaskplanner.utility.ShopSupplier
+import edu.put.rpgtaskplanner.utility.UserManager
 
 class ShopFragment : Fragment(), ShopSupplier.RefreshShopCallback,
     ShopSupplier.OnDeleteItemListener {
@@ -52,10 +53,16 @@ class ShopFragment : Fragment(), ShopSupplier.RefreshShopCallback,
         val recyclerView = inflater.inflate(R.layout.fragment_shop, container, false) as RecyclerView
 
 
-        // TODO run this once a day
-        //        shopSupplier?.refreshShop(this)
+        val user = UserManager.getCurrentUser()
 
-        shopSupplier?.fetchShopFromLocalDb(this)
+        // TODO run this once a day
+//                shopSupplier?.refreshShop(this)
+
+        if(user != null)
+        {
+            shopSupplier?.fetchShopFromLocalDb(this, user.character_id)
+        }
+
 
         // przypisanie listy do adaptera powinio być w on refresh finished
         adapter = EquipmentFragment.CustomRecyclerAdapter(emptyArray(), IntArray(0))
@@ -102,7 +109,12 @@ class ShopFragment : Fragment(), ShopSupplier.RefreshShopCallback,
     }
 
     override fun onDeleteItem(item: Item) {
-        shopSupplier?.fetchShopFromLocalDb(this)
+
+        val user = UserManager.getCurrentUser()
+        if(user != null)
+        {
+            shopSupplier?.fetchShopFromLocalDb(this, user.character_id)
+        }
     }
 
 }

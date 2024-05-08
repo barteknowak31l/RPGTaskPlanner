@@ -2,6 +2,7 @@
 
     import edu.put.rpgtaskplanner.roomDAO.ItemDAO
     import edu.put.rpgtaskplanner.roomEntity.ItemEntity
+    import edu.put.rpgtaskplanner.utility.UserManager
 
 
     enum class ItemType(val id: Int) {
@@ -28,8 +29,10 @@ class Item {
     {
         fun toEntity(item: Item): ItemEntity
         {
+            val user = UserManager.getCurrentUser()!!
             return ItemEntity(
                 item.item_name,
+                user.character_id,
                 item.base_bonus,
                 item.description,
                 item.image_resource_id,

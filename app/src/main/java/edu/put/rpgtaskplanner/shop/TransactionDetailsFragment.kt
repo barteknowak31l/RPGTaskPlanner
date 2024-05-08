@@ -241,7 +241,7 @@ class TransactionDetailsFragment : Fragment(), ShopSupplier.OnDeleteItemListener
                     }
                 }
                 // usun item ze sklepu
-                shopSupplier?.deleteItemFromShop(item)
+                shopSupplier?.deleteItemFromShop(item, user.character_id)
 
                 // dodaj item do ekwipunku
                 itemRepository.saveItemToCharacterEquipment(user.character_id, item) { success ->
