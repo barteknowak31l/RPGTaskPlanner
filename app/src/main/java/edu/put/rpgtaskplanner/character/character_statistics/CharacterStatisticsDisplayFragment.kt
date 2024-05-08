@@ -126,6 +126,10 @@ class CharacterStatisticsDisplayFragment : Fragment() {
         val nextLevel = character?.level!!.toFloat() * 1000
         nextLevelExp.text = getString(R.string.next_level_exp_activity_character, (nextLevel).toString())
 
+        val currentGoldExp = rootView.findViewById<TextView>(R.id.currentGoldTextView)
+        currentGoldExp.text = getString(R.string.current_gold_activity_character, character.current_gold.toString())
+
+
         return rootView
     }
 

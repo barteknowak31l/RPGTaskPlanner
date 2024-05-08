@@ -38,6 +38,7 @@ class TransactionDetailsFragment : Fragment(), ShopSupplier.OnDeleteItemListener
     private lateinit var typeTextView: TextView
     private lateinit var itemStatTextView: TextView
     private lateinit var currentStatTextView: TextView
+    private lateinit var currentGoldTextView: TextView
 
 
     override fun onAttach(context: Context) {
@@ -72,6 +73,13 @@ class TransactionDetailsFragment : Fragment(), ShopSupplier.OnDeleteItemListener
         typeTextView = view.findViewById<TextView>(R.id.typeTextView)
         itemStatTextView = view.findViewById<TextView>(R.id.itemStatTextView)
         currentStatTextView = view.findViewById<TextView>(R.id.currentStatisticTextView)
+        currentGoldTextView = view.findViewById(R.id.currentGoldTextView)
+
+        val character = CharacterManager.getCurrentCharacter()
+        if(character != null)
+        {
+            currentGoldTextView.text = getString(R.string.current_gold_shop,character.current_gold.toString())
+        }
 
 
         if(arguments?.getString("itemName") != null)
@@ -224,7 +232,7 @@ class TransactionDetailsFragment : Fragment(), ShopSupplier.OnDeleteItemListener
         if(character != null && user != null && item != null)
         {
             // sprawdz czy ma wystarczajaco golda
-            if(character.current_gold > price)
+            if(character.current_gold >= price)
             {
                 // pobierz koszt
                 character.current_gold -= price

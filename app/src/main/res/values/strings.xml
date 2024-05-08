@@ -138,6 +138,8 @@
     <string name="toast_item_bought">Przedmiot został zakupiony</string>
     <string name="toast_item_bought_error">Wystąpił błąd podczas kupowania przedmiotu</string>
     <string name="shop_empty_item_name">-</string>
+    <string name="current_gold_shop">Twoje złoto %s</string>
+    <string name="current_gold_activity_character">Złoto %s</string>
 
 
 </resources>
