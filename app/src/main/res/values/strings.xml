@@ -142,6 +142,7 @@
     <string name="current_gold_shop">Twoje złoto %s</string>
     <string name="current_gold_activity_character">Złoto %s</string>
     <string name="item_equipped_item_details_fragment">Założono przedmiot %s</string>
+    <string name="toast_account_created">Konto utworzone\\nMożesz się teraz zalogować</string>
 
 
 </resources>

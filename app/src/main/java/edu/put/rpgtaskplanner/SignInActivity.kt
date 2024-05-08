@@ -154,9 +154,9 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener, Equipme
     }
 
     override fun signUpClicked() {
-//        val intent = Intent(this, SignUpActivity::class.java)
+        val intent = Intent(this, SignUpActivity::class.java)
 
-        val intent = Intent(this, CharacterCreatorActivity::class.java)
+//        val intent = Intent(this, CharacterCreatorActivity::class.java)
 //        val intent = Intent(this, TaskListActivity::class.java)
 //        val intent = Intent(this, CharacterActivity::class.java)
 //        val intent = Intent(this, ShopActivity::class.java)
