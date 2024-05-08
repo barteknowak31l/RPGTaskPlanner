@@ -13,7 +13,13 @@
     HELMET(4),
     OFFHAND(5),
     RING(6),
-    WEAPON(7)
+    WEAPON(7);
+        companion object {
+            fun getItemTypeNameById(id: Int): String? {
+                return entries.find { it.id == id }?.name
+            }
+        }
+
 }
 class Item {
 

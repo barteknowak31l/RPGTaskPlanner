@@ -29,8 +29,6 @@ import edu.put.rpgtaskplanner.utility.ShopSupplier
 
 class ShopActivity : AppCompatActivity(), ShopFragment.ShopItemClickListener, ShopSupplier.OnDeleteItemListener {
 
-    var shopItemList: List<EquipmentFragment.EquipmentItem> = listOf()
-
     override fun onDestroy() {
         super.onDestroy()
         ShopSupplier.listeners -= this
@@ -41,7 +39,6 @@ class ShopActivity : AppCompatActivity(), ShopFragment.ShopItemClickListener, Sh
         ShopSupplier.listeners += this
 
         setContentView(R.layout.activity_shop)
-        shopItemList = EquipmentFragment.getItems()
         onShopItemClick(0)
 
 

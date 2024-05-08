@@ -22,6 +22,7 @@ import edu.put.rpgtaskplanner.R
 import edu.put.rpgtaskplanner.character.CharacterActivity
 import edu.put.rpgtaskplanner.character.CharacterInventoryFragment
 import edu.put.rpgtaskplanner.character.equipment.ui.theme.RPGTaskPlannerTheme
+import edu.put.rpgtaskplanner.model.ItemType
 import edu.put.rpgtaskplanner.shop.ShopActivity
 import edu.put.rpgtaskplanner.task_list.TaskListActivity
 
@@ -31,11 +32,20 @@ class EquipmentActivity : AppCompatActivity() {
         setContentView(R.layout.activity_equipment)
         val titleTextView = findViewById<TextView>(R.id.titleTextView)
 
-        var type = intent.getStringExtra(CharacterInventoryFragment.INTENT_DATA.EQUIPMENT_TYPE.toString())
+        var type = intent.getIntExtra(CharacterInventoryFragment.INTENT_DATA.EQUIPMENT_TYPE.toString(), 0)
 
         type?.let {
-            titleTextView.text = getString(R.string.header_activity_equipment) + " (" + it.toString() +")"
+            titleTextView.text = getString(R.string.header_activity_equipment) + " (" + ItemType.getItemTypeNameById(it) +")"
         }
+
+        val equipmentFragment = EquipmentFragment()
+        val bundle = Bundle()
+        bundle.putInt("type", type)
+        equipmentFragment.arguments = bundle
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.equipmentFragment, equipmentFragment)
+            .commit()
+
 
         // navigation
         val navView: NavigationView = findViewById(R.id.nav_view)

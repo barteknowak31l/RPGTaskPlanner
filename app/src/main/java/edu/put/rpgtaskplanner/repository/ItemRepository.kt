@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.toObject
 import edu.put.rpgtaskplanner.model.CharacterClass
 import edu.put.rpgtaskplanner.model.Item
 import edu.put.rpgtaskplanner.model.ItemType
@@ -200,8 +201,39 @@ class ItemRepository(private val firestore: FirebaseFirestore) {
             }
     }
 
-    //TODO get items from characterEquipment and InUse
+    fun getItemsFromCharacterEquipment(characterId: String, onComplete: (List<Item>) -> Unit) {
+        val itemCollection = firestore.collection("equipments/${characterId}_eq/items")
+        itemCollection
+            .get()
+            .addOnSuccessListener{ querySnapshot ->
+                val itemList = mutableListOf<Item>()
+                for (document in querySnapshot.documents) {
+                    val item = document.toObject(Item::class.java)
+                    item?.let {itemList.add(it)}
+                }
+                onComplete(itemList)
+            }
+            .addOnFailureListener{ exception ->
+                onComplete(emptyList())
+            }
+    }
 
+    fun getItemsFromCharacterEquipmentInUse(characterId: String, onComplete: (List<Item>) -> Unit) {
+        val itemCollection = firestore.collection("equipments/${characterId}_eq/items_in_use")
+        itemCollection
+            .get()
+            .addOnSuccessListener{ querySnapshot ->
+                val itemList = mutableListOf<Item>()
+                for (document in querySnapshot.documents) {
+                    val item = document.toObject(Item::class.java)
+                    item?.let {itemList.add(it)}
+                }
+                onComplete(itemList)
+            }
+            .addOnFailureListener{ exception ->
+                onComplete(emptyList())
+            }
+    }
 
 
 }

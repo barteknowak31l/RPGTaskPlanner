@@ -13,12 +13,26 @@ import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import edu.put.rpgtaskplanner.R
 import edu.put.rpgtaskplanner.model.CharacterClass
+import edu.put.rpgtaskplanner.model.Item
+import edu.put.rpgtaskplanner.model.ItemType
+import edu.put.rpgtaskplanner.repository.ItemRepository
+import edu.put.rpgtaskplanner.utility.CharacterManager
+import edu.put.rpgtaskplanner.utility.UserManager
+import java.util.stream.Collectors
 
 class EquipmentFragment : Fragment() {
 
-    private var equipmentItemList: List<EquipmentItem> = listOf()
+    private var equipmentItemList: List<Item> = listOf()
+    private val db = Firebase.firestore
+    private val itemRepository = ItemRepository(db)
+    private lateinit var adapter: CustomRecyclerAdapter
+    private var itemType:Int? = 0
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,61 +41,22 @@ class EquipmentFragment : Fragment() {
         // Inflate the layout for this fragment
         val recyclerView = inflater.inflate(R.layout.fragment_equipment, container, false) as RecyclerView
 
-        equipmentItemList = getItems()
-        val names = equipmentItemList.map { it.name }
-        val images = equipmentItemList.map { it.imageResourceId }
+        arguments?.getInt("type").let { itemType = it }
 
-        val adapter = CustomRecyclerAdapter(names.toTypedArray(), images.toIntArray())
+        val user = UserManager.getCurrentUser()
+        if( user != null)
+        {
+            itemRepository.getItemsFromCharacterEquipment(user.character_id) {onOwnedItemFetchedCallback(it)}
+        }
+
+        adapter = CustomRecyclerAdapter(emptyArray(), IntArray(0))
         recyclerView.setAdapter(adapter)
-
-        adapter.setListener(object : CustomRecyclerAdapter.Listener {
-            override fun onClick(position: Int) {
-                Toast.makeText(context, "Clicked on "+ names[position], Toast.LENGTH_SHORT).show()
-                val intent = Intent(context, ItemDetailsActivity::class.java);
-                intent.putExtra("name",names[position])
-                startActivity(intent)
-            }
-        })
 
         val layoutManager = GridLayoutManager(activity, 2)
         recyclerView.layoutManager=layoutManager
 
         return recyclerView
     }
-
-    enum class ItemType{
-        HELMET,
-        ARMOUR,
-        WEAPON,
-        OFFHAND,
-        BELT,
-        RING,
-        ARTIFACT,
-        BOOTS
-    }
-
-    class EquipmentItem(var id: Int, var name: String, var imageResourceId: Int, var price: Int, var type: ItemType, var statisticBoost: Int)
-    companion object{
-        private val equipment = mutableListOf<EquipmentItem>()
-
-        init{
-            equipment.add(EquipmentItem(0,"test0", R.drawable.rpg_logo_sm, 1, ItemType.HELMET, 1))
-            equipment.add(EquipmentItem(1,"test1", R.drawable.rpg_logo_sm, 100, ItemType.ARMOUR, 10))
-            equipment.add(EquipmentItem(2,"test2", R.drawable.rpg_logo_sm, 200, ItemType.WEAPON, 20))
-            equipment.add(EquipmentItem(3,"test3", R.drawable.rpg_logo_sm, 300, ItemType.OFFHAND, 30))
-            equipment.add(EquipmentItem(4,"test4", R.drawable.rpg_logo_sm, 400, ItemType.BELT, 40))
-            equipment.add(EquipmentItem(5,"test5", R.drawable.rpg_logo_sm, 500, ItemType.RING, 50))
-            equipment.add(EquipmentItem(6,"test6", R.drawable.rpg_logo_sm, 600, ItemType.ARTIFACT, 60))
-            equipment.add(EquipmentItem(7,"test7", R.drawable.rpg_logo_sm, 700, ItemType.BOOTS, 70))
-        }
-
-        fun getItems(): List<EquipmentItem>
-        {
-            return equipment;
-        }
-
-    }
-
 
     class CustomRecyclerAdapter(private var captions: Array<String>, private var imageIds: IntArray) :
         RecyclerView.Adapter<CustomRecyclerAdapter.ViewHolder>() {
@@ -132,6 +107,28 @@ class EquipmentFragment : Fragment() {
             return captions.size
         }
     }
+
+    fun onOwnedItemFetchedCallback(ownedItems: List<Item>)
+    {
+
+        val items = ownedItems.stream().filter {it.type == itemType}.collect(Collectors.toList())
+
+        val names = items.map { it.item_name }
+        //TODO create splasharts for items and set their ids in database
+        // images = itemList.map { it.image_resource_id }
+        val images = items.map { R.drawable.rpg_logo_sm }
+        adapter.setItemList(names.toTypedArray(), images.toIntArray())
+
+        adapter.setListener(object : CustomRecyclerAdapter.Listener {
+            override fun onClick(position: Int) {
+                Toast.makeText(context, "Clicked on "+ names[position], Toast.LENGTH_SHORT).show()
+                val intent = Intent(context, ItemDetailsActivity::class.java);
+                intent.putExtra("name",names[position])
+                startActivity(intent)
+            }
+        })
+    }
+
 
 
 }
