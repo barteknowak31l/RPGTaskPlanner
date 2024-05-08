@@ -1,30 +1,27 @@
 package edu.put.rpgtaskplanner.character.equipment
 
-import android.content.Context
 import android.content.Intent
+import android.content.Intent.getIntent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import edu.put.rpgtaskplanner.R
-import edu.put.rpgtaskplanner.model.CharacterClass
 import edu.put.rpgtaskplanner.model.Item
-import edu.put.rpgtaskplanner.model.ItemType
 import edu.put.rpgtaskplanner.repository.ItemRepository
-import edu.put.rpgtaskplanner.utility.CharacterManager
 import edu.put.rpgtaskplanner.utility.EquipmentManager
 import edu.put.rpgtaskplanner.utility.UserManager
 import java.util.stream.Collectors
+
 
 class EquipmentFragment : Fragment() {
 
@@ -143,6 +140,15 @@ class EquipmentFragment : Fragment() {
         })
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        val user = UserManager.getCurrentUser()
+        if( user != null)
+        {
+            itemRepository.getItemsFromCharacterEquipment(user.character_id) {onOwnedItemFetchedCallback(it)}
+        }
+    }
 
 
 }

@@ -57,11 +57,11 @@ class ShopFragment : Fragment(), ShopSupplier.RefreshShopCallback,
         val user = UserManager.getCurrentUser()
 
         // TODO run this once a day
-//                shopSupplier?.refreshShop(this)
+                shopSupplier?.refreshShop(this)
 
         if(user != null)
         {
-            shopSupplier?.fetchShopFromLocalDb(this, user.character_id)
+//            shopSupplier?.fetchShopFromLocalDb(this, user.character_id)
         }
 
 

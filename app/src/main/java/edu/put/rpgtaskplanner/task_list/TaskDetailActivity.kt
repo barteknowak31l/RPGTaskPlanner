@@ -141,7 +141,7 @@ class TaskDetailActivity : AppCompatActivity() {
                )
                characterRepository.updateCharacter(user.character_id, characterUpdateMap) { success ->
                    if (success) {
-
+                        CharacterManager.setCurrentCharacter(character)
                    } else {
 
                    }

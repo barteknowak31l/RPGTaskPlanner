@@ -70,7 +70,7 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                     getItemByTypeAndClassFromFirestore(ItemType.ARTIFACT, it) { item ->
                         if (item != null) {
                             artifact = item
-                            artifact.base_bonus *= character.level
+                            artifact.base_bonus = CharacterBuilder.BASE_ENERGY_REGEN + artifact.base_bonus * character.level
                             checkAndCallCallback(callback, itemCount, user.character_id)
                             Log.d("ShopSupplier", "Pobrano artifact " + item.item_name + " lol " + artifact.item_name)
                         }

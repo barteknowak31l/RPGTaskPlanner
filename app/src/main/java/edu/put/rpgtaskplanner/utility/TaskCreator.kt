@@ -144,6 +144,7 @@ class TaskCreator {
         )
         characterRepository.updateCharacter(user?.character_id!!, characterUpdatesMap) { success ->
             characterSaveSuccess = success
+            CharacterManager.setCurrentCharacter(character)
 
             if(success) {
                 taskRepository.saveTask(task) { taskSaveSuccess ->

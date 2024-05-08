@@ -8,7 +8,7 @@ class CharacterBuilder {
 
     companion object{
         val BASE_COOLDOWN = 0.0
-        val BASE_ENERGY = 0.0
+        val BASE_ENERGY = 100.0
         val BASE_GOLD = 0.0
         val BASE_ENERGY_REGEN = 10.0
         val BASE_EXP_MULTIPLIER = 1.0
