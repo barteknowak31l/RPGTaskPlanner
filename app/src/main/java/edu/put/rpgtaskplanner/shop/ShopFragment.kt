@@ -15,6 +15,7 @@ import edu.put.rpgtaskplanner.R
 import edu.put.rpgtaskplanner.character.equipment.EquipmentFragment
 import edu.put.rpgtaskplanner.character.equipment.ItemDetailsActivity
 import edu.put.rpgtaskplanner.model.Item
+import edu.put.rpgtaskplanner.utility.EquipmentManager
 import edu.put.rpgtaskplanner.utility.ShopSupplier
 import edu.put.rpgtaskplanner.utility.UserManager
 
@@ -65,7 +66,7 @@ class ShopFragment : Fragment(), ShopSupplier.RefreshShopCallback,
 
 
         // przypisanie listy do adaptera powinio być w on refresh finished
-        adapter = EquipmentFragment.CustomRecyclerAdapter(emptyArray(), IntArray(0))
+        adapter = EquipmentFragment.CustomRecyclerAdapter(emptyArray(), IntArray(0), emptyList())
         recyclerView.adapter = adapter
 
         adapter.setListener(object : EquipmentFragment.CustomRecyclerAdapter.Listener {
@@ -83,6 +84,10 @@ class ShopFragment : Fragment(), ShopSupplier.RefreshShopCallback,
 
     override fun onRefreshFinished() {
         val itemList = shopSupplier?.itemList()
+
+        var matchingIndices = itemList?.let { EquipmentManager.getMatchingIndicesAsBooleans(it) }
+
+
         if (itemList != null)
         {
             shopItemList = itemList
@@ -90,17 +95,21 @@ class ShopFragment : Fragment(), ShopSupplier.RefreshShopCallback,
             //TODO create splasharts for items and set their ids in database
             // images = itemList.map { it.image_resource_id }
             images = itemList.map { R.drawable.rpg_logo_sm }
-            adapter.setItemList(names.toTypedArray(), images.toIntArray())
+            adapter.setItemList(names.toTypedArray(), images.toIntArray(), matchingIndices.orEmpty())
         }
     }
 
     override fun onShopFetchedFromDatabase(itemList: List<Item>) {
             shopItemList = itemList
+
+            var matchingIndices = itemList.let { EquipmentManager.getMatchingIndicesAsBooleans(it) }
+
+
             names = itemList.map { it.item_name }
             //TODO create splasharts for items and set their ids in database
             // images = itemList.map { it.image_resource_id }
             images = itemList.map { R.drawable.rpg_logo_sm }
-            adapter.setItemList(names.toTypedArray(), images.toIntArray())
+            adapter.setItemList(names.toTypedArray(), images.toIntArray(),matchingIndices.orEmpty())
     }
 
     companion object

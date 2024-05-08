@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -20,15 +21,17 @@ import edu.put.rpgtaskplanner.character.CharacterActivity
 import edu.put.rpgtaskplanner.character.character_creator.CharacterCreatorActivity
 import edu.put.rpgtaskplanner.databinding.ActivitySignInBinding
 import edu.put.rpgtaskplanner.model.Character
+import edu.put.rpgtaskplanner.model.Item
 import edu.put.rpgtaskplanner.model.User
 import edu.put.rpgtaskplanner.repository.CharacterRepository
 import edu.put.rpgtaskplanner.repository.UserRepository
 import edu.put.rpgtaskplanner.shop.ShopActivity
 import edu.put.rpgtaskplanner.task_list.TaskListActivity
 import edu.put.rpgtaskplanner.utility.CharacterManager
+import edu.put.rpgtaskplanner.utility.EquipmentHandler
 import edu.put.rpgtaskplanner.utility.UserManager
 
-class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener {
+class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener, EquipmentHandler.EquipmentHandlerCallback {
 
     private lateinit var binding: ActivitySignInBinding
     private lateinit var firebaseAuth: FirebaseAuth
@@ -38,9 +41,13 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener {
     val userRepository = UserRepository(db)
     val characterRepository = CharacterRepository(db)
 
+    private var equipmentHandler: EquipmentHandler? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        equipmentHandler = EquipmentHandler(this, this, lifecycleScope )
 
         binding = ActivitySignInBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -166,6 +173,10 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener {
             if (user != null)
             {
                 UserManager.setCurrentUser(user)
+
+                // fetch user items
+                equipmentHandler?.fetchEquippedItemsFromFirestore(user.character_id, this)
+
                 if (user.character_id != "")
                 {
                     characterRepository.getCharacter(user.character_id) { character ->
@@ -202,6 +213,12 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener {
         }
 
 
+    }
+
+    override fun onItemEquipped(item: Item?) {
+    }
+
+    override fun onItemsFetchedFromFirestore(items: List<Item>?) {
     }
 
 

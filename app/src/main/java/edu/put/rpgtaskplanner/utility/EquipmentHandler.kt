@@ -16,6 +16,7 @@ class EquipmentHandler(val context: Context, val lifecycleOwner: LifecycleOwner,
 
     interface EquipmentHandlerCallback{
         fun onItemEquipped(item: Item?)
+        fun onItemsFetchedFromFirestore(items: List<Item>?)
     }
 
     private val db = Firebase.firestore
@@ -38,6 +39,7 @@ class EquipmentHandler(val context: Context, val lifecycleOwner: LifecycleOwner,
                 lifecycleScope.launch {
                     itemRepository.saveItemToCharacterEquipmentInUse(characterId, item) { success ->
                         if (success) {
+                            EquipmentManager.equipItem(item)
                             callback?.onItemEquipped(item)
                         } else {
                             callback?.onItemEquipped(null)
@@ -54,9 +56,28 @@ class EquipmentHandler(val context: Context, val lifecycleOwner: LifecycleOwner,
             itemRepository.deleteItemFromCharacterEquipmentInUse(characterId, item.item_name) {success ->
                 if(success)
                 {
+                    EquipmentManager.unequipItem(item)
                     callback?.onItemEquipped(item)
                 } else {
                     callback?.onItemEquipped(null)
+                }
+
+            }
+        }
+    }
+
+    fun fetchEquippedItemsFromFirestore(characterId: String, callback: EquipmentHandlerCallback?)
+    {
+        lifecycleScope.launch {
+            itemRepository.getItemsFromCharacterEquipmentInUse(characterId){ equipped ->
+                if(equipped != null)
+                {
+                    equipped.forEach{EquipmentManager.equipItem(it)}
+                    callback?.onItemsFetchedFromFirestore(equipped)
+                }
+                else
+                {
+                    callback?.onItemsFetchedFromFirestore(null)
                 }
 
             }

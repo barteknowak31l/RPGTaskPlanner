@@ -59,4 +59,8 @@ class ItemDetailsFragment : Fragment(), EquipmentHandler.EquipmentHandlerCallbac
         Toast.makeText(context,getString(R.string.item_equipped_item_details_fragment, item?.item_name),Toast.LENGTH_SHORT).show()
     }
 
+    override fun onItemsFetchedFromFirestore(items: List<Item>?) {
+
+    }
+
 }

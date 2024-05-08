@@ -22,4 +22,7 @@
     <color name="resource_orb_fill_mage">#3F51B5</color>
     <color name="resource_orb_stroke_mage">#37469E</color>
 
+
+    <color name="equipped_item_name_color">#F4B208</color>
+
 </resources>

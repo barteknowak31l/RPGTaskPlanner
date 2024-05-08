@@ -1,5 +1,6 @@
 package edu.put.rpgtaskplanner.character.equipment
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -50,7 +51,7 @@ class EquipmentFragment : Fragment() {
             itemRepository.getItemsFromCharacterEquipment(user.character_id) {onOwnedItemFetchedCallback(it)}
         }
 
-        adapter = CustomRecyclerAdapter(emptyArray(), IntArray(0))
+        adapter = CustomRecyclerAdapter(emptyArray(), IntArray(0), emptyList())
         recyclerView.setAdapter(adapter)
 
         val layoutManager = GridLayoutManager(activity, 2)
@@ -59,7 +60,7 @@ class EquipmentFragment : Fragment() {
         return recyclerView
     }
 
-    class CustomRecyclerAdapter(private var captions: Array<String>, private var imageIds: IntArray) :
+    class CustomRecyclerAdapter(private var captions: Array<String>, private var imageIds: IntArray, private var isEquipped: List<Boolean>) :
         RecyclerView.Adapter<CustomRecyclerAdapter.ViewHolder>() {
 
         private var listener: Listener? = null
@@ -72,9 +73,10 @@ class EquipmentFragment : Fragment() {
             this.listener = listener
         }
 
-        fun setItemList(newCaptions: Array<String>, newImageIds: IntArray) {
+        fun setItemList(newCaptions: Array<String>, newImageIds: IntArray, newIsEquipped: List<Boolean>) {
             captions = newCaptions
             imageIds = newImageIds
+            isEquipped = newIsEquipped
             notifyDataSetChanged()
         }
 
@@ -94,8 +96,12 @@ class EquipmentFragment : Fragment() {
             val drawable = ContextCompat.getDrawable(cardView.context, imageIds[position])
             imageView.setImageDrawable(drawable)
             imageView.contentDescription = captions[position]
-            val textView = cardView.findViewById<View>(R.id.info_text) as TextView
+            var textView = cardView.findViewById<View>(R.id.info_text) as TextView
             textView.text = captions[position]
+            if(isEquipped.isNotEmpty() && isEquipped[position])
+            {
+                textView.setTextColor(ContextCompat.getColor(cardView.context, R.color.equipped_item_name_color))
+            }
 
             cardView.setBackgroundColor(ContextCompat.getColor(cardView.context, R.color.button_color))
 
@@ -114,11 +120,13 @@ class EquipmentFragment : Fragment() {
 
         equipmentItemList = ownedItems.stream().filter {it.type == itemType}.collect(Collectors.toList())
 
+        var matchingIndices = EquipmentManager.getMatchingIndicesAsBooleans(equipmentItemList)
+
         val names = equipmentItemList.map { it.item_name }
         //TODO create splasharts for items and set their ids in database
         // images = itemList.map { it.image_resource_id }
         val images = equipmentItemList.map { R.drawable.rpg_logo_sm }
-        adapter.setItemList(names.toTypedArray(), images.toIntArray())
+        adapter.setItemList(names.toTypedArray(), images.toIntArray(),matchingIndices.orEmpty() )
 
         adapter.setListener(object : CustomRecyclerAdapter.Listener {
             override fun onClick(position: Int) {
