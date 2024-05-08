@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import edu.put.rpgtaskplanner.R
+import edu.put.rpgtaskplanner.model.CharacterClass
 
 class EquipmentFragment : Fragment() {
 
@@ -82,9 +83,8 @@ class EquipmentFragment : Fragment() {
     }
 
 
-    class CustomRecyclerAdapter(private val captions: Array<String>, private val imageIds: IntArray) :
+    class CustomRecyclerAdapter(private var captions: Array<String>, private var imageIds: IntArray) :
         RecyclerView.Adapter<CustomRecyclerAdapter.ViewHolder>() {
-
 
         private var listener: Listener? = null
 
@@ -92,15 +92,18 @@ class EquipmentFragment : Fragment() {
             fun onClick(position: Int)
         }
 
-
         fun setListener(listener: Listener?) {
             this.listener = listener
         }
 
+        fun setItemList(newCaptions: Array<String>, newImageIds: IntArray) {
+            captions = newCaptions
+            imageIds = newImageIds
+            notifyDataSetChanged()
+        }
 
         inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             val cardView: CardView = itemView as CardView
-
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -118,16 +121,17 @@ class EquipmentFragment : Fragment() {
             val textView = cardView.findViewById<View>(R.id.info_text) as TextView
             textView.text = captions[position]
 
-            cardView.setBackgroundColor(ContextCompat.getColor(cardView.context,R.color.button_color))
+            cardView.setBackgroundColor(ContextCompat.getColor(cardView.context, R.color.button_color))
 
-            cardView.setOnClickListener(View.OnClickListener(){
+            cardView.setOnClickListener {
                 listener?.onClick(position)
-            })
+            }
         }
 
         override fun getItemCount(): Int {
             return captions.size
         }
     }
+
 
 }

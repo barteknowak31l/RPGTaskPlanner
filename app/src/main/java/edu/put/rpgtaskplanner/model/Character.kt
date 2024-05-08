@@ -3,7 +3,13 @@ package edu.put.rpgtaskplanner.model
 enum class CharacterClass(val id: Int) {
     WARRIOR(0),
     ROGUE(1),
-    MAGE(2)
+    MAGE(2);
+
+    companion object {
+        fun fromId(id: Int): CharacterClass? {
+            return entries.find { it.id == id }
+        }
+    }
 }
 
 enum class StatisticTypes(val id: Int)
