@@ -69,27 +69,30 @@ class TaskCreator {
         // policz nagrody (uwzglednij mnozniki i trudnosc)
         var goldMultiplier = character?.gold_multiplier!!
         var goldReward = (50 + health) * (difficulty + 1) * goldMultiplier
+        goldReward = goldReward.toInt().toDouble()
         task.gold_reward = goldReward
 
         var expMultiplier = character?.exp_multiplier!!
         var expReward = (50 + energy) * (difficulty + 1) * expMultiplier
+        expReward = expReward.toInt().toDouble()
         task.exp_reward = expReward
 
         // policz szacowany czas ukonczenia
         val calendar = Calendar.getInstance().apply {
             timeInMillis = task.start_date.time
         }
+        val cooldownReduction = 1.0 - character.cooldown_reduction
         when(difficulty)
         {
             0 -> {
-                calendar.add(Calendar.HOUR_OF_DAY, 4)
+                calendar.add(Calendar.MINUTE, (240.0 * cooldownReduction).toInt())
             }
             1 -> {
-                calendar.add(Calendar.HOUR_OF_DAY, 8)
+                calendar.add(Calendar.MINUTE, (240.0 * cooldownReduction).toInt())
 
             }
             2 -> {
-                calendar.add(Calendar.HOUR_OF_DAY, 12)
+                calendar.add(Calendar.MINUTE, (720.0 * cooldownReduction).toInt())
             }
         }
         var estimatedEndDate = Date(calendar.timeInMillis)

@@ -102,6 +102,11 @@ class EquipmentFragment : Fragment() {
             {
                 textView.setTextColor(ContextCompat.getColor(cardView.context, R.color.equipped_item_name_color))
             }
+            else if(isEquipped.isNotEmpty() && !isEquipped[position])
+            {
+                textView.setTextColor(ContextCompat.getColor(cardView.context, R.color.text_color))
+
+            }
 
             cardView.setBackgroundColor(ContextCompat.getColor(cardView.context, R.color.button_color))
 
