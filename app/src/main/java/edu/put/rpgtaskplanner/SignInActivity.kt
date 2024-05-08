@@ -121,6 +121,7 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener, Equipme
         super.onStart();
         if(firebaseAuth.currentUser != null)
         {
+            onLoginSuccess(firebaseAuth.currentUser!!.email.toString())
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
