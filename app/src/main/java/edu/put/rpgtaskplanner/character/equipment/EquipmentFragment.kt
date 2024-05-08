@@ -21,6 +21,7 @@ import edu.put.rpgtaskplanner.model.Item
 import edu.put.rpgtaskplanner.model.ItemType
 import edu.put.rpgtaskplanner.repository.ItemRepository
 import edu.put.rpgtaskplanner.utility.CharacterManager
+import edu.put.rpgtaskplanner.utility.EquipmentManager
 import edu.put.rpgtaskplanner.utility.UserManager
 import java.util.stream.Collectors
 
@@ -111,17 +112,17 @@ class EquipmentFragment : Fragment() {
     fun onOwnedItemFetchedCallback(ownedItems: List<Item>)
     {
 
-        val items = ownedItems.stream().filter {it.type == itemType}.collect(Collectors.toList())
+        equipmentItemList = ownedItems.stream().filter {it.type == itemType}.collect(Collectors.toList())
 
-        val names = items.map { it.item_name }
+        val names = equipmentItemList.map { it.item_name }
         //TODO create splasharts for items and set their ids in database
         // images = itemList.map { it.image_resource_id }
-        val images = items.map { R.drawable.rpg_logo_sm }
+        val images = equipmentItemList.map { R.drawable.rpg_logo_sm }
         adapter.setItemList(names.toTypedArray(), images.toIntArray())
 
         adapter.setListener(object : CustomRecyclerAdapter.Listener {
             override fun onClick(position: Int) {
-                Toast.makeText(context, "Clicked on "+ names[position], Toast.LENGTH_SHORT).show()
+                EquipmentManager.setCurrentItem(equipmentItemList[position])
                 val intent = Intent(context, ItemDetailsActivity::class.java);
                 intent.putExtra("name",names[position])
                 startActivity(intent)

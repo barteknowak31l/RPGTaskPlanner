@@ -140,6 +140,7 @@
     <string name="shop_empty_item_name">-</string>
     <string name="current_gold_shop">Twoje złoto %s</string>
     <string name="current_gold_activity_character">Złoto %s</string>
+    <string name="item_equipped_item_details_fragment">Założono przedmiot %s</string>
 
 
 </resources>

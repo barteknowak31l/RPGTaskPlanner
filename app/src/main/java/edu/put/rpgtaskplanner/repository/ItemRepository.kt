@@ -235,5 +235,18 @@ class ItemRepository(private val firestore: FirebaseFirestore) {
             }
     }
 
+    fun getItemFromCharacterEquipmentInUseFilterByType(characterId: String, itemType: Int, onComplete: (Item?) -> Unit) {
+        val itemCollection = firestore.collection("equipments/${characterId}_eq/items_in_use")
+        itemCollection
+            .whereEqualTo(ItemFields.type.toString(),itemType)
+            .get()
+            .addOnSuccessListener{ querySnapshot ->
+                onComplete(querySnapshot.documents.firstOrNull()?.toObject(Item::class.java))
+            }
+            .addOnFailureListener{ exception ->
+                onComplete(null)
+            }
+    }
+
 
 }
