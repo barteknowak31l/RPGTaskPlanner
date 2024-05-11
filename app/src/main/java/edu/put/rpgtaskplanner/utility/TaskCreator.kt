@@ -12,6 +12,7 @@ import edu.put.rpgtaskplanner.repository.CharacterRepository
 import edu.put.rpgtaskplanner.repository.TaskRepository
 import java.util.Date
 import java.sql.Timestamp
+import java.text.DecimalFormat
 import java.util.Calendar
 
 class TaskCreator {
@@ -135,6 +136,8 @@ class TaskCreator {
         {
             character.current_health -= task.health_cost
             character.current_energy -= task.energy_cost
+            character.current_health = Math.round(character.current_health * 100.0) / 100.0
+            character.current_energy = Math.round(character.current_energy * 100.0) / 100.0
         }
 
         var characterSaveSuccess = false

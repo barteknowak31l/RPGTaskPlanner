@@ -112,7 +112,9 @@ class TaskDetailActivity : AppCompatActivity() {
                }
 
                character.current_gold += task.gold_reward
-               character.current_experience += task.gold_reward
+               character.current_gold = Math.round(character.current_gold *100.0)/100.0
+               character.current_experience += task.exp_reward
+               character.current_experience = Math.round(character.current_experience *100.0)/100.0
                if(character.current_experience > character.level * character.level * Constants.NEXT_LEVEL_EXP_REQUIRED_MULT)
                {
                    character.level += 1
@@ -160,6 +162,7 @@ class TaskDetailActivity : AppCompatActivity() {
 
                Toast.makeText(this, getText(R.string.toast_task_done),Toast.LENGTH_SHORT).show()
                val intent = Intent(this, TaskListActivity::class.java)
+               intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                startActivity(intent)
 
            }

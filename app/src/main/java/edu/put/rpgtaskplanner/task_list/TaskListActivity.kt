@@ -22,8 +22,10 @@ import edu.put.rpgtaskplanner.utility.CharacterManager
 import edu.put.rpgtaskplanner.utility.CircleFillView
 import edu.put.rpgtaskplanner.utility.UserManager
 import java.text.SimpleDateFormat
+import java.time.Duration
 import java.util.Calendar
 import java.util.Date
+import java.util.concurrent.TimeUnit
 
 
 class TaskListActivity : AppCompatActivity(), TaskListFragment.Listener {
@@ -67,7 +69,7 @@ class TaskListActivity : AppCompatActivity(), TaskListFragment.Listener {
                 calendar.time = character.last_resource_refresh_date
                 calendar.add(Calendar.MINUTE, character.resource_refresh_cooldown_minutes)
                 val nextRefresh = calendar.time
-                val sdf = SimpleDateFormat("dd/M hh:mm:ss")
+                val sdf = SimpleDateFormat("dd/M HH:mm:ss")
                 val nextRefreshString = sdf.format(nextRefresh)
 
                 Toast.makeText(this,getString(R.string.toast_orb_refresh,current,max,refreshVal,nextRefreshString),Toast.LENGTH_SHORT).show()
@@ -81,7 +83,7 @@ class TaskListActivity : AppCompatActivity(), TaskListFragment.Listener {
                 calendar.time = character.last_resource_refresh_date
                 calendar.add(Calendar.MINUTE, character.resource_refresh_cooldown_minutes)
                 val nextRefresh = calendar.time
-                val sdf = SimpleDateFormat("dd/M hh:mm:ss")
+                val sdf = SimpleDateFormat("dd/M HH:mm:ss")
                 val nextRefreshString = sdf.format(nextRefresh)
 
                 Toast.makeText(this,getString(R.string.toast_orb_refresh,current,max,refreshVal,nextRefreshString),Toast.LENGTH_SHORT).show()
@@ -164,13 +166,15 @@ class TaskListActivity : AppCompatActivity(), TaskListFragment.Listener {
             val cooldown = character.resource_refresh_cooldown_minutes
             val calendar = Calendar.getInstance()
 
-            while(lastRefreshDate < currentDate)
+            while(lastRefreshDate.time + TimeUnit.MINUTES.toMillis(cooldown.toLong()) < currentDate.time)
             {
                 // add resources
                 if(character.current_energy < character.max_energy)
                 {
                     character.current_energy += character.energy_regen
-                    Log.d("ORB", "ENERGY REFRESFED FOR: " + character.energy_regen)
+                    character.current_energy = Math.round(character.current_energy * 100.0) / 100.0
+
+
                     if(character.current_energy > character.max_energy)
                     {
                         character.current_energy = character.max_energy
@@ -180,7 +184,7 @@ class TaskListActivity : AppCompatActivity(), TaskListFragment.Listener {
                 if(character.current_health < character.max_health)
                 {
                     character.current_health += character.health_regen
-                    Log.d("ORB", "HEALTH REFRESFED FOR: " + character.health_regen)
+                    character.current_health = Math.round(character.current_health * 100.0) / 100.0
 
                     if(character.current_health > character.max_health)
                     {

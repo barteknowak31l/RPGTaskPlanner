@@ -71,6 +71,7 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                         if (item != null) {
                             artifact = item
                             artifact.base_bonus = CharacterBuilder.BASE_ENERGY_REGEN + artifact.base_bonus * character.level
+                            artifact.base_bonus = Math.round(artifact.base_bonus * 100.0)/ 100.0
                             checkAndCallCallback(callback, itemCount, user.character_id)
                             Log.d("ShopSupplier", "Pobrano artifact " + item.item_name + " lol " + artifact.item_name)
                         }
@@ -83,6 +84,8 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                         if (item != null) {
                             armour = item
                             armour.base_bonus = CharacterBuilder.BASE_HEALTH + armour.base_bonus * character.level
+                            armour.base_bonus = Math.round(armour.base_bonus * 100.0)/ 100.0
+
                             checkAndCallCallback(callback, itemCount, user.character_id)
                             Log.d("ShopSupplier", "Pobrano armour")
 
@@ -96,6 +99,8 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                         if (item != null) {
                             belt = item
                             belt.base_bonus = CharacterBuilder.BASE_GOLD_MULTIPLIER + belt.base_bonus * character.level
+                            belt.base_bonus = Math.round(belt.base_bonus * 100.0)/ 100.0
+
                             checkAndCallCallback(callback, itemCount, user.character_id)
                             Log.d("ShopSupplier", "Pobrano belt")
                         }
@@ -108,6 +113,8 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                         if (item != null) {
                             boots = item
                             boots.base_bonus = CharacterBuilder.BASE_EXP_MULTIPLIER + boots.base_bonus * character.level
+                            boots.base_bonus = Math.round(boots.base_bonus * 100.0)/ 100.0
+
                             checkAndCallCallback(callback, itemCount, user.character_id)
                             Log.d("ShopSupplier", "Pobrano boots")
 
@@ -121,6 +128,8 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                         if (item != null) {
                             helmet = item
                             helmet.base_bonus = CharacterBuilder.BASE_ENERGY + helmet.base_bonus * character.level
+                            helmet.base_bonus = Math.round(helmet.base_bonus * 100.0)/ 100.0
+
                             checkAndCallCallback(callback, itemCount, user.character_id)
                             Log.d("ShopSupplier", "Pobrano helmet")
                         }
@@ -133,6 +142,8 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                         if (item != null) {
                             offhand = item
                             offhand.base_bonus = CharacterBuilder.BASE_GOLD_MULTIPLIER + offhand.base_bonus * character.level
+                            offhand.base_bonus = Math.round(offhand.base_bonus * 100.0)/ 100.0
+
                             checkAndCallCallback(callback, itemCount, user.character_id)
                             Log.d("ShopSupplier", "Pobrano offhand")
 
@@ -146,6 +157,7 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                         if (item != null) {
                             ring = item
                             ring.base_bonus = CharacterBuilder.BASE_HEALTH_REGEN + ring.base_bonus * character.level
+                            ring.base_bonus = Math.round(ring.base_bonus * 100.0)/ 100.0
                             checkAndCallCallback(callback, itemCount, user.character_id)
                             Log.d("ShopSupplier", "Pobrano ring")
 
@@ -159,6 +171,8 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                         if (item != null) {
                             weapon = item
                             weapon.base_bonus = CharacterBuilder.BASE_COOLDOWN + weapon.base_bonus * character.level
+                            weapon.base_bonus = Math.round(weapon.base_bonus * 100.0)/ 100.0
+
                             checkAndCallCallback(callback, itemCount,user.character_id)
                             Log.d("ShopSupplier", "Pobrano weapon")
 
