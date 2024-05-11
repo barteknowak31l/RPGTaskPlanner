@@ -162,7 +162,6 @@ class TaskDetailActivity : AppCompatActivity() {
 
                Toast.makeText(this, getText(R.string.toast_task_done),Toast.LENGTH_SHORT).show()
                val intent = Intent(this, TaskListActivity::class.java)
-               intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                startActivity(intent)
 
            }
