@@ -1,5 +1,7 @@
 package edu.put.rpgtaskplanner.model
 
+import java.util.Date
+
 enum class CharacterClass(val id: Int) {
     WARRIOR(0),
     ROGUE(1),
@@ -42,6 +44,9 @@ class Character {
     var max_health: Double = 100.0
     var character_name: String = ""
     var current_gold: Double = 0.0
+
+    lateinit var last_resource_refresh_date: Date
+    var resource_refresh_cooldown_minutes:Int = 60
 
     companion object
     {

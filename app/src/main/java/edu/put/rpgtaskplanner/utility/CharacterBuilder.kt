@@ -2,6 +2,7 @@ package edu.put.rpgtaskplanner.utility
 
 import edu.put.rpgtaskplanner.model.Character
 import edu.put.rpgtaskplanner.model.CharacterClass
+import java.util.Date
 
 class CharacterBuilder {
     private val character = Character()
@@ -15,6 +16,7 @@ class CharacterBuilder {
         val BASE_GOLD_MULTIPLIER = 1.0
         val BASE_HEALTH_REGEN = 10.0
         val BASE_HEALTH = 100.0
+        val RESOURCE_REFRESH_COOLDOWN_MINUTES = 60
     }
     fun characterClass(characterClass: CharacterClass): CharacterBuilder {
         character.character_class = characterClass.id
@@ -87,6 +89,19 @@ class CharacterBuilder {
         return this
     }
 
+    fun resourceRefreshCooldownMinutes(rrcm: Int): CharacterBuilder
+    {
+        character.resource_refresh_cooldown_minutes = rrcm;
+        return this
+    }
+
+    fun lastResourceRefreshDate(lrrd: Date): CharacterBuilder
+    {
+        character.last_resource_refresh_date = lrrd
+        return this
+    }
+
+
     fun build(): Character {
         return character
     }
@@ -108,6 +123,8 @@ class CharacterBuilder {
             .level(1)
             .maxEnergy(BASE_ENERGY)
             .maxHealth(BASE_HEALTH)
+            .lastResourceRefreshDate(Date())
+            .resourceRefreshCooldownMinutes(RESOURCE_REFRESH_COOLDOWN_MINUTES)
             .characterName("new character")
             .build()
     }
@@ -128,6 +145,8 @@ class CharacterBuilder {
             .level(1)
             .maxEnergy(BASE_ENERGY)
             .maxHealth(BASE_HEALTH)
+            .lastResourceRefreshDate(Date())
+            .resourceRefreshCooldownMinutes(RESOURCE_REFRESH_COOLDOWN_MINUTES)
             .characterName("new character")
             .build()
     }
@@ -148,6 +167,8 @@ class CharacterBuilder {
             .level(1)
             .maxEnergy(BASE_ENERGY)
             .maxHealth(BASE_HEALTH)
+            .lastResourceRefreshDate(Date())
+            .resourceRefreshCooldownMinutes(RESOURCE_REFRESH_COOLDOWN_MINUTES)
             .characterName("new character")
             .build()
     }

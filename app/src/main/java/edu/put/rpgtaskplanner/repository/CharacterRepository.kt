@@ -21,6 +21,8 @@ class CharacterRepository(private val firestore: FirebaseFirestore) {
         max_energy,
         max_health,
         character_name,
+        last_resource_refresh_date,
+        resource_refresh_cooldown_minutes,
         current_gold
     }
 
