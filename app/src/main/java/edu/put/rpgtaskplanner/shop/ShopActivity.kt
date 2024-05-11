@@ -23,8 +23,10 @@ import edu.put.rpgtaskplanner.character.CharacterActivity
 import edu.put.rpgtaskplanner.character.equipment.EquipmentFragment
 import edu.put.rpgtaskplanner.character.equipment.ItemDetailsFragment
 import edu.put.rpgtaskplanner.model.Item
+import edu.put.rpgtaskplanner.model.Character
 import edu.put.rpgtaskplanner.shop.ui.theme.RPGTaskPlannerTheme
 import edu.put.rpgtaskplanner.task_list.TaskListActivity
+import edu.put.rpgtaskplanner.utility.CharacterManager
 import edu.put.rpgtaskplanner.utility.ShopSupplier
 
 class ShopActivity : AppCompatActivity(), ShopFragment.ShopItemClickListener, ShopSupplier.OnDeleteItemListener {
@@ -98,8 +100,12 @@ class ShopActivity : AppCompatActivity(), ShopFragment.ShopItemClickListener, Sh
             bundle.putInt("itemType",selectedItem!!.type)
             bundle.putDouble("itemStat", selectedItem!!.base_bonus)
 
-            //TODO change it to true character bonus when equipping items will be implemented
-            bundle.putDouble("currentStat", 50.0)
+            val character = CharacterManager.getCurrentCharacter()
+            if(character != null)
+            {
+                val currentStat = Character.resolveStatOnItemType(selectedItem!!.type, character)
+                bundle.putDouble("currentStat", currentStat)
+            }
 
             fragment.arguments = bundle
             supportFragmentManager.beginTransaction()

@@ -62,6 +62,23 @@ class Character {
 
         }
 
+        fun resolveStatOnItemType(itemType: Int, character: Character): Double
+        {
+            return when(itemType)
+            {
+                0 ->  character.max_health
+                1 ->  character.energy_regen
+                2 ->  character.gold_multiplier
+                3 ->  character.exp_multiplier
+                4 ->  character.max_energy
+                5 ->  character.gold_multiplier
+                6 ->  character.health_regen
+                7 ->  character.cooldown_reduction
+                else -> -1.0
+            }
+
+        }
+
     }
 
 
