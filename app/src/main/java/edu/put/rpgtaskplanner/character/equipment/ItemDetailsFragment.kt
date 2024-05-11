@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import edu.put.rpgtaskplanner.R
 import edu.put.rpgtaskplanner.model.Item
@@ -25,6 +27,7 @@ class ItemDetailsFragment : Fragment(), EquipmentHandler.EquipmentHandlerCallbac
     private lateinit var enhancedStatTextView: TextView
     private lateinit var enhancementValueTextView: TextView
     private lateinit var itemDescriptionTextView: TextView
+    private lateinit var itemDisplayImageView: ImageView
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -50,6 +53,7 @@ class ItemDetailsFragment : Fragment(), EquipmentHandler.EquipmentHandlerCallbac
         enhancedStatTextView = view.findViewById(R.id.enhancedStatTextView)
         enhancementValueTextView = view.findViewById(R.id.enhancementValueTextView)
         itemDescriptionTextView = view.findViewById(R.id.itemDescriptionTextView)
+        itemDisplayImageView = view.findViewById(R.id.itemImageView)
 
         val currentItem = EquipmentManager.getCurrentItem()
 
@@ -61,6 +65,8 @@ class ItemDetailsFragment : Fragment(), EquipmentHandler.EquipmentHandlerCallbac
             enhancedStatTextView.text = Item.resolveItemStatStringFromType(currentItem.base_bonus.toString(), currentItem.type, character.character_class, requireContext())
             enhancementValueTextView.text = getString(R.string.enhancement_value_activity_item_details, Character.resolveStatStringOnItemType(currentItem.type, character))
             itemDescriptionTextView.text = getString(R.string.item_description_header_activity_item_details, currentItem.description)
+            val drawable = ContextCompat.getDrawable(requireContext(), currentItem.image_resource_id)
+            itemDisplayImageView.setImageDrawable(drawable)
         }
 
 

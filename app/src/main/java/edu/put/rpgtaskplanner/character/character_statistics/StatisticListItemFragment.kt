@@ -49,7 +49,7 @@ class StatisticListItemFragment : Fragment(){
             {
                 StatisticTypes.CURRENT_EXPERIENCE -> {
                     statisticTextView.text = getString(R.string.stats_experience,character.current_experience.toString())
-                    statisticIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.experience_icon))
+                    statisticIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.exp))
                 }
 
                 StatisticTypes.COOLDOWN_REDUCTION -> {

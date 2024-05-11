@@ -124,12 +124,19 @@ class CharacterStatisticsDisplayFragment : Fragment() {
         expTextView.text = getString(R.string.current_exp_activity_character, character?.current_experience.toString())
 
         val nextLevelExp = rootView.findViewById<TextView>(R.id.nextLevelTextView)
-        val nextLevel = character?.level!!.toFloat() * 1000
+        var nextLevel = 0.0f
+        if(character != null)
+        {
+            nextLevel = character.level.toFloat() * 1000
+        }
         nextLevelExp.text = getString(R.string.next_level_exp_activity_character, (nextLevel).toString())
 
         val currentGoldExp = rootView.findViewById<TextView>(R.id.currentGoldTextView)
-        currentGoldExp.text = getString(R.string.current_gold_activity_character, character.current_gold.toString())
+        if(character != null)
+        {
+            currentGoldExp.text = getString(R.string.current_gold_activity_character, character.current_gold.toString())
 
+        }
 
         // display more details only if character is availble (to prevent displaying it in character creation)
         val user = UserManager.getCurrentUser()
@@ -145,9 +152,9 @@ class CharacterStatisticsDisplayFragment : Fragment() {
             expTextView.height = 0
             nextLevelExp.height = 0
             currentGoldExp.height = 0
-            val trophiesFragment =childFragmentManager.findFragmentById(R.id.trophiesFragment)
-                if(trophiesFragment != null)
-                    childFragmentManager.beginTransaction().remove(trophiesFragment).commit()
+            val trophiesFragment = childFragmentManager.findFragmentById(R.id.trophiesFragment)
+            if(trophiesFragment != null)
+                childFragmentManager.beginTransaction().remove(trophiesFragment).commit()
         }
 
 

@@ -65,7 +65,8 @@ class ShopFragment : Fragment(), ShopSupplier.RefreshShopCallback,
 
 
         val user = UserManager.getCurrentUser()
-
+        //TODO remove
+        shopSupplier?.refreshShop(this)
         if(user != null)
         {
 
@@ -123,9 +124,7 @@ class ShopFragment : Fragment(), ShopSupplier.RefreshShopCallback,
         {
             shopItemList = itemList
             names = itemList.map { it.item_name }
-            //TODO create splasharts for items and set their ids in database
-            // images = itemList.map { it.image_resource_id }
-            images = itemList.map { R.drawable.rpg_logo_sm }
+            images = itemList.map { it.image_resource_id }
             adapter.setItemList(names.toTypedArray(), images.toIntArray(), matchingIndices.orEmpty())
         }
     }
@@ -137,9 +136,7 @@ class ShopFragment : Fragment(), ShopSupplier.RefreshShopCallback,
 
 
             names = itemList.map { it.item_name }
-            //TODO create splasharts for items and set their ids in database
-            // images = itemList.map { it.image_resource_id }
-            images = itemList.map { R.drawable.rpg_logo_sm }
+            images = itemList.map { it.image_resource_id }
             adapter.setItemList(names.toTypedArray(), images.toIntArray(),matchingIndices.orEmpty())
             adapter.setListener(object : EquipmentFragment.CustomRecyclerAdapter.Listener {
             override fun onClick(position: Int) {

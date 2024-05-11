@@ -137,9 +137,7 @@ class EquipmentFragment : Fragment() {
         var matchingIndices = EquipmentManager.getMatchingIndicesAsBooleans(equipmentItemList)
 
         val names = equipmentItemList.map { it.item_name }
-        //TODO create splasharts for items and set their ids in database
-        // images = itemList.map { it.image_resource_id }
-        val images = equipmentItemList.map { R.drawable.rpg_logo_sm }
+        val images = equipmentItemList.map { it.image_resource_id }
         adapter.setItemList(names.toTypedArray(), images.toIntArray(),matchingIndices.orEmpty() )
 
         adapter.setListener(object : CustomRecyclerAdapter.Listener {
