@@ -155,14 +155,6 @@ class CharacterCreatorFragment : Fragment() {
         }
     }
 
-
-    fun setStatisticDisplay()
-    {
-        //TODO we fragmencie Display tworzyć fragmenty i przekazywać do nich wartości do wyświetlenia
-        //TODO zamiast tworzyć fragmenty na sztywno w xml
-    }
-
-
     fun createBaseCharacters(){
 
         var builder = CharacterBuilder()

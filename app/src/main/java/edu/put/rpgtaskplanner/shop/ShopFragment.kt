@@ -4,6 +4,7 @@ package edu.put.rpgtaskplanner.shop
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,13 +12,18 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import edu.put.rpgtaskplanner.R
 import edu.put.rpgtaskplanner.character.equipment.EquipmentFragment
 import edu.put.rpgtaskplanner.character.equipment.ItemDetailsActivity
 import edu.put.rpgtaskplanner.model.Item
+import edu.put.rpgtaskplanner.repository.UserRepository
 import edu.put.rpgtaskplanner.utility.EquipmentManager
 import edu.put.rpgtaskplanner.utility.ShopSupplier
 import edu.put.rpgtaskplanner.utility.UserManager
+import java.util.Calendar
+import java.util.Date
 
 class ShopFragment : Fragment(), ShopSupplier.RefreshShopCallback,
     ShopSupplier.OnDeleteItemListener {
@@ -27,6 +33,10 @@ class ShopFragment : Fragment(), ShopSupplier.RefreshShopCallback,
     }
 
     private lateinit var itemClickListener: ShopItemClickListener
+
+    private val db = Firebase.firestore
+    private val userRepository = UserRepository(db)
+
 
     private var shopSupplier: ShopSupplier? = null
     private var names: List<String> = listOf()
@@ -56,12 +66,30 @@ class ShopFragment : Fragment(), ShopSupplier.RefreshShopCallback,
 
         val user = UserManager.getCurrentUser()
 
-        // TODO run this once a day
-                shopSupplier?.refreshShop(this)
+        if(user != null)
+        {
+
+            if(user.next_shop_refresh < Date())
+            {
+                val calendar = Calendar.getInstance()
+                calendar.add(Calendar.DAY_OF_YEAR, 1)
+                calendar.set(Calendar.HOUR_OF_DAY, 0)
+                calendar.set(Calendar.MINUTE, 0)
+                calendar.set(Calendar.SECOND, 0)
+                calendar.set(Calendar.MILLISECOND, 0)
+                user.next_shop_refresh = calendar.time
+                userRepository.saveUser(user) {
+                    shopSupplier?.refreshShop(this)
+                    Log.d("SHOP", "SHOP REFRESHED!")
+                }
+
+            }
+
+        }
 
         if(user != null)
         {
-//            shopSupplier?.fetchShopFromLocalDb(this, user.character_id)
+            shopSupplier?.fetchShopFromLocalDb(this, user.character_id)
         }
 
 

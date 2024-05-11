@@ -13,7 +13,8 @@ class UserRepository(private val firestore: FirebaseFirestore) {
         character_id,
         easy_task_done,
         medium_task_done,
-        hard_task_done
+        hard_task_done,
+        next_refresh_date
     }
 
     fun getUserByEmail(userEmail: String, onComplete: (User?) -> Unit) {

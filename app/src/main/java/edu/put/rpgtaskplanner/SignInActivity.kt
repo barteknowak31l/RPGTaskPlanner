@@ -30,6 +30,7 @@ import edu.put.rpgtaskplanner.task_list.TaskListActivity
 import edu.put.rpgtaskplanner.utility.CharacterManager
 import edu.put.rpgtaskplanner.utility.EquipmentHandler
 import edu.put.rpgtaskplanner.utility.UserManager
+import java.util.Date
 
 class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener, EquipmentHandler.EquipmentHandlerCallback {
 
@@ -163,7 +164,6 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener, Equipme
 
     fun onLoginSuccess(email: String)
     {
-        //TODO call this function on login success with google and email auth
 
         // check if user already has had character created
         userRepository.getUserByEmail(email) { user ->
@@ -196,6 +196,7 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener, Equipme
                 val newUser = User()
                 newUser.email = email
                 newUser.character_id = ""
+                newUser.next_shop_refresh = Date()
                 userRepository.saveUser(newUser) { success ->
                     if (success) {
                         val intent : Intent = Intent(this, CharacterCreatorActivity::class.java)

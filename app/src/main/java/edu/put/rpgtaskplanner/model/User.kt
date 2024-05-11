@@ -1,5 +1,7 @@
 package edu.put.rpgtaskplanner.model
 
+import java.util.Date
+
 class User {
 
     var email: String = ""
@@ -7,4 +9,5 @@ class User {
     var easy_task_done: Int = 0
     var medium_task_done: Int = 0
     var hard_task_done: Int = 0
+    lateinit var next_shop_refresh: Date
 }
