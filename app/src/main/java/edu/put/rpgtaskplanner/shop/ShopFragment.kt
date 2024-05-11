@@ -102,6 +102,9 @@ class ShopFragment : Fragment(), ShopSupplier.RefreshShopCallback,
                 itemClickListener.onShopItemClick(position)
 
             }
+            override fun onLongClick(position: Int) {
+                true
+            }
         })
 
         val layoutManager = GridLayoutManager(activity, 2)
@@ -138,6 +141,20 @@ class ShopFragment : Fragment(), ShopSupplier.RefreshShopCallback,
             // images = itemList.map { it.image_resource_id }
             images = itemList.map { R.drawable.rpg_logo_sm }
             adapter.setItemList(names.toTypedArray(), images.toIntArray(),matchingIndices.orEmpty())
+            adapter.setListener(object : EquipmentFragment.CustomRecyclerAdapter.Listener {
+            override fun onClick(position: Int) {
+                itemClickListener.onShopItemClick(position)
+            }
+
+            override fun onLongClick(position: Int) {
+                itemClickListener.onShopItemClick(position)
+                EquipmentManager.setCurrentItem(shopItemList[position])
+                val intent = Intent(context, ItemDetailsActivity::class.java);
+                intent.putExtra("name",names[position])
+                startActivity(intent)
+                true
+            }
+        })
     }
 
     companion object

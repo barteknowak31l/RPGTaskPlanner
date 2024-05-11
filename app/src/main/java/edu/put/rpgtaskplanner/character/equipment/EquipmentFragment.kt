@@ -25,13 +25,15 @@ import java.util.stream.Collectors
 
 class EquipmentFragment : Fragment() {
 
-    private var equipmentItemList: List<Item> = listOf()
+
     private val db = Firebase.firestore
     private val itemRepository = ItemRepository(db)
     private lateinit var adapter: CustomRecyclerAdapter
     private var itemType:Int? = 0
 
-
+    companion object{
+        var equipmentItemList: List<Item> = listOf()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,6 +66,7 @@ class EquipmentFragment : Fragment() {
 
         interface Listener {
             fun onClick(position: Int)
+            fun onLongClick(position: Int)
         }
 
         fun setListener(listener: Listener?) {
@@ -110,6 +113,12 @@ class EquipmentFragment : Fragment() {
             cardView.setOnClickListener {
                 listener?.onClick(position)
             }
+
+            cardView.setOnLongClickListener {
+                listener?.onLongClick(position)
+                true
+            }
+
         }
 
         override fun getItemCount(): Int {
@@ -136,6 +145,14 @@ class EquipmentFragment : Fragment() {
                 val intent = Intent(context, ItemDetailsActivity::class.java);
                 intent.putExtra("name",names[position])
                 startActivity(intent)
+            }
+
+            override fun onLongClick(position: Int) {
+                EquipmentManager.setCurrentItem(equipmentItemList[position])
+                val intent = Intent(context, ItemDetailsActivity::class.java);
+                intent.putExtra("name",names[position])
+                startActivity(intent)
+                true
             }
         })
     }
