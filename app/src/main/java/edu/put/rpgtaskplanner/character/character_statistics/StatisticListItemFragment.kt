@@ -86,7 +86,7 @@ class StatisticListItemFragment : Fragment(){
                     }
                 }
                 StatisticTypes.EXP_MULTIPLIER -> {
-                    statisticTextView.text = getString(R.string.stats_exp_multiplier,character.exp_multiplier.toString())
+                    statisticTextView.text = getString(R.string.stats_exp_multiplier,character.gold_multiplier.toString())
                 }
                 StatisticTypes.GOLD_MULTIPLIER ->
                 {

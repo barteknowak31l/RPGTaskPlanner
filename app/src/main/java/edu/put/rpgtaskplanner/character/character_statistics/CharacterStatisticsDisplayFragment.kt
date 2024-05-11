@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentContainerView
 import edu.put.rpgtaskplanner.R
 import edu.put.rpgtaskplanner.model.StatisticTypes
 import edu.put.rpgtaskplanner.utility.CharacterManager
+import edu.put.rpgtaskplanner.utility.UserManager
 
 class CharacterStatisticsDisplayFragment : Fragment() {
     override fun onCreateView(
@@ -128,6 +129,27 @@ class CharacterStatisticsDisplayFragment : Fragment() {
 
         val currentGoldExp = rootView.findViewById<TextView>(R.id.currentGoldTextView)
         currentGoldExp.text = getString(R.string.current_gold_activity_character, character.current_gold.toString())
+
+
+        // display more details only if character is availble (to prevent displaying it in character creation)
+        val user = UserManager.getCurrentUser()
+        if(user != null && user.character_id != "")
+        {
+            val trophiesFragment = TrophiesFragment()
+            childFragmentManager.beginTransaction()
+                .replace(R.id.trophiesFragment, trophiesFragment)
+                .commit()
+        }
+        else {
+            currentLevelTextView.height = 0
+            expTextView.height = 0
+            nextLevelExp.height = 0
+            currentGoldExp.height = 0
+            val trophiesFragment =childFragmentManager.findFragmentById(R.id.trophiesFragment)
+                if(trophiesFragment != null)
+                    childFragmentManager.beginTransaction().remove(trophiesFragment).commit()
+        }
+
 
 
         return rootView

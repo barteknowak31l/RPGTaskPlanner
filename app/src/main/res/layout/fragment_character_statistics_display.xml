@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:baselineAligned="false"
         android:background="@drawable/rounded_shape"
-        android:layout_marginHorizontal="10dp"
+        android:layout_marginHorizontal="5dp"
 
         android:orientation="horizontal">
 
@@ -112,11 +112,12 @@
     <TextView
         android:layout_marginHorizontal="10dp"
         android:id="@+id/levelTextView"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="@string/current_level_activity_character"
-        android:background="@color/button_color"
+        android:background="@drawable/rounded_shape"
         android:textSize="14sp" />
 
     <TextView
@@ -124,11 +125,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
-
         android:gravity="center_horizontal"
         android:text="@string/current_exp_activity_character"
-        android:background="@color/button_color"
-
+        android:background="@drawable/rounded_shape"
         android:textSize="14sp" />
 
     <TextView
@@ -136,10 +135,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
-
         android:gravity="center_horizontal"
         android:text="@string/next_level_exp_activity_character"
-        android:background="@color/button_color"
+        android:background="@drawable/rounded_shape"
 
         android:textSize="14sp" />
 
@@ -148,12 +146,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
-
         android:gravity="center_horizontal"
         android:text="@string/current_gold_activity_character"
-        android:background="@color/button_color"
-
+        android:background="@drawable/rounded_shape"
         android:textSize="14sp" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/trophiesFragment"
+        android:background="@drawable/rounded_shape"
+        android:layout_marginVertical="10dp"
+        android:layout_marginHorizontal="10dp"
+        android:name="edu.put.rpgtaskplanner.character.character_statistics.TrophiesFragment"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
 </LinearLayout>
 

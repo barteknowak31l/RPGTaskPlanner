@@ -119,11 +119,9 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener, Equipme
     override fun onStart()
     {
         super.onStart();
-        if(firebaseAuth.currentUser != null)
+        if(firebaseAuth.currentUser != null && UserManager.getCurrentUser() == null)
         {
             onLoginSuccess(firebaseAuth.currentUser!!.email.toString())
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
         }
     }
 
@@ -132,8 +130,6 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener, Equipme
             firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
-//                        val intent = Intent(this, MainActivity::class.java)
-//                        startActivity(intent)
                         onLoginSuccess(email)
 
                     } else {
@@ -167,7 +163,7 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener, Equipme
 
     fun onLoginSuccess(email: String)
     {
-        //TODO call this function on login succes with google and email auth
+        //TODO call this function on login success with google and email auth
 
         // check if user already has had character created
         userRepository.getUserByEmail(email) { user ->
