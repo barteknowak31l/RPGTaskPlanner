@@ -7,12 +7,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import edu.put.rpgtaskplanner.R
 import edu.put.rpgtaskplanner.character.equipment.EquipmentActivity
+import edu.put.rpgtaskplanner.model.CharacterClass
 import edu.put.rpgtaskplanner.model.ItemType
+import edu.put.rpgtaskplanner.model.Character
+import edu.put.rpgtaskplanner.utility.CharacterManager
 
 
 class CharacterInventoryFragment : Fragment() {
+
+    private lateinit var characterDisplay: ImageView
+    private lateinit var characterNameTextView: TextView
+
 
     enum class INTENT_DATA{
         EQUIPMENT_TYPE
@@ -23,6 +31,19 @@ class CharacterInventoryFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_character_inventory, container, false)
+
+        characterDisplay = view.findViewById(R.id.characterDisplay)
+        characterNameTextView = view.findViewById(R.id.textViewCharacterName)
+
+        val character = CharacterManager.getCurrentCharacter()
+        if(character != null)
+        {
+            val char_class = CharacterClass.fromId(character.character_class)
+            if(char_class != null)
+            {
+                Character.setCharacterDisplay(char_class,character.character_name, characterDisplay,characterNameTextView)
+            }
+        }
 
         val helmet = view.findViewById<ImageView>(R.id.imageViewHelmet)
         helmet.setOnClickListener {

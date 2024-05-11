@@ -1,5 +1,8 @@
 package edu.put.rpgtaskplanner.model
 
+import android.widget.ImageView
+import android.widget.TextView
+import edu.put.rpgtaskplanner.R
 import java.util.Date
 
 enum class CharacterClass(val id: Int) {
@@ -83,8 +86,32 @@ class Character {
             }
 
         }
+        fun setCharacterDisplay(currentClass: CharacterClass, characterName: String, characterDisplay: ImageView, nameDisplay: TextView?)
+        {
+            if(nameDisplay != null)
+            {
+                nameDisplay.text = characterName
+            }
+
+            when (currentClass)
+            {
+                CharacterClass.WARRIOR -> {
+                    characterDisplay.setImageResource(R.drawable.karlach)
+                }
+
+                CharacterClass.ROGUE -> {
+                    characterDisplay.setImageResource(R.drawable.astarion)
+                }
+
+                CharacterClass.MAGE -> {
+                    characterDisplay.setImageResource(R.drawable.gale)
+                }
+            }
+        }
+
 
     }
+
 
 
 }

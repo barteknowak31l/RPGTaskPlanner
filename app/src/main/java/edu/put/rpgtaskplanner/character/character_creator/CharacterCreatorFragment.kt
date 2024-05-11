@@ -77,6 +77,8 @@ class CharacterCreatorFragment : Fragment() {
         characterDisplay = view.findViewById(R.id.characterDisplay)
         setCharacterDisplay()
 
+
+
         classNameTextView = view.findViewById(R.id.textViewClass)
         setClassNameTextView()
 
@@ -119,23 +121,6 @@ class CharacterCreatorFragment : Fragment() {
         currentClass = CharacterClass.entries.getOrNull(index)!!
     }
 
-    fun setCharacterDisplay()
-    {
-        when (currentClass)
-        {
-            CharacterClass.WARRIOR -> {
-                characterDisplay.setImageResource(R.drawable.karlach)
-            }
-
-            CharacterClass.ROGUE -> {
-                characterDisplay.setImageResource(R.drawable.astarion)
-            }
-
-            CharacterClass.MAGE -> {
-                characterDisplay.setImageResource(R.drawable.gale)
-            }
-        }
-    }
 
     fun setClassNameTextView()
     {
@@ -217,6 +202,16 @@ class CharacterCreatorFragment : Fragment() {
 
 
     }
+
+    fun setCharacterDisplay()
+    {
+        val character = CharacterManager.getCurrentCharacter()
+        if(character != null)
+        {
+                Character.setCharacterDisplay(currentClass,character.character_name, characterDisplay,null)
+        }
+    }
+
 
 
 }
