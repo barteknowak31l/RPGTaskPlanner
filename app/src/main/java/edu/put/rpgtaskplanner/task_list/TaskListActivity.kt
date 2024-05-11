@@ -129,7 +129,7 @@ class TaskListActivity : AppCompatActivity(), TaskListFragment.Listener {
                     startActivity(intent)
                     true
                 }
-                R.id.menu_logout ->
+                R.id.menu_main ->
                 {
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)

@@ -63,7 +63,7 @@ class CharacterActivity : FragmentActivity() {
                     startActivity(intent)
                     true
                 }
-                R.id.menu_logout ->
+                R.id.menu_main ->
                 {
                     val intent = Intent(this, MainActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP

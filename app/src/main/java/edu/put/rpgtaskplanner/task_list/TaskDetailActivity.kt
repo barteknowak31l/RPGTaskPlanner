@@ -69,7 +69,7 @@ class TaskDetailActivity : AppCompatActivity() {
                     startActivity(intent)
                     true
                 }
-                R.id.menu_logout ->
+                R.id.menu_main ->
                 {
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)

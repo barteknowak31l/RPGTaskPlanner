@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">RPGTaskPlanner</string>
+    <string name="app_name">RPG Task Planner</string>
     <string name="title_activity_sign_in">SignInActivity</string>
     <string name="title_activity_sign_up">SignUpActivity</string>
 
-    <string name="main_activity_sign_out_button">Sign out</string>
+    <string name="main_activity_sign_out_button">Wyloguj się</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_character_creator">CharacterCreator</string>
 
@@ -70,7 +70,7 @@
     <string name="menu_task_list">Zadania</string>
     <string name="menu_character">Postać</string>
     <string name="menu_shop">Sklep</string>
-    <string name="menu_logout">Wyloguj</string>
+    <string name="menu_main">Ekran główny</string>
     <string name="user_email">Email</string>
     <string name="user_name">Nazwa użytkownika</string>
 
@@ -144,6 +144,8 @@
     <string name="item_equipped_item_details_fragment">Założono przedmiot %s</string>
     <string name="toast_account_created">Konto utworzone\\nMożesz się teraz zalogować</string>
     <string name="toast_orb_refresh">%s/%s\nNastępne odświeżenie o wartość: %s\nNastąpi: %s</string>
+    <string name="menu_share">Udostępnij</string>
+    <string name="menu_character_hello">Hello %s!</string>
 
 
 </resources>

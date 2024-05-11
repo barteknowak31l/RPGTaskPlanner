@@ -25,6 +25,7 @@ import edu.put.rpgtaskplanner.databinding.ActivitySignInBinding
 import edu.put.rpgtaskplanner.shop.ShopActivity
 import edu.put.rpgtaskplanner.task_list.TaskListActivity
 import edu.put.rpgtaskplanner.ui.theme.RPGTaskPlannerTheme
+import edu.put.rpgtaskplanner.utility.CharacterManager
 
 class MainActivity : AppCompatActivity() {
 
@@ -42,13 +43,34 @@ class MainActivity : AppCompatActivity() {
         val email = intent.getStringExtra("email")
         val displayName = intent.getStringExtra("name")
 
-        binding.textView.text = "Hello " + displayName + "\n" + email
+        val character = CharacterManager.getCurrentCharacter()
+        if(character != null)
+        {
+            binding.textViewCharacterName.text = getString(R.string.menu_character_hello,character.character_name)
+        }
+
 
         binding.buttonSignOut.setOnClickListener{
             firebaseAuth.signOut()
             startActivity(Intent(this, SignInActivity::class.java))
-//            finish()
             Toast.makeText(this, "Logout succesful",Toast.LENGTH_SHORT).show()
+        }
+
+
+        binding.menuTaskList.setOnClickListener{
+            val intent = Intent(this, TaskListActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
+        }
+        binding.menuCharacter.setOnClickListener{
+            val intent = Intent(this, CharacterActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
+        }
+        binding.menuShop.setOnClickListener{
+            val intent = Intent(this, ShopActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
         }
 
         // navigation
@@ -79,7 +101,7 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                     true
                 }
-                R.id.menu_logout ->
+                R.id.menu_main ->
                 {
                     true
                 }

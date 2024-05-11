@@ -15,7 +15,7 @@
         android:title="@string/menu_shop" />
 
     <item
-        android:id="@+id/menu_logout"
-        android:title="@string/menu_logout" />
+        android:id="@+id/menu_main"
+        android:title="@string/menu_main" />
 
 </menu>
