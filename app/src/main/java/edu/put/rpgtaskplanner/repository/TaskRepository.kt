@@ -136,4 +136,31 @@ class TaskRepository(private val firestore: FirebaseFirestore) {
     }
 
 
+    fun deleteTaskByCharacterId(taskName: String, characterId: String, onComplete: (Boolean) -> Unit) {
+        // Znajdź zadanie na podstawie nazwy i ID postaci
+        collection.whereEqualTo(TaskFields.task_name.name, taskName)
+            .whereEqualTo(TaskFields.character_id.name, characterId)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                if (!querySnapshot.isEmpty) {
+                    // Jeśli istnieje zadanie o podanej nazwie i ID postaci, usuń je
+                    val documentId = querySnapshot.documents[0].id
+                    collection.document(documentId)
+                        .delete()
+                        .addOnSuccessListener {
+                            onComplete(true)
+                        }
+                        .addOnFailureListener { exception ->
+                            onComplete(false)
+                        }
+                } else {
+                    // Jeśli nie znaleziono zadania o podanej nazwie i ID postaci, zwróć informację o niepowodzeniu
+                    onComplete(false)
+                }
+            }
+            .addOnFailureListener { exception ->
+                onComplete(false)
+            }
+    }
+
 }

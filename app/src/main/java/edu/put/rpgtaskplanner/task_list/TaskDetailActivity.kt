@@ -149,16 +149,7 @@ class TaskDetailActivity : AppCompatActivity() {
                    }
                }
 
-               val taskUpdateMap = mapOf(
-                   TaskRepository.TaskFields.status to task.status
-               )
-               taskRepository.updateTaskByCharacterId(task.task_name, user.character_id, taskUpdateMap ) {success ->
-                   if(success) {
-
-                   } else {
-
-                   }
-               }
+               taskRepository.deleteTaskByCharacterId(task.task_name,user.character_id) {}
 
                Toast.makeText(this, getText(R.string.toast_task_done),Toast.LENGTH_SHORT).show()
                val intent = Intent(this, TaskListActivity::class.java)
