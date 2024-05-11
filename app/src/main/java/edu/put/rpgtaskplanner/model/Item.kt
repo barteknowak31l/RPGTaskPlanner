@@ -2,7 +2,6 @@
 
     import android.content.Context
     import edu.put.rpgtaskplanner.R
-    import edu.put.rpgtaskplanner.roomDAO.ItemDAO
     import edu.put.rpgtaskplanner.roomEntity.ItemEntity
     import edu.put.rpgtaskplanner.utility.UserManager
 

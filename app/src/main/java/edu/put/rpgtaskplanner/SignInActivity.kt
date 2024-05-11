@@ -12,21 +12,16 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
-import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import edu.put.rpgtaskplanner.character.CharacterActivity
 import edu.put.rpgtaskplanner.character.character_creator.CharacterCreatorActivity
 import edu.put.rpgtaskplanner.databinding.ActivitySignInBinding
-import edu.put.rpgtaskplanner.model.Character
 import edu.put.rpgtaskplanner.model.Item
 import edu.put.rpgtaskplanner.model.User
 import edu.put.rpgtaskplanner.repository.CharacterRepository
 import edu.put.rpgtaskplanner.repository.UserRepository
-import edu.put.rpgtaskplanner.shop.ShopActivity
-import edu.put.rpgtaskplanner.task_list.TaskListActivity
 import edu.put.rpgtaskplanner.utility.CharacterManager
 import edu.put.rpgtaskplanner.utility.EquipmentHandler
 import edu.put.rpgtaskplanner.utility.UserManager
@@ -43,7 +38,6 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener, Equipme
     val characterRepository = CharacterRepository(db)
 
     private var equipmentHandler: EquipmentHandler? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -99,14 +93,7 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener, Equipme
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener{
             if(it.isSuccessful)
             {
-//                val intent : Intent = Intent(this, MainActivity::class.java)
-//                intent.putExtra("email", account.email)
-//                intent.putExtra("name", account.displayName)
-//
-//                startActivity(intent)
-
                 onLoginSuccess(account.email.toString())
-
             }
             else
             {
@@ -154,10 +141,6 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener, Equipme
     override fun signUpClicked() {
         val intent = Intent(this, SignUpActivity::class.java)
 
-//        val intent = Intent(this, CharacterCreatorActivity::class.java)
-//        val intent = Intent(this, TaskListActivity::class.java)
-//        val intent = Intent(this, CharacterActivity::class.java)
-//        val intent = Intent(this, ShopActivity::class.java)
         startActivity(intent)
     }
 
@@ -209,8 +192,6 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener, Equipme
             }
 
         }
-
-
     }
 
     override fun onItemEquipped(item: Item?) {

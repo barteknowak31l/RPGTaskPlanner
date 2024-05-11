@@ -22,10 +22,6 @@ class EquipmentHandler(val context: Context, val lifecycleOwner: LifecycleOwner,
     private val db = Firebase.firestore
     private val itemRepository = ItemRepository(db)
 
-    // equip - save item to items in use
-    // unequip - delete item from items in use
-
-
     fun equipItem(characterId: String, item: Item, callback: EquipmentHandlerCallback?) {
 
         lifecycleScope.launch {

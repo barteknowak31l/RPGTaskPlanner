@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.FragmentContainerView
 import edu.put.rpgtaskplanner.R
 import edu.put.rpgtaskplanner.model.StatisticTypes
 import edu.put.rpgtaskplanner.utility.CharacterManager
@@ -18,7 +17,6 @@ class CharacterStatisticsDisplayFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-
         val rootView = inflater.inflate(R.layout.fragment_character_statistics_display, container, false)
 
         val statisticLeft1Fragment = StatisticListItemFragment()
@@ -156,11 +154,6 @@ class CharacterStatisticsDisplayFragment : Fragment() {
             if(trophiesFragment != null)
                 childFragmentManager.beginTransaction().remove(trophiesFragment).commit()
         }
-
-
-
         return rootView
     }
-
-
 }

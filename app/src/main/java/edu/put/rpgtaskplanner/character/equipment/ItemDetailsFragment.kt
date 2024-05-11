@@ -68,9 +68,6 @@ class ItemDetailsFragment : Fragment(), EquipmentHandler.EquipmentHandlerCallbac
             val drawable = ContextCompat.getDrawable(requireContext(), currentItem.image_resource_id)
             itemDisplayImageView.setImageDrawable(drawable)
         }
-
-
-
         return view;
     }
 

@@ -29,8 +29,6 @@ class TrophiesFragment : Fragment() {
             mediumTextView.text = user.medium_task_done.toString()
             hardTextView.text = user.hard_task_done.toString()
         }
-
-
         return rootView
     }
 

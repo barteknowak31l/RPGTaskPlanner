@@ -1,18 +1,13 @@
 package edu.put.rpgtaskplanner.utility
 
-import android.util.Log
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import edu.put.rpgtaskplanner.R
 import edu.put.rpgtaskplanner.model.Task
 import edu.put.rpgtaskplanner.model.TaskDifficulty
 import edu.put.rpgtaskplanner.model.TaskStatus
-import edu.put.rpgtaskplanner.model.User
 import edu.put.rpgtaskplanner.repository.CharacterRepository
 import edu.put.rpgtaskplanner.repository.TaskRepository
 import java.util.Date
-import java.sql.Timestamp
-import java.text.DecimalFormat
 import java.util.Calendar
 
 class TaskCreator {
@@ -158,7 +153,4 @@ class TaskCreator {
             }
         }
     }
-
-
-
 }

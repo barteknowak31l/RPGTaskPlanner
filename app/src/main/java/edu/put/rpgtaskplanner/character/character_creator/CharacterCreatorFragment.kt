@@ -55,7 +55,6 @@ class CharacterCreatorFragment : Fragment() {
         val character = getBaseCharacter()
         CharacterManager.setCurrentCharacter(character)
 
-        // Sprawdź, czy aktywność implementuje interfejs
         if (context is CharacterClassChangeListener) {
             characterClassListener = context
             characterClassListener!!.onClassChange()
@@ -70,20 +69,15 @@ class CharacterCreatorFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-
         val view = inflater.inflate(R.layout.fragment_character_creator, container, false)
-
 
         characterDisplay = view.findViewById(R.id.characterDisplay)
         setCharacterDisplay()
-
-
 
         classNameTextView = view.findViewById(R.id.textViewClass)
         setClassNameTextView()
 
         characterNameEditText = view.findViewById(R.id.editTextCharacterName)
-
 
         val buttonPrevClass = view.findViewById<Button>(R.id.buttonPrevClass)
         buttonPrevClass.setOnClickListener {
@@ -94,7 +88,6 @@ class CharacterCreatorFragment : Fragment() {
             characterClassListener!!.onClassChange()
 
         }
-
         val buttonNextClass = view.findViewById<Button>(R.id.buttonNextClass)
         buttonNextClass.setOnClickListener {
             nextClassOnClick()
@@ -103,25 +96,20 @@ class CharacterCreatorFragment : Fragment() {
             CharacterManager.setCurrentCharacter(getBaseCharacter())
             characterClassListener!!.onClassChange()
         }
-
         return view
     }
-
     fun nextClassOnClick()
     {
         var index = currentClass.id
         index = if (index == CharacterClass.entries.toTypedArray().maxOf{it.id})  0 else index + 1
         currentClass = CharacterClass.entries.getOrNull(index)!!
     }
-
     fun previousOnClick()
     {
         var index = currentClass.id
         index = if (index == 0)  CharacterClass.entries.toTypedArray().maxOf{it.id} else index - 1
         currentClass = CharacterClass.entries.getOrNull(index)!!
     }
-
-
     fun setClassNameTextView()
     {
         when (currentClass)
@@ -139,7 +127,6 @@ class CharacterCreatorFragment : Fragment() {
             }
         }
     }
-
     fun createBaseCharacters(){
 
         var builder = CharacterBuilder()
@@ -149,7 +136,6 @@ class CharacterCreatorFragment : Fragment() {
         builder = CharacterBuilder()
         characterBaseMage = builder.buildBaseMage()
     }
-
     fun getBaseCharacter(): Character
     {
          return when (currentClass) {
@@ -158,11 +144,9 @@ class CharacterCreatorFragment : Fragment() {
             CharacterClass.MAGE -> characterBaseMage
         }
     }
-
-    public fun submitCharacterOnClick()
+    fun submitCharacterOnClick()
     {
         characterName = characterNameEditText.text.toString()
-
         if (characterName.trim() == "")
         {
             Toast.makeText(context, "Nazwa postaci nie może być pusta!", Toast.LENGTH_SHORT).show()
@@ -170,7 +154,6 @@ class CharacterCreatorFragment : Fragment() {
         }
 
         var character = getBaseCharacter()
-
         character.character_name = characterName
 
         characterRepository.saveCharacter(character) { success, id ->
@@ -195,14 +178,10 @@ class CharacterCreatorFragment : Fragment() {
                 }
 
             } else {
-
                 Toast.makeText(context,getText(R.string.database_save_error),Toast.LENGTH_SHORT).show()
             }
         }
-
-
     }
-
     fun setCharacterDisplay()
     {
         val character = CharacterManager.getCurrentCharacter()
@@ -211,7 +190,4 @@ class CharacterCreatorFragment : Fragment() {
                 Character.setCharacterDisplay(currentClass,character.character_name, characterDisplay,null)
         }
     }
-
-
-
 }

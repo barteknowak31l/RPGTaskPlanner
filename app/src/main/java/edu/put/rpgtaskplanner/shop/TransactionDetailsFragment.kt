@@ -10,15 +10,12 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
-import androidx.room.Room
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import edu.put.rpgtaskplanner.R
-import edu.put.rpgtaskplanner.character.equipment.EquipmentFragment
 import edu.put.rpgtaskplanner.model.Item
 import edu.put.rpgtaskplanner.repository.CharacterRepository
 import edu.put.rpgtaskplanner.repository.ItemRepository
-import edu.put.rpgtaskplanner.roomDatabase.ItemDatabase
 import edu.put.rpgtaskplanner.utility.CharacterManager
 import edu.put.rpgtaskplanner.utility.ShopSupplier
 import edu.put.rpgtaskplanner.utility.UserManager
@@ -137,9 +134,6 @@ class TransactionDetailsFragment : Fragment(), ShopSupplier.OnDeleteItemListener
             clearTransactionDetails()
         }
 
-
-
-
         return view
     }
 
@@ -183,21 +177,13 @@ class TransactionDetailsFragment : Fragment(), ShopSupplier.OnDeleteItemListener
                         Toast.makeText(context, getString(R.string.toast_item_bought_error), Toast.LENGTH_SHORT).show()
                     }
                 }
-
-
-
-
             }
             else
             {
                 Toast.makeText(context,getString(R.string.toast_item_too_expensive),Toast.LENGTH_SHORT).show()
             }
         }
-
-
-
     }
-
 
     fun clearTransactionDetails()
     {

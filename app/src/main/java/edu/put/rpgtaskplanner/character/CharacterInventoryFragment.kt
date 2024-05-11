@@ -197,8 +197,5 @@ class CharacterInventoryFragment : Fragment() {
                 helmet.setImageDrawable(drawable)
             }
         }
-
     }
-
-
 }

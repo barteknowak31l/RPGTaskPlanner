@@ -6,7 +6,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.room.Room
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import edu.put.rpgtaskplanner.model.Character
 import edu.put.rpgtaskplanner.model.CharacterClass
 import edu.put.rpgtaskplanner.model.Item
 import edu.put.rpgtaskplanner.model.ItemType
@@ -73,7 +72,6 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                             artifact.base_bonus = CharacterBuilder.BASE_ENERGY_REGEN + artifact.base_bonus * character.level
                             artifact.base_bonus = Math.round(artifact.base_bonus * 100.0)/ 100.0
                             checkAndCallCallback(callback, itemCount, user.character_id)
-                            Log.d("ShopSupplier", "Pobrano artifact " + item.item_name + " lol " + artifact.item_name)
                         }
                     }
                 }
@@ -87,8 +85,6 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                             armour.base_bonus = Math.round(armour.base_bonus * 100.0)/ 100.0
 
                             checkAndCallCallback(callback, itemCount, user.character_id)
-                            Log.d("ShopSupplier", "Pobrano armour")
-
                         }
                     }
                 }
@@ -102,7 +98,6 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                             belt.base_bonus = Math.round(belt.base_bonus * 100.0)/ 100.0
 
                             checkAndCallCallback(callback, itemCount, user.character_id)
-                            Log.d("ShopSupplier", "Pobrano belt")
                         }
                     }
                 }
@@ -116,8 +111,6 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                             boots.base_bonus = Math.round(boots.base_bonus * 100.0)/ 100.0
 
                             checkAndCallCallback(callback, itemCount, user.character_id)
-                            Log.d("ShopSupplier", "Pobrano boots")
-
                         }
                     }
                 }
@@ -131,7 +124,6 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                             helmet.base_bonus = Math.round(helmet.base_bonus * 100.0)/ 100.0
 
                             checkAndCallCallback(callback, itemCount, user.character_id)
-                            Log.d("ShopSupplier", "Pobrano helmet")
                         }
                     }
                 }
@@ -145,7 +137,6 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                             offhand.base_bonus = Math.round(offhand.base_bonus * 100.0)/ 100.0
 
                             checkAndCallCallback(callback, itemCount, user.character_id)
-                            Log.d("ShopSupplier", "Pobrano offhand")
 
                         }
                     }
@@ -159,8 +150,6 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                             ring.base_bonus = CharacterBuilder.BASE_HEALTH_REGEN + ring.base_bonus * character.level
                             ring.base_bonus = Math.round(ring.base_bonus * 100.0)/ 100.0
                             checkAndCallCallback(callback, itemCount, user.character_id)
-                            Log.d("ShopSupplier", "Pobrano ring")
-
                         }
                     }
                 }
@@ -174,8 +163,6 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                             weapon.base_bonus = Math.round(weapon.base_bonus * 100.0)/ 100.0
 
                             checkAndCallCallback(callback, itemCount,user.character_id)
-                            Log.d("ShopSupplier", "Pobrano weapon")
-
                         }
                     }
                 }
@@ -257,6 +244,4 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
             listeners.stream().forEach{ it.onDeleteItem(item)}
         }
     }
-
-
 }

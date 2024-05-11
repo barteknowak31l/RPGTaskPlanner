@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
-import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -42,7 +41,6 @@ class TaskDetailActivity : AppCompatActivity() {
 
         binding = ActivityTaskDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
         // navigation
         val navView: NavigationView = findViewById(R.id.nav_view)

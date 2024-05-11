@@ -9,8 +9,6 @@ import edu.put.rpgtaskplanner.character.character_statistics.CharacterStatistics
 import edu.put.rpgtaskplanner.databinding.ActivityCharacterCreatorBinding
 
 class CharacterCreatorActivity : AppCompatActivity(), CharacterCreatorFragment.CharacterClassChangeListener {
-
-
     private lateinit var binding : ActivityCharacterCreatorBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,10 +26,6 @@ class CharacterCreatorActivity : AppCompatActivity(), CharacterCreatorFragment.C
                 fragment.submitCharacterOnClick()
             }
         }
-
-
-
-
     }
 
     override fun onClassChange() {

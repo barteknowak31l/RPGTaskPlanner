@@ -4,27 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import edu.put.rpgtaskplanner.character.CharacterActivity
 import edu.put.rpgtaskplanner.databinding.ActivityMainBinding
-import edu.put.rpgtaskplanner.databinding.ActivitySignInBinding
 import edu.put.rpgtaskplanner.shop.ShopActivity
 import edu.put.rpgtaskplanner.task_list.TaskListActivity
-import edu.put.rpgtaskplanner.ui.theme.RPGTaskPlannerTheme
 import edu.put.rpgtaskplanner.utility.CharacterManager
 
 class MainActivity : AppCompatActivity() {

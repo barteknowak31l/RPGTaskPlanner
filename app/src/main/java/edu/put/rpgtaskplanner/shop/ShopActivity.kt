@@ -30,8 +30,6 @@ class ShopActivity : AppCompatActivity(), ShopFragment.ShopItemClickListener, Sh
         setContentView(R.layout.activity_shop)
         onShopItemClick(0)
 
-
-
         // navigation
         val navView: NavigationView = findViewById(R.id.nav_view)
         navView.setNavigationItemSelectedListener { menuItem ->
@@ -68,9 +66,7 @@ class ShopActivity : AppCompatActivity(), ShopFragment.ShopItemClickListener, Sh
                 else -> false
             }
         }
-
-
-        }
+    }
 
     override fun onShopItemClick(position: Int) {
 
@@ -99,8 +95,6 @@ class ShopActivity : AppCompatActivity(), ShopFragment.ShopItemClickListener, Sh
                 .replace(R.id.transactionDetailsFragment, fragment)
                 .commit()
         }
-
-
     }
     companion object
     {

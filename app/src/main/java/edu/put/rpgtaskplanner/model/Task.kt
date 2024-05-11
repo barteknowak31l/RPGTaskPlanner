@@ -1,10 +1,6 @@
 package edu.put.rpgtaskplanner.model
 
-import edu.put.rpgtaskplanner.utility.CharacterManager
-import edu.put.rpgtaskplanner.utility.UserManager
-import edu.put.rpgtaskplanner.utility.plus
 import java.util.Date
-import java.sql.Timestamp
 
 enum class TaskDifficulty(val id: Int) {
     DIFFICULTY_EASY(0),

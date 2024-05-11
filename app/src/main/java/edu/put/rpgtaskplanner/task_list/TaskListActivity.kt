@@ -2,10 +2,8 @@ package edu.put.rpgtaskplanner.task_list
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -22,7 +20,6 @@ import edu.put.rpgtaskplanner.utility.CharacterManager
 import edu.put.rpgtaskplanner.utility.CircleFillView
 import edu.put.rpgtaskplanner.utility.UserManager
 import java.text.SimpleDateFormat
-import java.time.Duration
 import java.util.Calendar
 import java.util.Date
 import java.util.concurrent.TimeUnit
@@ -105,8 +102,6 @@ class TaskListActivity : AppCompatActivity(), TaskListFragment.Listener {
                 }
             }
         }
-
-
 
         // navigation
         val navView: NavigationView = findViewById(R.id.nav_view)
@@ -222,8 +217,5 @@ class TaskListActivity : AppCompatActivity(), TaskListFragment.Listener {
             resourceOrb.value = ((character.current_energy / character.max_energy) * 100.0).toInt()
 
         }
-
     }
-
-
 }

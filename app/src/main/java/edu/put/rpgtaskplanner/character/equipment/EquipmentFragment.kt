@@ -1,7 +1,6 @@
 package edu.put.rpgtaskplanner.character.equipment
 
 import android.content.Intent
-import android.content.Intent.getIntent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import edu.put.rpgtaskplanner.R
-import edu.put.rpgtaskplanner.model.CharacterClass
 import edu.put.rpgtaskplanner.model.Item
 import edu.put.rpgtaskplanner.repository.ItemRepository
 import edu.put.rpgtaskplanner.utility.EquipmentManager
@@ -31,8 +29,6 @@ class EquipmentFragment : Fragment() {
     private val itemRepository = ItemRepository(db)
     private lateinit var adapter: CustomRecyclerAdapter
     private var itemType:Int? = 0
-
-
 
     companion object{
         var equipmentItemList: List<Item> = listOf()

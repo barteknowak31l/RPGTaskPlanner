@@ -81,7 +81,6 @@ class ShopFragment : Fragment(), ShopSupplier.RefreshShopCallback,
                 user.next_shop_refresh = calendar.time
                 userRepository.saveUser(user) {
                     shopSupplier?.refreshShop(this)
-                    Log.d("SHOP", "SHOP REFRESHED!")
                 }
 
             }

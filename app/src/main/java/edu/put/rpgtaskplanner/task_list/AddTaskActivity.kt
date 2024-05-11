@@ -21,7 +21,6 @@ class AddTaskActivity : FragmentActivity() {
         binding = ActivityAddTaskBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         // navigation
         val navView: NavigationView = findViewById(R.id.nav_view)
         navView.setNavigationItemSelectedListener { menuItem ->

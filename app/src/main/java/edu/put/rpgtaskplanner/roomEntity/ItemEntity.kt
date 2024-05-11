@@ -1,10 +1,7 @@
 package edu.put.rpgtaskplanner.roomEntity
 
-import android.annotation.SuppressLint
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.PrimaryKey
-import androidx.annotation.NonNull;
 
 @Entity(primaryKeys = ["item_name", "character_id"])
 data class ItemEntity(
