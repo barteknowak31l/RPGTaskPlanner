@@ -27,6 +27,7 @@ class Item {
     var base_bonus: Double = 0.0
     var description: String = ""
     var image_resource_id: Int = 0
+    var image_resource_name = ""
     var level: Int = 0
     var price: Double = 0.0
     var type: Int = 0
@@ -45,7 +46,8 @@ class Item {
                 item.image_resource_id,
                 item.level,
                 item.price,
-                item.type
+                item.type,
+                item.image_resource_name
             )
         }
 
@@ -59,6 +61,7 @@ class Item {
             item.price = entity.price!!
             item.type = entity.type!!
             item.level = entity.level!!
+            item.image_resource_name = entity.image_resource_name!!
             return item
         }
         fun resolveItemStatStringFromType(statValueString: String, type: Int, character_class: Int, context: Context) : String

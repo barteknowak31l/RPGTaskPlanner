@@ -13,4 +13,5 @@ data class ItemEntity(
     @ColumnInfo(name = "level") val level: Int?,
     @ColumnInfo(name = "price") val price: Double?,
     @ColumnInfo(name = "type") val type: Int?,
+    @ColumnInfo(name = "image_resource_name") val image_resource_name: String?,
 )

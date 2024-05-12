@@ -71,6 +71,7 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                             artifact = item
                             artifact.base_bonus = CharacterBuilder.BASE_ENERGY_REGEN + artifact.base_bonus * character.level
                             artifact.base_bonus = Math.round(artifact.base_bonus * 100.0)/ 100.0
+                            artifact.image_resource_id = context.resources.getIdentifier(artifact.image_resource_name,"drawable",context.packageName)
                             checkAndCallCallback(callback, itemCount, user.character_id)
                         }
                     }
@@ -83,6 +84,7 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                             armour = item
                             armour.base_bonus = CharacterBuilder.BASE_HEALTH + armour.base_bonus * character.level
                             armour.base_bonus = Math.round(armour.base_bonus * 100.0)/ 100.0
+                            armour.image_resource_id = context.resources.getIdentifier(armour.image_resource_name,"drawable",context.packageName)
 
                             checkAndCallCallback(callback, itemCount, user.character_id)
                         }
@@ -96,6 +98,7 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                             belt = item
                             belt.base_bonus = CharacterBuilder.BASE_GOLD_MULTIPLIER + belt.base_bonus * character.level
                             belt.base_bonus = Math.round(belt.base_bonus * 100.0)/ 100.0
+                            belt.image_resource_id = context.resources.getIdentifier(belt.image_resource_name,"drawable",context.packageName)
 
                             checkAndCallCallback(callback, itemCount, user.character_id)
                         }
@@ -109,6 +112,7 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                             boots = item
                             boots.base_bonus = CharacterBuilder.BASE_EXP_MULTIPLIER + boots.base_bonus * character.level
                             boots.base_bonus = Math.round(boots.base_bonus * 100.0)/ 100.0
+                            boots.image_resource_id = context.resources.getIdentifier(boots.image_resource_name,"drawable",context.packageName)
 
                             checkAndCallCallback(callback, itemCount, user.character_id)
                         }
@@ -122,6 +126,7 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                             helmet = item
                             helmet.base_bonus = CharacterBuilder.BASE_ENERGY + helmet.base_bonus * character.level
                             helmet.base_bonus = Math.round(helmet.base_bonus * 100.0)/ 100.0
+                            helmet.image_resource_id = context.resources.getIdentifier(helmet.image_resource_name,"drawable",context.packageName)
 
                             checkAndCallCallback(callback, itemCount, user.character_id)
                         }
@@ -135,6 +140,7 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                             offhand = item
                             offhand.base_bonus = CharacterBuilder.BASE_GOLD_MULTIPLIER + offhand.base_bonus * character.level
                             offhand.base_bonus = Math.round(offhand.base_bonus * 100.0)/ 100.0
+                            offhand.image_resource_id = context.resources.getIdentifier(offhand.image_resource_name,"drawable",context.packageName)
 
                             checkAndCallCallback(callback, itemCount, user.character_id)
 
@@ -149,6 +155,8 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                             ring = item
                             ring.base_bonus = CharacterBuilder.BASE_HEALTH_REGEN + ring.base_bonus * character.level
                             ring.base_bonus = Math.round(ring.base_bonus * 100.0)/ 100.0
+                            ring.image_resource_id = context.resources.getIdentifier(ring.image_resource_name,"drawable",context.packageName)
+
                             checkAndCallCallback(callback, itemCount, user.character_id)
                         }
                     }
@@ -161,6 +169,7 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                             weapon = item
                             weapon.base_bonus = CharacterBuilder.BASE_COOLDOWN + weapon.base_bonus * character.level
                             weapon.base_bonus = Math.round(weapon.base_bonus * 100.0)/ 100.0
+                            weapon.image_resource_id = context.resources.getIdentifier(weapon.image_resource_name,"drawable",context.packageName)
 
                             checkAndCallCallback(callback, itemCount,user.character_id)
                         }

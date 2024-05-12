@@ -19,7 +19,8 @@ class ItemRepository(private val firestore: FirebaseFirestore) {
         level,
         price,
         type,
-        item_name
+        item_name,
+        image_resource_name,
     }
 
     fun getItemsByCharacterId(characterId: String, onComplete: (List<Item>) -> Unit) {
