@@ -1,6 +1,7 @@
 package edu.put.rpgtaskplanner
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -14,6 +15,9 @@ import edu.put.rpgtaskplanner.databinding.ActivityMainBinding
 import edu.put.rpgtaskplanner.shop.ShopActivity
 import edu.put.rpgtaskplanner.task_list.TaskListActivity
 import edu.put.rpgtaskplanner.utility.CharacterManager
+import edu.put.rpgtaskplanner.utility.UserManager
+import java.net.URLEncoder
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,9 +31,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         firebaseAuth = FirebaseAuth.getInstance()
-
-        val email = intent.getStringExtra("email")
-        val displayName = intent.getStringExtra("name")
 
         val character = CharacterManager.getCurrentCharacter()
         if(character != null)
@@ -59,6 +60,30 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, ShopActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
+        }
+
+        binding.menuShare.setOnClickListener{
+
+            val user = UserManager.getCurrentUser()
+            val character = CharacterManager.getCurrentCharacter()
+            if(user != null && character != null)
+            {
+                val post = getString(R.string.facebook_post_content,
+                    character.character_name,
+                    character.level.toString(),
+                    user.easy_task_done.toString(),
+                    user.medium_task_done.toString(),
+                    user.hard_task_done.toString())
+
+                val hashtag = getString(R.string.app_hashtag)
+                val encodedPost = URLEncoder.encode(post, "UTF-8")
+                val encodedHashtag = URLEncoder.encode(hashtag, "UTF-8")
+                val tweetUrl = "https://twitter.com/intent/tweet?text=" + encodedPost + "&hashtags=" + encodedHashtag
+                val uri = Uri.parse(tweetUrl)
+                startActivity(Intent(Intent.ACTION_VIEW, uri))
+
+
+            }
         }
 
         // navigation

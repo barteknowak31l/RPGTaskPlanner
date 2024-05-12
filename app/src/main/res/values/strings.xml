@@ -146,6 +146,8 @@
     <string name="toast_orb_refresh">%s/%s\nNastępne odświeżenie o wartość: %s\nNastąpi: %s</string>
     <string name="menu_share">Udostępnij</string>
     <string name="menu_character_hello">Hello %s!</string>
+    <string name="app_hashtag">RPGTaskPlanner</string>
+    <string name="facebook_post_content">%s ma już %s poziom\nWykonane zadania:\n- Łatwe: %s\n- Średnie: %s\n- Trudne: %s\n</string>
 
 
 </resources>
