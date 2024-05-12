@@ -3,6 +3,7 @@ package edu.put.rpgtaskplanner.character.equipment
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -21,9 +22,16 @@ class ItemDetailsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_item_details)
         intent.getStringExtra("name").let { itemName = it.toString() };
 
+        var isFromShop = ""
+        intent.getStringExtra("shop").let {isFromShop = it.toString()}
+
         val fragment = ItemDetailsFragment()
         val bundle = Bundle()
         bundle.putString("name", itemName)
+        if( isFromShop == "shop")
+        {
+            bundle.putString("shop","shop")
+        }
         fragment.arguments = bundle
 
         supportFragmentManager.beginTransaction()

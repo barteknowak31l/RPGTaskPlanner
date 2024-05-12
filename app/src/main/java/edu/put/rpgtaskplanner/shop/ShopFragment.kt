@@ -66,7 +66,7 @@ class ShopFragment : Fragment(), ShopSupplier.RefreshShopCallback,
 
         val user = UserManager.getCurrentUser()
         // TODO remove
-        // shopSupplier?.refreshShop(this)
+        //         shopSupplier?.refreshShop(this)
         if(user != null)
         {
 
@@ -147,6 +147,7 @@ class ShopFragment : Fragment(), ShopSupplier.RefreshShopCallback,
                 EquipmentManager.setCurrentItem(shopItemList[position])
                 val intent = Intent(context, ItemDetailsActivity::class.java);
                 intent.putExtra("name",names[position])
+                intent.putExtra("shop","shop")
                 startActivity(intent)
                 true
             }

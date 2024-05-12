@@ -40,14 +40,28 @@ class ItemDetailsFragment : Fragment(), EquipmentHandler.EquipmentHandlerCallbac
         // Inflate the layout for this fragment
 
         val view = inflater.inflate(R.layout.fragment_item_details, container, false)
+
+        var isFromShop = ""
+        arguments?.getString("shop").let {
+            isFromShop = it.toString()
+        }
+
+
         arguments?.getString("name").let {
             val itemName = it.toString()
             val itemNameTextView = view.findViewById<TextView>(R.id.itemNameTextView)
             itemNameTextView.text = itemName
         }
-
         val equipButton: Button = view.findViewById(R.id.equipButton)
-        equipButton.setOnClickListener{equipButtonOnclick()}
+
+        if (isFromShop == "shop")
+        {
+            equipButton.visibility = View.GONE
+        }
+        else
+        {
+            equipButton.setOnClickListener{equipButtonOnclick()}
+        }
 
         itemTypeTextView = view.findViewById(R.id.itemTypeTextView)
         enhancedStatTextView = view.findViewById(R.id.enhancedStatTextView)
