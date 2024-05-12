@@ -65,8 +65,8 @@ class ShopFragment : Fragment(), ShopSupplier.RefreshShopCallback,
 
 
         val user = UserManager.getCurrentUser()
-        //TODO remove
-        shopSupplier?.refreshShop(this)
+        // TODO remove
+        // shopSupplier?.refreshShop(this)
         if(user != null)
         {
 
