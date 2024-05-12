@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
-import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -43,7 +42,6 @@ class TaskDetailActivity : AppCompatActivity() {
         binding = ActivityTaskDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         // navigation
         val navView: NavigationView = findViewById(R.id.nav_view)
         navView.setNavigationItemSelectedListener { menuItem ->
@@ -69,7 +67,7 @@ class TaskDetailActivity : AppCompatActivity() {
                     startActivity(intent)
                     true
                 }
-                R.id.menu_logout ->
+                R.id.menu_main ->
                 {
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
@@ -112,7 +110,9 @@ class TaskDetailActivity : AppCompatActivity() {
                }
 
                character.current_gold += task.gold_reward
-               character.current_experience += task.gold_reward
+               character.current_gold = Math.round(character.current_gold *100.0)/100.0
+               character.current_experience += task.exp_reward
+               character.current_experience = Math.round(character.current_experience *100.0)/100.0
                if(character.current_experience > character.level * character.level * Constants.NEXT_LEVEL_EXP_REQUIRED_MULT)
                {
                    character.level += 1
@@ -141,22 +141,13 @@ class TaskDetailActivity : AppCompatActivity() {
                )
                characterRepository.updateCharacter(user.character_id, characterUpdateMap) { success ->
                    if (success) {
-
+                        CharacterManager.setCurrentCharacter(character)
                    } else {
 
                    }
                }
 
-               val taskUpdateMap = mapOf(
-                   TaskRepository.TaskFields.status to task.status
-               )
-               taskRepository.updateTaskByCharacterId(task.task_name, user.character_id, taskUpdateMap ) {success ->
-                   if(success) {
-
-                   } else {
-
-                   }
-               }
+               taskRepository.deleteTaskByCharacterId(task.task_name,user.character_id) {}
 
                Toast.makeText(this, getText(R.string.toast_task_done),Toast.LENGTH_SHORT).show()
                val intent = Intent(this, TaskListActivity::class.java)

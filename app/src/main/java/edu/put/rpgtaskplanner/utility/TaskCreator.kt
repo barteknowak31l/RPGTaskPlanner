@@ -1,17 +1,13 @@
 package edu.put.rpgtaskplanner.utility
 
-import android.util.Log
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import edu.put.rpgtaskplanner.R
 import edu.put.rpgtaskplanner.model.Task
 import edu.put.rpgtaskplanner.model.TaskDifficulty
 import edu.put.rpgtaskplanner.model.TaskStatus
-import edu.put.rpgtaskplanner.model.User
 import edu.put.rpgtaskplanner.repository.CharacterRepository
 import edu.put.rpgtaskplanner.repository.TaskRepository
 import java.util.Date
-import java.sql.Timestamp
 import java.util.Calendar
 
 class TaskCreator {
@@ -69,27 +65,30 @@ class TaskCreator {
         // policz nagrody (uwzglednij mnozniki i trudnosc)
         var goldMultiplier = character?.gold_multiplier!!
         var goldReward = (50 + health) * (difficulty + 1) * goldMultiplier
+        goldReward = goldReward.toInt().toDouble()
         task.gold_reward = goldReward
 
         var expMultiplier = character?.exp_multiplier!!
         var expReward = (50 + energy) * (difficulty + 1) * expMultiplier
+        expReward = expReward.toInt().toDouble()
         task.exp_reward = expReward
 
         // policz szacowany czas ukonczenia
         val calendar = Calendar.getInstance().apply {
             timeInMillis = task.start_date.time
         }
+        val cooldownReduction = 1.0 - character.cooldown_reduction
         when(difficulty)
         {
             0 -> {
-                calendar.add(Calendar.HOUR_OF_DAY, 4)
+                calendar.add(Calendar.MINUTE, (240.0 * cooldownReduction).toInt())
             }
             1 -> {
-                calendar.add(Calendar.HOUR_OF_DAY, 8)
+                calendar.add(Calendar.MINUTE, (240.0 * cooldownReduction).toInt())
 
             }
             2 -> {
-                calendar.add(Calendar.HOUR_OF_DAY, 12)
+                calendar.add(Calendar.MINUTE, (720.0 * cooldownReduction).toInt())
             }
         }
         var estimatedEndDate = Date(calendar.timeInMillis)
@@ -132,6 +131,8 @@ class TaskCreator {
         {
             character.current_health -= task.health_cost
             character.current_energy -= task.energy_cost
+            character.current_health = Math.round(character.current_health * 100.0) / 100.0
+            character.current_energy = Math.round(character.current_energy * 100.0) / 100.0
         }
 
         var characterSaveSuccess = false
@@ -141,6 +142,7 @@ class TaskCreator {
         )
         characterRepository.updateCharacter(user?.character_id!!, characterUpdatesMap) { success ->
             characterSaveSuccess = success
+            CharacterManager.setCurrentCharacter(character)
 
             if(success) {
                 taskRepository.saveTask(task) { taskSaveSuccess ->
@@ -151,7 +153,4 @@ class TaskCreator {
             }
         }
     }
-
-
-
 }

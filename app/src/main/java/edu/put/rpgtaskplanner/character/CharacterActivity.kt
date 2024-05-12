@@ -3,9 +3,6 @@ package edu.put.rpgtaskplanner.character
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.AbsoluteSizeSpan
 import android.view.View
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -63,7 +60,7 @@ class CharacterActivity : FragmentActivity() {
                     startActivity(intent)
                     true
                 }
-                R.id.menu_logout ->
+                R.id.menu_main ->
                 {
                     val intent = Intent(this, MainActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -92,7 +89,6 @@ class CharacterActivity : FragmentActivity() {
             }
             return CharacterInventoryFragment()
         }
-
 
         override fun getPageTitle(position: Int): CharSequence {
             val title = when (position) {

@@ -10,15 +10,12 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
-import androidx.room.Room
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import edu.put.rpgtaskplanner.R
-import edu.put.rpgtaskplanner.character.equipment.EquipmentFragment
 import edu.put.rpgtaskplanner.model.Item
 import edu.put.rpgtaskplanner.repository.CharacterRepository
 import edu.put.rpgtaskplanner.repository.ItemRepository
-import edu.put.rpgtaskplanner.roomDatabase.ItemDatabase
 import edu.put.rpgtaskplanner.utility.CharacterManager
 import edu.put.rpgtaskplanner.utility.ShopSupplier
 import edu.put.rpgtaskplanner.utility.UserManager
@@ -38,6 +35,7 @@ class TransactionDetailsFragment : Fragment(), ShopSupplier.OnDeleteItemListener
     private lateinit var typeTextView: TextView
     private lateinit var itemStatTextView: TextView
     private lateinit var currentStatTextView: TextView
+    private lateinit var currentGoldTextView: TextView
 
 
     override fun onAttach(context: Context) {
@@ -72,6 +70,13 @@ class TransactionDetailsFragment : Fragment(), ShopSupplier.OnDeleteItemListener
         typeTextView = view.findViewById<TextView>(R.id.typeTextView)
         itemStatTextView = view.findViewById<TextView>(R.id.itemStatTextView)
         currentStatTextView = view.findViewById<TextView>(R.id.currentStatisticTextView)
+        currentGoldTextView = view.findViewById(R.id.currentGoldTextView)
+
+        val character = CharacterManager.getCurrentCharacter()
+        if(character != null)
+        {
+            currentGoldTextView.text = getString(R.string.current_gold_shop,character.current_gold.toString())
+        }
 
 
         if(arguments?.getString("itemName") != null)
@@ -93,105 +98,27 @@ class TransactionDetailsFragment : Fragment(), ShopSupplier.OnDeleteItemListener
             arguments?.getInt("itemType").let {
 
                 var type = ""
+
                 if (it != null) {
                     itemType = it
                 }
-                when(itemType)
+                val character = CharacterManager.getCurrentCharacter()
+                if(character != null)
                 {
-                    0->{
-                        type = getString(R.string.item_type_armour)
-                    }
-                    1->{
-                        type = getString(R.string.item_type_artifact)
-
-                    }
-                    2->{
-                        type = getString(R.string.item_type_belt)
-
-                    }
-                    3->{
-                        type = getString(R.string.item_type_boots)
-
-                    }
-                    4->{
-                        type = getString(R.string.item_type_helmet)
-
-                    }
-                    5->{
-                        type = getString(R.string.item_type_offhand)
-                    }
-                    6->{
-                        type = getString(R.string.item_type_ring)
-                    }
-                    7->{
-                        type = getString(R.string.item_type_weapon)
-                    }
+                    type = Item.resolveItemTypeStringFromType(itemType, character.character_class, requireContext())
                 }
 
-                typeTextView.text = getString(R.string.item_type_activity_shop) + ": " +type
+                typeTextView.text = getString(R.string.item_type_activity_shop, type)
             }
 
             arguments?.getDouble("itemStat").let {
 
                 var itemStatString = ""
                 val character = CharacterManager.getCurrentCharacter()
-                when(itemType)
+
+                if(character != null)
                 {
-                    0->{
-                        itemStatString = getString(R.string.item_stats_armour, it.toString())
-                    }
-                    1->{
-                        if (character != null) {
-                            when(character.character_class) {
-                                0->{
-                                    itemStatString = getString(R.string.item_stats_artifact_warrior, it.toString())
-                                }
-                                1->{
-                                    itemStatString = getString(R.string.item_stats_artifact_rogue, it.toString())
-
-                                }
-                                2->{
-                                    itemStatString = getString(R.string.item_stats_artifact_mage, it.toString())
-                                }
-                            }
-                        }
-
-                    }
-                    2->{
-                        itemStatString = getString(R.string.item_stats_gold_belt, it.toString())
-
-                    }
-                    3->{
-                        itemStatString = getString(R.string.item_stats_exp_boots, it.toString())
-                    }
-                    4->{
-                        if (character != null) {
-                            when(character.character_class) {
-                                0->{
-                                    itemStatString = getString(R.string.item_stats_helmet_warrior, it.toString())
-                                }
-                                1->{
-                                    itemStatString = getString(R.string.item_stats_helmet_rogue, it.toString())
-
-                                }
-                                2->{
-                                    itemStatString = getString(R.string.item_stats_helmet_mage, it.toString())
-                                }
-                            }
-                        }
-
-                    }
-                    5->{
-                        itemStatString = getString(R.string.item_stats_gold_offhand, it.toString())
-
-                    }
-                    6->{
-                        itemStatString = getString(R.string.item_stats_ring, it.toString())
-
-                    }
-                    7->{
-                        itemStatString = getString(R.string.item_stats_weapon, it.toString())
-                    }
+                    itemStatString = Item.resolveItemStatStringFromType(it.toString(),itemType,character.character_class,requireContext())
                 }
 
                 itemStatTextView.text = itemStatString
@@ -207,9 +134,6 @@ class TransactionDetailsFragment : Fragment(), ShopSupplier.OnDeleteItemListener
             clearTransactionDetails()
         }
 
-
-
-
         return view
     }
 
@@ -224,7 +148,7 @@ class TransactionDetailsFragment : Fragment(), ShopSupplier.OnDeleteItemListener
         if(character != null && user != null && item != null)
         {
             // sprawdz czy ma wystarczajaco golda
-            if(character.current_gold > price)
+            if(character.current_gold >= price)
             {
                 // pobierz koszt
                 character.current_gold -= price
@@ -241,7 +165,7 @@ class TransactionDetailsFragment : Fragment(), ShopSupplier.OnDeleteItemListener
                     }
                 }
                 // usun item ze sklepu
-                shopSupplier?.deleteItemFromShop(item)
+                shopSupplier?.deleteItemFromShop(item, user.character_id)
 
                 // dodaj item do ekwipunku
                 itemRepository.saveItemToCharacterEquipment(user.character_id, item) { success ->
@@ -253,21 +177,13 @@ class TransactionDetailsFragment : Fragment(), ShopSupplier.OnDeleteItemListener
                         Toast.makeText(context, getString(R.string.toast_item_bought_error), Toast.LENGTH_SHORT).show()
                     }
                 }
-
-
-
-
             }
             else
             {
                 Toast.makeText(context,getString(R.string.toast_item_too_expensive),Toast.LENGTH_SHORT).show()
             }
         }
-
-
-
     }
-
 
     fun clearTransactionDetails()
     {

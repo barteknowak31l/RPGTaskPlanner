@@ -6,29 +6,28 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
-import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import edu.put.rpgtaskplanner.character.CharacterActivity
 import edu.put.rpgtaskplanner.character.character_creator.CharacterCreatorActivity
 import edu.put.rpgtaskplanner.databinding.ActivitySignInBinding
-import edu.put.rpgtaskplanner.model.Character
+import edu.put.rpgtaskplanner.model.Item
 import edu.put.rpgtaskplanner.model.User
 import edu.put.rpgtaskplanner.repository.CharacterRepository
 import edu.put.rpgtaskplanner.repository.UserRepository
-import edu.put.rpgtaskplanner.shop.ShopActivity
-import edu.put.rpgtaskplanner.task_list.TaskListActivity
 import edu.put.rpgtaskplanner.utility.CharacterManager
+import edu.put.rpgtaskplanner.utility.EquipmentHandler
 import edu.put.rpgtaskplanner.utility.UserManager
+import java.util.Date
 
-class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener {
+class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener, EquipmentHandler.EquipmentHandlerCallback {
 
     private lateinit var binding: ActivitySignInBinding
     private lateinit var firebaseAuth: FirebaseAuth
@@ -38,9 +37,12 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener {
     val userRepository = UserRepository(db)
     val characterRepository = CharacterRepository(db)
 
+    private var equipmentHandler: EquipmentHandler? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        equipmentHandler = EquipmentHandler(this, this, lifecycleScope )
 
         binding = ActivitySignInBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -91,14 +93,7 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener {
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener{
             if(it.isSuccessful)
             {
-//                val intent : Intent = Intent(this, MainActivity::class.java)
-//                intent.putExtra("email", account.email)
-//                intent.putExtra("name", account.displayName)
-//
-//                startActivity(intent)
-
                 onLoginSuccess(account.email.toString())
-
             }
             else
             {
@@ -112,10 +107,9 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener {
     override fun onStart()
     {
         super.onStart();
-        if(firebaseAuth.currentUser != null)
+        if(firebaseAuth.currentUser != null && UserManager.getCurrentUser() == null)
         {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            onLoginSuccess(firebaseAuth.currentUser!!.email.toString())
         }
     }
 
@@ -124,8 +118,6 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener {
             firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
-//                        val intent = Intent(this, MainActivity::class.java)
-//                        startActivity(intent)
                         onLoginSuccess(email)
 
                     } else {
@@ -147,30 +139,29 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener {
     }
 
     override fun signUpClicked() {
-//        val intent = Intent(this, SignUpActivity::class.java)
+        val intent = Intent(this, SignUpActivity::class.java)
 
-        val intent = Intent(this, CharacterCreatorActivity::class.java)
-//        val intent = Intent(this, TaskListActivity::class.java)
-//        val intent = Intent(this, CharacterActivity::class.java)
-//        val intent = Intent(this, ShopActivity::class.java)
         startActivity(intent)
     }
 
 
     fun onLoginSuccess(email: String)
     {
-        //TODO call this function on login succes with google and email auth
 
         // check if user already has had character created
         userRepository.getUserByEmail(email) { user ->
             if (user != null)
             {
                 UserManager.setCurrentUser(user)
+
+
                 if (user.character_id != "")
                 {
                     characterRepository.getCharacter(user.character_id) { character ->
                         if (character != null) {
                             CharacterManager.setCurrentCharacter(character)
+                            // fetch character items
+                            equipmentHandler?.fetchEquippedItemsFromFirestore(user.character_id, this)
                         }
                     }
 
@@ -188,6 +179,7 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener {
                 val newUser = User()
                 newUser.email = email
                 newUser.character_id = ""
+                newUser.next_shop_refresh = Date()
                 userRepository.saveUser(newUser) { success ->
                     if (success) {
                         val intent : Intent = Intent(this, CharacterCreatorActivity::class.java)
@@ -200,8 +192,12 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener {
             }
 
         }
+    }
 
+    override fun onItemEquipped(item: Item?) {
+    }
 
+    override fun onItemsFetchedFromFirestore(items: List<Item>?) {
     }
 
 

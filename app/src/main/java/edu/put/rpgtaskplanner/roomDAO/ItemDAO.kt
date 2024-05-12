@@ -9,15 +9,20 @@ import edu.put.rpgtaskplanner.roomEntity.ItemEntity
 
 @Dao
 interface ItemDAO {
-    @Query("SELECT * FROM itementity")
-    fun getAll(): List<Item>
+    @Query("SELECT * FROM ItemEntity WHERE character_id = :characterId")
+    fun getAllForCharacter(characterId: String): List<ItemEntity>
+
+    @Query("SELECT * FROM ItemEntity WHERE character_id = :characterId AND item_name = :itemName")
+    fun getItemForCharacter(characterId: String, itemName: String): ItemEntity?
+
+    @Query("DELETE FROM ItemEntity WHERE character_id = :characterId AND item_name = :itemName")
+    fun deleteItemForCharacter(characterId: String, itemName: String)
+
+    @Query("DELETE FROM ItemEntity WHERE character_id = :characterId")
+    fun deleteAllForCharacter(characterId: String)
 
     @Insert
-    fun insertAll(vararg items: ItemEntity)
+    fun insertItemForCharacter(item: ItemEntity)
 
-    @Delete
-    fun delete(item: ItemEntity)
 
-    @Query("DELETE FROM itementity")
-    fun deleteAll()
 }

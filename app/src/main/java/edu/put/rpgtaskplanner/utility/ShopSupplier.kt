@@ -59,18 +59,20 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
     private var weapon = Item()
     fun refreshShop(callback: RefreshShopCallback?) {
         val character = CharacterManager.getCurrentCharacter()
+        val user = UserManager.getCurrentUser()
         val itemCount = AtomicInteger(8)
 
-        if (character != null) {
+        if (character != null && user != null) {
 
             CharacterClass.fromId(character.character_class)
                 ?.let {
                     getItemByTypeAndClassFromFirestore(ItemType.ARTIFACT, it) { item ->
                         if (item != null) {
                             artifact = item
-                            artifact.base_bonus *= character.level
-                            checkAndCallCallback(callback, itemCount)
-                            Log.d("ShopSupplier", "Pobrano artifact " + item.item_name + " lol " + artifact.item_name)
+                            artifact.base_bonus = CharacterBuilder.BASE_ENERGY_REGEN + artifact.base_bonus * character.level
+                            artifact.base_bonus = Math.round(artifact.base_bonus * 100.0)/ 100.0
+                            artifact.image_resource_id = context.resources.getIdentifier(artifact.image_resource_name,"drawable",context.packageName)
+                            checkAndCallCallback(callback, itemCount, user.character_id)
                         }
                     }
                 }
@@ -80,11 +82,11 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                     getItemByTypeAndClassFromFirestore(ItemType.ARMOUR, it) { item ->
                         if (item != null) {
                             armour = item
-                            armour.base_bonus *= character.level
+                            armour.base_bonus = CharacterBuilder.BASE_HEALTH + armour.base_bonus * character.level
+                            armour.base_bonus = Math.round(armour.base_bonus * 100.0)/ 100.0
+                            armour.image_resource_id = context.resources.getIdentifier(armour.image_resource_name,"drawable",context.packageName)
 
-                            checkAndCallCallback(callback, itemCount)
-                            Log.d("ShopSupplier", "Pobrano armour")
-
+                            checkAndCallCallback(callback, itemCount, user.character_id)
                         }
                     }
                 }
@@ -94,11 +96,11 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                     getItemByTypeAndClassFromFirestore(ItemType.BELT, it) { item ->
                         if (item != null) {
                             belt = item
-                            belt.base_bonus *= character.level
+                            belt.base_bonus = CharacterBuilder.BASE_GOLD_MULTIPLIER + belt.base_bonus * character.level
+                            belt.base_bonus = Math.round(belt.base_bonus * 100.0)/ 100.0
+                            belt.image_resource_id = context.resources.getIdentifier(belt.image_resource_name,"drawable",context.packageName)
 
-                            checkAndCallCallback(callback, itemCount)
-                            Log.d("ShopSupplier", "Pobrano belt")
-
+                            checkAndCallCallback(callback, itemCount, user.character_id)
                         }
                     }
                 }
@@ -108,11 +110,11 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                     getItemByTypeAndClassFromFirestore(ItemType.BOOTS, it) { item ->
                         if (item != null) {
                             boots = item
-                            boots.base_bonus *= character.level
+                            boots.base_bonus = CharacterBuilder.BASE_EXP_MULTIPLIER + boots.base_bonus * character.level
+                            boots.base_bonus = Math.round(boots.base_bonus * 100.0)/ 100.0
+                            boots.image_resource_id = context.resources.getIdentifier(boots.image_resource_name,"drawable",context.packageName)
 
-                            checkAndCallCallback(callback, itemCount)
-                            Log.d("ShopSupplier", "Pobrano boots")
-
+                            checkAndCallCallback(callback, itemCount, user.character_id)
                         }
                     }
                 }
@@ -122,11 +124,11 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                     getItemByTypeAndClassFromFirestore(ItemType.HELMET, it) { item ->
                         if (item != null) {
                             helmet = item
-                            helmet.base_bonus *= character.level
+                            helmet.base_bonus = CharacterBuilder.BASE_ENERGY + helmet.base_bonus * character.level
+                            helmet.base_bonus = Math.round(helmet.base_bonus * 100.0)/ 100.0
+                            helmet.image_resource_id = context.resources.getIdentifier(helmet.image_resource_name,"drawable",context.packageName)
 
-                            checkAndCallCallback(callback, itemCount)
-                            Log.d("ShopSupplier", "Pobrano helmet")
-
+                            checkAndCallCallback(callback, itemCount, user.character_id)
                         }
                     }
                 }
@@ -136,10 +138,11 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                     getItemByTypeAndClassFromFirestore(ItemType.OFFHAND, it) { item ->
                         if (item != null) {
                             offhand = item
-                            offhand.base_bonus *= character.level
+                            offhand.base_bonus = CharacterBuilder.BASE_GOLD_MULTIPLIER + offhand.base_bonus * character.level
+                            offhand.base_bonus = Math.round(offhand.base_bonus * 100.0)/ 100.0
+                            offhand.image_resource_id = context.resources.getIdentifier(offhand.image_resource_name,"drawable",context.packageName)
 
-                            checkAndCallCallback(callback, itemCount)
-                            Log.d("ShopSupplier", "Pobrano offhand")
+                            checkAndCallCallback(callback, itemCount, user.character_id)
 
                         }
                     }
@@ -150,11 +153,11 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                     getItemByTypeAndClassFromFirestore(ItemType.RING, it) { item ->
                         if (item != null) {
                             ring = item
-                            ring.base_bonus *= character.level
+                            ring.base_bonus = CharacterBuilder.BASE_HEALTH_REGEN + ring.base_bonus * character.level
+                            ring.base_bonus = Math.round(ring.base_bonus * 100.0)/ 100.0
+                            ring.image_resource_id = context.resources.getIdentifier(ring.image_resource_name,"drawable",context.packageName)
 
-                            checkAndCallCallback(callback, itemCount)
-                            Log.d("ShopSupplier", "Pobrano ring")
-
+                            checkAndCallCallback(callback, itemCount, user.character_id)
                         }
                     }
                 }
@@ -164,11 +167,11 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                     getItemByTypeAndClassFromFirestore(ItemType.WEAPON, it) { item ->
                         if (item != null) {
                             weapon = item
-                            weapon.base_bonus *= character.level
+                            weapon.base_bonus = CharacterBuilder.BASE_COOLDOWN + weapon.base_bonus * character.level
+                            weapon.base_bonus = Math.round(weapon.base_bonus * 100.0)/ 100.0
+                            weapon.image_resource_id = context.resources.getIdentifier(weapon.image_resource_name,"drawable",context.packageName)
 
-                            checkAndCallCallback(callback, itemCount)
-                            Log.d("ShopSupplier", "Pobrano weapon")
-
+                            checkAndCallCallback(callback, itemCount,user.character_id)
                         }
                     }
                 }
@@ -194,11 +197,11 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
     }
 
 
-    private fun checkAndCallCallback(callback: RefreshShopCallback?, itemCount: AtomicInteger) {
+    private fun checkAndCallCallback(callback: RefreshShopCallback?, itemCount: AtomicInteger, characterId: String) {
         if (itemCount.decrementAndGet() == 0) {
             lifecycleScope.launch {
                 withContext(Dispatchers.IO) {
-                    itemDAO.deleteAll()
+                    itemDAO.deleteAllForCharacter(characterId)
 
                     val artifactEntity = Item.toEntity(artifact)
                     val armourEntity = Item.toEntity(armour)
@@ -212,7 +215,11 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
                         artifactEntity, armourEntity, beltEntity, bootsEntity,
                         helmetEntity, offhandEntity, ringEntity, weaponEntity
                     )
-                    itemDAO.insertAll(*itemsToInsert)
+
+                    itemsToInsert.forEach {
+                        it.character_id = characterId
+                        itemDAO.insertItemForCharacter(it) }
+
                 }
 
                 callback?.onRefreshFinished()
@@ -226,27 +233,24 @@ class ShopSupplier (val context: Context, val lifecycleOwner: LifecycleOwner,
         return listOf(artifact,armour,belt,boots,helmet,offhand,ring,weapon)
     }
 
-    fun fetchShopFromLocalDb(callback: RefreshShopCallback?) {
+    fun fetchShopFromLocalDb(callback: RefreshShopCallback?, characterId: String) {
             lifecycleScope.launch {
                 val itemList = withContext(Dispatchers.IO) {
-                    itemDAO.getAll()
+                    itemDAO.getAllForCharacter(characterId)
                 }
 
-                callback?.onShopFetchedFromDatabase(itemList)
+                val items = itemList.map { Item.fromEntity(it) }
+
+                callback?.onShopFetchedFromDatabase(items)
         }
     }
 
-    fun deleteItemFromShop(item: Item) {
+    fun deleteItemFromShop(item: Item, characterId: String) {
         lifecycleScope.launch {
-
-            val itemEntity = Item.toEntity(item)
             val deletedEntity = withContext(Dispatchers.IO) {
-                itemDAO.delete(itemEntity)
-
+                itemDAO.deleteItemForCharacter(characterId,item.item_name)
             }
             listeners.stream().forEach{ it.onDeleteItem(item)}
         }
     }
-
-
 }

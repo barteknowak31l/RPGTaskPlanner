@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import edu.put.rpgtaskplanner.R
 import edu.put.rpgtaskplanner.model.CharacterClass
 import edu.put.rpgtaskplanner.model.StatisticTypes
@@ -15,6 +17,7 @@ class StatisticListItemFragment : Fragment(){
 
     private var statisticType: StatisticTypes = StatisticTypes.COOLDOWN_REDUCTION
     private lateinit var statisticTextView: TextView
+    private lateinit var statisticIcon: ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,14 +26,12 @@ class StatisticListItemFragment : Fragment(){
 
         val rootView = inflater.inflate(R.layout.fragment_statistic_list_item, container, false)
         statisticTextView = rootView.findViewById(R.id.tetViewStatisticName)
+        statisticIcon = rootView.findViewById(R.id.imageViewStatisticIcon)
 
         arguments?.let {
             statisticType = StatisticTypes.entries.toTypedArray().getOrNull((it.getInt("statisticType")))!!
         }
         setupDisplay()
-
-
-
 
         return rootView
     }
@@ -44,13 +45,17 @@ class StatisticListItemFragment : Fragment(){
             {
                 StatisticTypes.CURRENT_EXPERIENCE -> {
                     statisticTextView.text = getString(R.string.stats_experience,character.current_experience.toString())
+                    statisticIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.exp))
                 }
 
                 StatisticTypes.COOLDOWN_REDUCTION -> {
                     statisticTextView.text = getString(R.string.stats_cooldown_reduction,character.cooldown_reduction.toString())
+                    statisticIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.cooldown))
                 }
                 StatisticTypes.CURRENT_ENERGY ->
                 {
+
+                    statisticIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.energy))
                     when(character.character_class)
                     {
                         CharacterClass.WARRIOR.id -> {
@@ -66,11 +71,13 @@ class StatisticListItemFragment : Fragment(){
                 }
                 StatisticTypes.CURRENT_HEALTH ->
                 {
+                    statisticIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.current_heart))
                     statisticTextView.text = getString(R.string.stats_current_health,character.current_health.toString())
 
                 }
                 StatisticTypes.ENERGY_REGEN ->
                 {
+                    statisticIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.energy_regen))
                     when(character.character_class)
                     {
                         CharacterClass.WARRIOR.id -> {
@@ -85,24 +92,26 @@ class StatisticListItemFragment : Fragment(){
                     }
                 }
                 StatisticTypes.EXP_MULTIPLIER -> {
-                    statisticTextView.text = getString(R.string.stats_exp_multiplier,character.exp_multiplier.toString())
+                    statisticIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.exp))
+                    statisticTextView.text = getString(R.string.stats_exp_multiplier,character.gold_multiplier.toString())
                 }
                 StatisticTypes.GOLD_MULTIPLIER ->
                 {
+                    statisticIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.coin_icon))
                     statisticTextView.text = getString(R.string.stats_gold_multiplier,character.gold_multiplier.toString())
-
                 }
                 StatisticTypes.HEALTH_REGEN ->
                 {
+                    statisticIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.heart_regen))
                     statisticTextView.text = getString(R.string.stats_health_reneg,character.health_regen.toString())
-
                 }
                 StatisticTypes.LEVEL -> {
                     statisticTextView.text = getString(R.string.stats_level,character.level.toString())
-
+                    statisticIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.exp))
                 }
                 StatisticTypes.MAX_ENERGY ->
                 {
+                    statisticIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.energy))
                     when(character.character_class)
                     {
                         CharacterClass.WARRIOR.id -> {
@@ -118,13 +127,14 @@ class StatisticListItemFragment : Fragment(){
                 }
                 StatisticTypes.MAX_HEALTH ->
                 {
+                    statisticIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.heart))
                     statisticTextView.text = getString(R.string.stats_max_health,character.max_health.toString())
-
                 }
             }
         }
-
     }
-
-
+    override fun onResume() {
+        super.onResume()
+        setupDisplay()
+    }
 }

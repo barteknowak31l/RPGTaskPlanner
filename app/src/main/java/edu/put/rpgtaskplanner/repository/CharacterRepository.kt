@@ -1,7 +1,6 @@
 package edu.put.rpgtaskplanner.repository
 
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.SetOptions
 import edu.put.rpgtaskplanner.model.Character
 class CharacterRepository(private val firestore: FirebaseFirestore) {
 
@@ -21,6 +20,8 @@ class CharacterRepository(private val firestore: FirebaseFirestore) {
         max_energy,
         max_health,
         character_name,
+        last_resource_refresh_date,
+        resource_refresh_cooldown_minutes,
         current_gold
     }
 
@@ -50,8 +51,6 @@ class CharacterRepository(private val firestore: FirebaseFirestore) {
                 onComplete(false, null)
             }
     }
-
-
 
     fun updateCharacter(characterId: String, updates: Map<CharacterFields, Any>, onComplete: (Boolean) -> Unit) {
         val updatesMap = updates.mapKeys { it.key.name }

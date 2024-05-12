@@ -12,7 +12,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.compose.ui.text.toLowerCase
 import edu.put.rpgtaskplanner.R
 import edu.put.rpgtaskplanner.model.TaskDifficulty
 import edu.put.rpgtaskplanner.utility.CharacterManager
@@ -52,7 +51,6 @@ class AddTaskFragment : Fragment() {
         estimatedEndDate = rootView.findViewById(R.id.textViewMinEndDate)
         currentHpTextView = rootView.findViewById(R.id.textViewCurrentHp)
         currentEnergyTextView = rootView.findViewById(R.id.textViewCurrentResource)
-
 
         val textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -95,7 +93,6 @@ class AddTaskFragment : Fragment() {
 
         }
 
-
         return rootView
     }
 
@@ -136,5 +133,4 @@ class AddTaskFragment : Fragment() {
             estimatedEndDate.text = getString(R.string.add_task_min_end_date, formattedDate)
         }
     }
-
 }

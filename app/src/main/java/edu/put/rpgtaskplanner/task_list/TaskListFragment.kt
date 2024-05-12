@@ -2,7 +2,6 @@ package edu.put.rpgtaskplanner.task_list
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +28,7 @@ class TaskListFragment : ListFragment() {
     val db = Firebase.firestore
     val taskRepository = TaskRepository(db)
     var taskList: List<Task> = mutableListOf()
+    private var adapter:  ArrayAdapter<String>? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -49,17 +49,10 @@ class TaskListFragment : ListFragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_task_list, container, false)
 
-        val adapter = ArrayAdapter<String>(inflater.context, android.R.layout.simple_list_item_1)
+        adapter = ArrayAdapter<String>(inflater.context, android.R.layout.simple_list_item_1)
         listAdapter = adapter
-
-        val user = UserManager.getCurrentUser()
-        taskRepository.getTasksByCharacterIdFilterByStatusAsync(user?.character_id!!, TaskStatus.IN_PROGRESS).observe(viewLifecycleOwner) { tasks ->
-            val taskNames = tasks.map { it.task_name }
-            adapter.clear()
-            adapter.addAll(taskNames)
-            taskList = tasks
-        }
-
+        listAdapter = adapter
+        refreshAdapter()
         return view
     }
 
@@ -68,4 +61,25 @@ class TaskListFragment : ListFragment() {
         listener?.itemClicked(position)
         TaskManager.setCurrentTask(taskList[position])
     }
+
+    override fun onResume() {
+        super.onResume()
+        refreshAdapter()
+    }
+
+    private fun refreshAdapter()
+    {
+        val user = UserManager.getCurrentUser()
+        taskRepository.getTasksByCharacterIdFilterByStatusAsync(user?.character_id!!, TaskStatus.IN_PROGRESS).observe(viewLifecycleOwner) { tasks ->
+            val taskNames = tasks.map { it.task_name }
+            if(adapter != null)
+            {
+                adapter!!.clear()
+                adapter!!.addAll(taskNames)
+            }
+            taskList = tasks
+        }
+    }
+
+
 }

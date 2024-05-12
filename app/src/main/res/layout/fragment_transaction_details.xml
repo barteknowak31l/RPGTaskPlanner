@@ -48,6 +48,18 @@
         android:text="@string/buy_activity_shop" />
 
     <TextView
+        android:id="@+id/currentGoldTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buyButton"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@id/buyButton"
+        android:layout_marginTop="42dp"
+        android:text="@string/current_gold_shop"
+        android:textSize="16sp" />
+
+
+    <TextView
         android:id="@+id/itemStatTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

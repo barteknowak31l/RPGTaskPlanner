@@ -18,7 +18,7 @@
         android:id="@+id/imageView1"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/rpg_logo_sm"
+        android:src="@drawable/trophy_bronze"
         android:layout_below="@id/textViewTitle"
         android:layout_marginTop="16dp"
         android:padding="16dp"
@@ -41,7 +41,7 @@
         android:layout_height="100dp"
         android:padding="16dp"
 
-        android:src="@drawable/rpg_logo_sm"
+        android:src="@drawable/trophy_silver"
         android:layout_below="@id/textViewTitle"
         android:layout_marginTop="16dp"
         android:layout_centerHorizontal="true"/>
@@ -61,7 +61,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:padding="16dp"
-        android:src="@drawable/rpg_logo_sm"
+        android:src="@drawable/trophy_gold"
         android:layout_below="@id/textViewTitle"
         android:layout_marginTop="16dp"
         android:layout_alignParentEnd="true"/>

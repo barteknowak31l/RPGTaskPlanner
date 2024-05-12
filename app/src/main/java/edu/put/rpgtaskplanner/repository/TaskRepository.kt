@@ -15,7 +15,6 @@ class TaskRepository(private val firestore: FirebaseFirestore) {
     private val collection = firestore.collection("tasks")
 
     private val tasksLiveData = MutableLiveData<List<Task>>()
-
     enum class TaskFields {
         character_id,
         difficulty,
@@ -66,7 +65,6 @@ class TaskRepository(private val firestore: FirebaseFirestore) {
     fun getTasksByCharacterIdFilterByStatusAsync(characterId: String, status: TaskStatus): LiveData<List<Task>> {
         val tasksLiveData = MutableLiveData<List<Task>>()
 
-        // Wywołaj zapytanie asynchroniczne
         collection.whereEqualTo(TaskFields.character_id.name, characterId)
             .whereEqualTo(TaskFields.status.name, status.id)
             .get()
@@ -76,7 +74,7 @@ class TaskRepository(private val firestore: FirebaseFirestore) {
                     val task = document.toObject(Task::class.java)
                     task?.let { tasks.add(it) }
                 }
-                tasksLiveData.value = tasks // Zaktualizuj wartość LiveData
+                tasksLiveData.value = tasks
             }
             .addOnFailureListener { exception ->
             }
@@ -110,13 +108,11 @@ class TaskRepository(private val firestore: FirebaseFirestore) {
     fun updateTaskByCharacterId(taskName: String, characterId: String, updates: Map<TaskFields, Any>, onComplete: (Boolean) -> Unit) {
         val updatesMap = updates.mapKeys { it.key.name }
 
-        // Dodaj warunek dotyczący pola character_id
         collection.whereEqualTo(TaskFields.task_name.name, taskName)
             .whereEqualTo(TaskFields.character_id.name, characterId)
             .get()
             .addOnSuccessListener { querySnapshot ->
                 if (!querySnapshot.isEmpty) {
-                    // Jeśli istnieje zadanie o danej nazwie i character_id, wykonaj aktualizację
                     collection.document(querySnapshot.documents[0].id)
                         .update(updatesMap)
                         .addOnSuccessListener {
@@ -126,7 +122,6 @@ class TaskRepository(private val firestore: FirebaseFirestore) {
                             onComplete(false)
                         }
                 } else {
-                    // Jeśli nie ma zadania o danej nazwie i character_id, zakończ z informacją o niepowodzeniu
                     onComplete(false)
                 }
             }
@@ -135,5 +130,29 @@ class TaskRepository(private val firestore: FirebaseFirestore) {
             }
     }
 
+
+    fun deleteTaskByCharacterId(taskName: String, characterId: String, onComplete: (Boolean) -> Unit) {
+        collection.whereEqualTo(TaskFields.task_name.name, taskName)
+            .whereEqualTo(TaskFields.character_id.name, characterId)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                if (!querySnapshot.isEmpty) {
+                    val documentId = querySnapshot.documents[0].id
+                    collection.document(documentId)
+                        .delete()
+                        .addOnSuccessListener {
+                            onComplete(true)
+                        }
+                        .addOnFailureListener { exception ->
+                            onComplete(false)
+                        }
+                } else {
+                    onComplete(false)
+                }
+            }
+            .addOnFailureListener { exception ->
+                onComplete(false)
+            }
+    }
 
 }

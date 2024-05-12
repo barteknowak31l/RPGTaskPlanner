@@ -2,23 +2,37 @@ package edu.put.rpgtaskplanner.character.equipment
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import edu.put.rpgtaskplanner.R
-import edu.put.rpgtaskplanner.model.CharacterClass
+import edu.put.rpgtaskplanner.model.Item
+import edu.put.rpgtaskplanner.repository.ItemRepository
+import edu.put.rpgtaskplanner.utility.EquipmentManager
+import edu.put.rpgtaskplanner.utility.UserManager
+import java.util.stream.Collectors
+
 
 class EquipmentFragment : Fragment() {
 
-    private var equipmentItemList: List<EquipmentItem> = listOf()
+
+    private val db = Firebase.firestore
+    private val itemRepository = ItemRepository(db)
+    private lateinit var adapter: CustomRecyclerAdapter
+    private var itemType:Int? = 0
+
+    companion object{
+        var equipmentItemList: List<Item> = listOf()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,21 +41,16 @@ class EquipmentFragment : Fragment() {
         // Inflate the layout for this fragment
         val recyclerView = inflater.inflate(R.layout.fragment_equipment, container, false) as RecyclerView
 
-        equipmentItemList = getItems()
-        val names = equipmentItemList.map { it.name }
-        val images = equipmentItemList.map { it.imageResourceId }
+        arguments?.getInt("type").let { itemType = it }
 
-        val adapter = CustomRecyclerAdapter(names.toTypedArray(), images.toIntArray())
+        val user = UserManager.getCurrentUser()
+        if( user != null)
+        {
+            itemRepository.getItemsFromCharacterEquipment(user.character_id) {onOwnedItemFetchedCallback(it)}
+        }
+
+        adapter = CustomRecyclerAdapter(emptyArray(), IntArray(0), emptyList())
         recyclerView.setAdapter(adapter)
-
-        adapter.setListener(object : CustomRecyclerAdapter.Listener {
-            override fun onClick(position: Int) {
-                Toast.makeText(context, "Clicked on "+ names[position], Toast.LENGTH_SHORT).show()
-                val intent = Intent(context, ItemDetailsActivity::class.java);
-                intent.putExtra("name",names[position])
-                startActivity(intent)
-            }
-        })
 
         val layoutManager = GridLayoutManager(activity, 2)
         recyclerView.layoutManager=layoutManager
@@ -49,56 +58,24 @@ class EquipmentFragment : Fragment() {
         return recyclerView
     }
 
-    enum class ItemType{
-        HELMET,
-        ARMOUR,
-        WEAPON,
-        OFFHAND,
-        BELT,
-        RING,
-        ARTIFACT,
-        BOOTS
-    }
-
-    class EquipmentItem(var id: Int, var name: String, var imageResourceId: Int, var price: Int, var type: ItemType, var statisticBoost: Int)
-    companion object{
-        private val equipment = mutableListOf<EquipmentItem>()
-
-        init{
-            equipment.add(EquipmentItem(0,"test0", R.drawable.rpg_logo_sm, 1, ItemType.HELMET, 1))
-            equipment.add(EquipmentItem(1,"test1", R.drawable.rpg_logo_sm, 100, ItemType.ARMOUR, 10))
-            equipment.add(EquipmentItem(2,"test2", R.drawable.rpg_logo_sm, 200, ItemType.WEAPON, 20))
-            equipment.add(EquipmentItem(3,"test3", R.drawable.rpg_logo_sm, 300, ItemType.OFFHAND, 30))
-            equipment.add(EquipmentItem(4,"test4", R.drawable.rpg_logo_sm, 400, ItemType.BELT, 40))
-            equipment.add(EquipmentItem(5,"test5", R.drawable.rpg_logo_sm, 500, ItemType.RING, 50))
-            equipment.add(EquipmentItem(6,"test6", R.drawable.rpg_logo_sm, 600, ItemType.ARTIFACT, 60))
-            equipment.add(EquipmentItem(7,"test7", R.drawable.rpg_logo_sm, 700, ItemType.BOOTS, 70))
-        }
-
-        fun getItems(): List<EquipmentItem>
-        {
-            return equipment;
-        }
-
-    }
-
-
-    class CustomRecyclerAdapter(private var captions: Array<String>, private var imageIds: IntArray) :
+    class CustomRecyclerAdapter(private var captions: Array<String>, private var imageIds: IntArray, private var isEquipped: List<Boolean>) :
         RecyclerView.Adapter<CustomRecyclerAdapter.ViewHolder>() {
 
         private var listener: Listener? = null
 
         interface Listener {
             fun onClick(position: Int)
+            fun onLongClick(position: Int)
         }
 
         fun setListener(listener: Listener?) {
             this.listener = listener
         }
 
-        fun setItemList(newCaptions: Array<String>, newImageIds: IntArray) {
+        fun setItemList(newCaptions: Array<String>, newImageIds: IntArray, newIsEquipped: List<Boolean>) {
             captions = newCaptions
             imageIds = newImageIds
+            isEquipped = newIsEquipped
             notifyDataSetChanged()
         }
 
@@ -118,14 +95,29 @@ class EquipmentFragment : Fragment() {
             val drawable = ContextCompat.getDrawable(cardView.context, imageIds[position])
             imageView.setImageDrawable(drawable)
             imageView.contentDescription = captions[position]
-            val textView = cardView.findViewById<View>(R.id.info_text) as TextView
+            var textView = cardView.findViewById<View>(R.id.info_text) as TextView
             textView.text = captions[position]
+            if(isEquipped.isNotEmpty() && isEquipped[position])
+            {
+                textView.setTextColor(ContextCompat.getColor(cardView.context, R.color.equipped_item_name_color))
+            }
+            else if(isEquipped.isNotEmpty() && !isEquipped[position])
+            {
+                textView.setTextColor(ContextCompat.getColor(cardView.context, R.color.text_color))
+
+            }
 
             cardView.setBackgroundColor(ContextCompat.getColor(cardView.context, R.color.button_color))
 
             cardView.setOnClickListener {
                 listener?.onClick(position)
             }
+
+            cardView.setOnLongClickListener {
+                listener?.onLongClick(position)
+                true
+            }
+
         }
 
         override fun getItemCount(): Int {
@@ -133,5 +125,42 @@ class EquipmentFragment : Fragment() {
         }
     }
 
+    fun onOwnedItemFetchedCallback(ownedItems: List<Item>)
+    {
 
+        equipmentItemList = ownedItems.stream().filter {it.type == itemType}.collect(Collectors.toList())
+
+        var matchingIndices = EquipmentManager.getMatchingIndicesAsBooleans(equipmentItemList)
+
+        val names = equipmentItemList.map { it.item_name }
+        val images = equipmentItemList.map { it.image_resource_id }
+        adapter.setItemList(names.toTypedArray(), images.toIntArray(),matchingIndices.orEmpty() )
+
+        adapter.setListener(object : CustomRecyclerAdapter.Listener {
+            override fun onClick(position: Int) {
+                EquipmentManager.setCurrentItem(equipmentItemList[position])
+                val intent = Intent(context, ItemDetailsActivity::class.java);
+                intent.putExtra("name",names[position])
+                startActivity(intent)
+            }
+
+            override fun onLongClick(position: Int) {
+                EquipmentManager.setCurrentItem(equipmentItemList[position])
+                val intent = Intent(context, ItemDetailsActivity::class.java);
+                intent.putExtra("name",names[position])
+                startActivity(intent)
+                true
+            }
+        })
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val user = UserManager.getCurrentUser()
+        if( user != null)
+        {
+            itemRepository.getItemsFromCharacterEquipment(user.character_id) {onOwnedItemFetchedCallback(it)}
+        }
+    }
 }

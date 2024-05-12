@@ -1,6 +1,5 @@
 package edu.put.rpgtaskplanner
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -27,8 +26,9 @@ class SignUpActivity : AppCompatActivity(), SignUpFormFragment.Listener  {
                 firebaseAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener {
                         if (it.isSuccessful) {
-                            val intent = Intent(this, SignInActivity::class.java)
-                            startActivity(intent)
+                            Toast.makeText(this, getString(R.string.toast_account_created), Toast.LENGTH_SHORT)
+                                .show()
+                            finish()
 
                         } else {
                             Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT)
