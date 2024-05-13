@@ -14,21 +14,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.fragment.app.FragmentContainerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/logoFragment"
-            android:layout_marginVertical="20dp"
-            android:name="edu.put.rpgtaskplanner.LogoFragment"/>
-
-
 
         <androidx.fragment.app.FragmentContainerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/taskDetailFragment"
-            android:layout_below="@id/logoFragment"
             android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="30dp"
             android:maxHeight="300dp"
             android:name="edu.put.rpgtaskplanner.task_list.TaskDetailFragment"/>
 

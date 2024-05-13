@@ -24,6 +24,7 @@ import edu.put.rpgtaskplanner.repository.CharacterRepository
 import edu.put.rpgtaskplanner.repository.UserRepository
 import edu.put.rpgtaskplanner.utility.CharacterManager
 import edu.put.rpgtaskplanner.utility.EquipmentHandler
+import edu.put.rpgtaskplanner.utility.EquipmentManager
 import edu.put.rpgtaskplanner.utility.UserManager
 import java.util.Date
 
@@ -121,12 +122,12 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener, Equipme
                         onLoginSuccess(email)
 
                     } else {
-                        Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT)
+                        Toast.makeText(this, it.exception?.message.toString(), Toast.LENGTH_SHORT)
                             .show()
                     }
                 }
         } else {
-            Toast.makeText(this, "Empty fields are not allowed!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.toast_empty_fields), Toast.LENGTH_SHORT).show()
 
         }
     }
@@ -148,6 +149,12 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener, Equipme
     fun onLoginSuccess(email: String)
     {
 
+        // clear all data
+        UserManager.logout()
+        CharacterManager.setToNull()
+        EquipmentManager.setToNull()
+        EquipmentManager.clearEquippedItems()
+
         // check if user already has had character created
         userRepository.getUserByEmail(email) { user ->
             if (user != null)
@@ -162,12 +169,9 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener, Equipme
                             CharacterManager.setCurrentCharacter(character)
                             // fetch character items
                             equipmentHandler?.fetchEquippedItemsFromFirestore(user.character_id, this)
+                            // intent in fetchEquippedItemsCallback
                         }
                     }
-
-                    val intent : Intent = Intent(this, MainActivity::class.java)
-                    intent.putExtra("email", email)
-                    startActivity(intent)
                 }
                 else
                 {
@@ -198,6 +202,8 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener, Equipme
     }
 
     override fun onItemsFetchedFromFirestore(items: List<Item>?) {
+        val intent : Intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
     }
 
 

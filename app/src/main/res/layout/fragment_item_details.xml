@@ -1,89 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/itemNameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/item_name_activity_item_details"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_gravity="center"
-        tools:text="Excalibur" />
-
-    <ImageView
-        android:id="@+id/itemImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minWidth="200dp"
-        android:minHeight="240dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/rpg_logo_sm"
-        android:contentDescription="Zdjęcie przedmiotu"
-        android:background="@drawable/rounded_shape"
-        tools:src="@drawable/rpg_logo_sm"
-        android:padding="10dp"
-        android:layout_marginBottom="20dp"/>
-
-
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@drawable/rounded_shape"
-        android:padding="20dp"
-        >
+        android:padding="16dp">
 
         <TextView
-            android:id="@+id/itemTypeTextView"
+            android:id="@+id/itemNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/item_type_activity_item_details"
-            android:textSize="18sp"
-            tools:text="Typ przedmiotu: Broń" />
+            android:text="@string/item_name_activity_item_details"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            tools:text="Excalibur" />
 
-        <TextView
-            android:id="@+id/enhancedStatTextView"
+        <ImageView
+            android:id="@+id/itemImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/enhanced_stat_activity_item_details"
-            android:textSize="18sp"
-            tools:text="Atak: +" />
-
-        <TextView
-            android:id="@+id/enhancementValueTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/enhancement_value_activity_item_details"
-            android:textSize="18sp"
-            tools:text="Wartość ulepszenia: 10" />
-
-        <TextView
-            android:id="@+id/itemDescriptionTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/item_description_header_activity_item_details"
-            android:textSize="18sp"
+            android:minWidth="200dp"
+            android:minHeight="240dp"
+            android:layout_gravity="center"
             android:layout_marginTop="16dp"
-            tools:text="Potężna broń legendarnej mocy, która zmienia losy bitew" />
+            android:src="@drawable/rpg_logo_sm"
+            android:contentDescription="Zdjęcie przedmiotu"
+            android:background="@drawable/rounded_shape"
+            tools:src="@drawable/rpg_logo_sm"
+            android:padding="10dp"
+            android:layout_marginBottom="20dp"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/rounded_shape"
+            android:padding="20dp"
+            >
+
+            <TextView
+                android:id="@+id/itemTypeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/item_type_activity_item_details"
+                android:textSize="18sp"
+                tools:text="Typ przedmiotu: Broń" />
+
+            <TextView
+                android:id="@+id/enhancedStatTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/enhanced_stat_activity_item_details"
+                android:textSize="18sp"
+                tools:text="Atak: +" />
+
+            <TextView
+                android:id="@+id/enhancementValueTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/enhancement_value_activity_item_details"
+                android:textSize="18sp"
+                tools:text="Wartość ulepszenia: 10" />
+
+            <TextView
+                android:id="@+id/itemDescriptionTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/item_description_header_activity_item_details"
+                android:textSize="18sp"
+                android:layout_marginTop="16dp"
+                tools:text="Potężna broń legendarnej mocy, która zmienia losy bitew" />
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/equipButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/equip_button_activity_item_details"
+            android:background="@drawable/rounded_shape"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:padding="10dp"/>
 
     </LinearLayout>
 
-
-    <Button
-        android:id="@+id/equipButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/equip_button_activity_item_details"
-        android:background="@drawable/rounded_shape"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp"
-        android:padding="10dp"/>
-
-</LinearLayout>
+</ScrollView>

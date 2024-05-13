@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,7 +15,7 @@
         android:layout_above="@id/editTextPassword"
         android:layout_margin="16dp"
         android:layout_marginBottom="16dp"
-        android:hint="Email"
+        android:hint="@string/sign_up_email"
         android:inputType="textEmailAddress"/>
 
     <EditText
@@ -20,7 +25,7 @@
         android:layout_above="@id/editTextConfirmPassword"
         android:layout_margin="16dp"
         android:layout_marginBottom="16dp"
-        android:hint="Password"
+        android:hint="@string/sign_up_password"
         android:inputType="textPassword"/>
 
     <EditText
@@ -31,8 +36,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="160dp"
-        android:hint="Confirm Password"
+        android:layout_marginBottom="20dp"
+        android:hint="@string/sign_up_repeat_password"
         android:inputType="textPassword"/>
 
     <Button
@@ -42,8 +47,9 @@
         android:layout_above="@id/textViewSignIn"
         android:background="@drawable/rounded_shape"
         android:layout_marginTop="16dp"
+        android:padding="5dp"
         android:layout_centerHorizontal="true"
-        android:text="Sign Up"/>
+        android:text="@string/sign_up_sign_up"/>
 
     <TextView
         android:id="@+id/textViewSignIn"
@@ -53,6 +59,6 @@
         android:layout_marginTop="32dp"
         android:layout_marginBottom="32dp"
         android:layout_centerHorizontal="true"
-        android:text="Already registered? Sign In!"/>
+        android:text="@string/sign_up_already_registered"/>
 
 </RelativeLayout>

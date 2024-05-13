@@ -31,15 +31,15 @@ class SignUpActivity : AppCompatActivity(), SignUpFormFragment.Listener  {
                             finish()
 
                         } else {
-                            Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT)
+                            Toast.makeText(this, it.exception?.message.toString(), Toast.LENGTH_SHORT)
                                 .show()
                         }
                     }
             } else {
-                Toast.makeText(this, "Password is not matching", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.toast_password_not_matching), Toast.LENGTH_SHORT).show()
             }
         } else {
-            Toast.makeText(this, "Empty fields are not allowed!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.toast_empty_fields), Toast.LENGTH_SHORT).show()
 
         }
     }
