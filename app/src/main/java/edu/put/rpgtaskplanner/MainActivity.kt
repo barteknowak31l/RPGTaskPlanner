@@ -15,6 +15,7 @@ import edu.put.rpgtaskplanner.databinding.ActivityMainBinding
 import edu.put.rpgtaskplanner.shop.ShopActivity
 import edu.put.rpgtaskplanner.task_list.TaskListActivity
 import edu.put.rpgtaskplanner.utility.CharacterManager
+import edu.put.rpgtaskplanner.utility.EquipmentManager
 import edu.put.rpgtaskplanner.utility.UserManager
 import java.net.URLEncoder
 
@@ -41,6 +42,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.buttonSignOut.setOnClickListener{
             firebaseAuth.signOut()
+            UserManager.logout()
+            CharacterManager.setToNull()
+            EquipmentManager.setToNull()
+            EquipmentManager.clearEquippedItems()
             startActivity(Intent(this, SignInActivity::class.java))
             Toast.makeText(this, "Logout succesful",Toast.LENGTH_SHORT).show()
         }

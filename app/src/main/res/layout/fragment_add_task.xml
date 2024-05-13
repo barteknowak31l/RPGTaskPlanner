@@ -125,7 +125,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/buttonCreate"
         android:layout_below="@id/textViewMinEndDate"
-        android:layout_marginVertical="50dp"
+        android:layout_marginVertical="20dp"
         android:text="@string/add_task_button"
         android:layout_centerHorizontal="true"
         android:background="@drawable/rounded_shape"

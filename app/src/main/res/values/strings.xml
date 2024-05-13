@@ -148,6 +148,16 @@
     <string name="menu_character_hello">Hello %s!</string>
     <string name="app_hashtag">RPGTaskPlanner</string>
     <string name="facebook_post_content">%s ma już %s poziom\nWykonane zadania:\n- Łatwe: %s\n- Średnie: %s\n- Trudne: %s\n</string>
+    <string name="sign_up_email">Email</string>
+    <string name="sign_up_password">Hasło</string>
+    <string name="sign_up_repeat_password">Powtórz hasło</string>
+    <string name="sign_up_sign_up">Zarejestruj</string>
+    <string name="sign_up_already_registered">Masz już konto? Zaloguj się!</string>
+    <string name="sign_in_sign_in">Zaloguj się</string>
+    <string name="sign_in_with_google">Zaloguj przez Google</string>
+    <string name="sign_in_sign_up">Zarejestruj się</string>
+    <string name="toast_empty_fields">Puste pola są niedozwolone!</string>
+    <string name="toast_password_not_matching">Hasła nie są identyczne!</string>
 
 
 </resources>

@@ -41,6 +41,11 @@ object EquipmentManager {
     }
 
 
+    fun clearEquippedItems()
+    {
+        equippedItems = mutableListOf()
+    }
+
     fun setToNull() {
         currentItem = null
     }
