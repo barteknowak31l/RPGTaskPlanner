@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity() {
             EquipmentManager.clearEquippedItems()
             startActivity(Intent(this, SignInActivity::class.java))
             Toast.makeText(this, "Logout succesful",Toast.LENGTH_SHORT).show()
+            finish()
         }
 
 
@@ -55,6 +56,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, TaskListActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
+
         }
         binding.menuCharacter.setOnClickListener{
             val intent = Intent(this, CharacterActivity::class.java)

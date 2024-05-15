@@ -116,20 +116,38 @@ class TaskListActivity : AppCompatActivity(), TaskListFragment.Listener {
                 }
                 R.id.menu_character ->
                 {
+                    val root = Intent(this, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    startActivity(root)
+
                     val intent = Intent(this, CharacterActivity::class.java)
                     startActivity(intent)
+                    finish()
+
                     true
                 }
                 R.id.menu_shop ->
                 {
+                    val root = Intent(this, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    startActivity(root)
+
                     val intent = Intent(this, ShopActivity::class.java)
                     startActivity(intent)
+                    finish()
+
                     true
                 }
                 R.id.menu_main ->
                 {
+                    val root = Intent(this, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    startActivity(root)
+
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
+                    finish()
+
                     true
                 }
 

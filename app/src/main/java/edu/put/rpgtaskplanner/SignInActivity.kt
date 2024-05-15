@@ -155,7 +155,7 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener, Equipme
         EquipmentManager.setToNull()
         EquipmentManager.clearEquippedItems()
 
-        // check if user already has had character created
+        // check if user already has character created
         userRepository.getUserByEmail(email) { user ->
             if (user != null)
             {
@@ -186,9 +186,9 @@ class SignInActivity : AppCompatActivity(), SignInFormFragment.Listener, Equipme
                 newUser.next_shop_refresh = Date()
                 userRepository.saveUser(newUser) { success ->
                     if (success) {
+                        UserManager.setCurrentUser(newUser)
                         val intent : Intent = Intent(this, CharacterCreatorActivity::class.java)
                         startActivity(intent)
-                        UserManager.setCurrentUser(newUser)
                     } else {
                         Toast.makeText(this,getText(R.string.database_save_error),Toast.LENGTH_SHORT).show()
                     }

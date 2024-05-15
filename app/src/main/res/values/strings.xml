@@ -158,6 +158,7 @@
     <string name="sign_in_sign_up">Zarejestruj się</string>
     <string name="toast_empty_fields">Puste pola są niedozwolone!</string>
     <string name="toast_password_not_matching">Hasła nie są identyczne!</string>
+    <string name="toast_task_already_done">Zadanie zostało już zakończone</string>
 
 
 </resources>

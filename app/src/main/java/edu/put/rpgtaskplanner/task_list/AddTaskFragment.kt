@@ -85,6 +85,7 @@ class AddTaskFragment : Fragment() {
                 if (success) {
                     Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
                     val intent = Intent(context,TaskListActivity::class.java)
+                    activity?.finish()
                     startActivity(intent)
                 } else {
                     Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
