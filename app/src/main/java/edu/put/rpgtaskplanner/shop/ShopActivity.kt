@@ -39,16 +39,25 @@ class ShopActivity : AppCompatActivity(), ShopFragment.ShopItemClickListener, Sh
             {
                 R.id.menu_task_list ->
                 {
+                    val root = Intent(this, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    startActivity(root)
+
                     val intent = Intent(this, TaskListActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                     startActivity(intent)
+                    finish()
                     true
                 }
                 R.id.menu_character ->
                 {
+                    val root = Intent(this, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    startActivity(root)
+
                     val intent = Intent(this, CharacterActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                     startActivity(intent)
+                    finish()
+
                     true
                 }
                 R.id.menu_shop ->
@@ -57,9 +66,14 @@ class ShopActivity : AppCompatActivity(), ShopFragment.ShopItemClickListener, Sh
                 }
                 R.id.menu_main ->
                 {
+                    val root = Intent(this, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    startActivity(root)
+
                     val intent = Intent(this, MainActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                     startActivity(intent)
+                    finish()
+
                     true
                 }
 

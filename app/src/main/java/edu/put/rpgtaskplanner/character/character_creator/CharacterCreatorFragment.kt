@@ -167,9 +167,12 @@ class CharacterCreatorFragment : Fragment() {
                     userRepository.updateUser(currentUser.email, updates) { success ->
                         if(success) {
                             CharacterManager.setCurrentCharacter(character)
+                            currentUser.character_id = id.toString()
+                            UserManager.setCurrentUser(currentUser)
                             val intent = Intent(context, MainActivity::class.java)
                             intent.putExtra("email", currentUser.email)
                             startActivity(intent)
+                            getActivity()?.finish();
                         }
                         else {
                             Toast.makeText(context,getText(R.string.database_save_error),Toast.LENGTH_SHORT).show()

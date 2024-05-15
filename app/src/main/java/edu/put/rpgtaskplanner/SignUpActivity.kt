@@ -47,5 +47,6 @@ class SignUpActivity : AppCompatActivity(), SignUpFormFragment.Listener  {
     override fun signInClicked() {
         val intent = Intent(this, SignInActivity::class.java)
         startActivity(intent)
+        finish()
     }
 }

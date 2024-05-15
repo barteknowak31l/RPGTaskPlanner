@@ -49,28 +49,53 @@ class TaskDetailActivity : AppCompatActivity() {
             drawer.closeDrawer(GravityCompat.START)
             when (menuItem.itemId)
             {
+
                 R.id.menu_task_list ->
                 {
+                    val root = Intent(this, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    startActivity(root)
+
                     val intent = Intent(this, TaskListActivity::class.java)
                     startActivity(intent)
+                    finish()
+
                     true
                 }
                 R.id.menu_character ->
                 {
+                    val root = Intent(this, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    startActivity(root)
+
                     val intent = Intent(this, CharacterActivity::class.java)
                     startActivity(intent)
+                    finish()
+
                     true
                 }
                 R.id.menu_shop ->
                 {
+                    val root = Intent(this, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    startActivity(root)
+
                     val intent = Intent(this, ShopActivity::class.java)
                     startActivity(intent)
+                    finish()
+
                     true
                 }
                 R.id.menu_main ->
                 {
+                    val root = Intent(this, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    startActivity(root)
+
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
+                    finish()
+
                     true
                 }
 
@@ -93,6 +118,13 @@ class TaskDetailActivity : AppCompatActivity() {
 
         if(task != null && user != null && character != null)
         {
+
+            if(task.status == TaskStatus.DONE.id)
+            {
+                Toast.makeText(this, getString(R.string.toast_task_already_done),Toast.LENGTH_SHORT).show()
+                return
+            }
+
            if(task.estimated_end_date < currentDate)
            {
 
@@ -152,6 +184,7 @@ class TaskDetailActivity : AppCompatActivity() {
                Toast.makeText(this, getText(R.string.toast_task_done),Toast.LENGTH_SHORT).show()
                val intent = Intent(this, TaskListActivity::class.java)
                startActivity(intent)
+               finish()
 
            }
            else

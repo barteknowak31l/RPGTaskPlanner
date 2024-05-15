@@ -9,6 +9,7 @@ import android.widget.TextView
 import edu.put.rpgtaskplanner.R
 import edu.put.rpgtaskplanner.model.StatisticTypes
 import edu.put.rpgtaskplanner.utility.CharacterManager
+import edu.put.rpgtaskplanner.utility.Constants
 import edu.put.rpgtaskplanner.utility.UserManager
 
 class CharacterStatisticsDisplayFragment : Fragment() {
@@ -125,7 +126,7 @@ class CharacterStatisticsDisplayFragment : Fragment() {
         var nextLevel = 0.0f
         if(character != null)
         {
-            nextLevel = character.level.toFloat() * 1000
+            nextLevel = (character.level).toFloat() * Constants.NEXT_LEVEL_EXP_REQUIRED_MULT
         }
         nextLevelExp.text = getString(R.string.next_level_exp_activity_character, (nextLevel).toString())
 
