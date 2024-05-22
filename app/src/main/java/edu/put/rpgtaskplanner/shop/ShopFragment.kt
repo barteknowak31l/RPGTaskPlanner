@@ -86,7 +86,6 @@ class ShopFragment : Fragment(), ShopSupplier.RefreshShopCallback,
             }
 
         }
-
         if(user != null)
         {
             shopSupplier?.fetchShopFromLocalDb(this, user.character_id)

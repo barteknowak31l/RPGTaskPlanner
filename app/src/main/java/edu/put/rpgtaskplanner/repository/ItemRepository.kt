@@ -40,31 +40,6 @@ class ItemRepository(private val firestore: FirebaseFirestore) {
             }
     }
 
-    fun updateItem(characterId: String, itemName: String, updates: Map<ItemFields, Any>, onComplete: (Boolean) -> Unit) {
-        val updatesMap = updates.mapKeys { it.key.name }
-        val itemDocument = collection.document("${characterId}_eq")
-            .collection("items")
-            .document(itemName)
-
-        itemDocument.update(updatesMap)
-            .addOnSuccessListener {
-                val itemInUseDocument = collection.document("${characterId}_eq")
-                    .collection("items_in_use")
-                    .document(itemName)
-
-                itemInUseDocument.update(updatesMap)
-                    .addOnSuccessListener {
-                        onComplete(true)
-                    }
-                    .addOnFailureListener { exception ->
-                        onComplete(false)
-                    }
-            }
-            .addOnFailureListener { exception ->
-                onComplete(false)
-            }
-    }
-
     fun getItemTemplatesByTypeAndClass(type: ItemType, characterClass: CharacterClass): LiveData<List<Item>> {
         val templatesLiveData = MutableLiveData<List<Item>>()
         val correctedType = if (!type.name.lowercase().endsWith("s")) {
@@ -154,21 +129,6 @@ class ItemRepository(private val firestore: FirebaseFirestore) {
                 onComplete(false)
             }
     }
-
-    fun deleteItemFromCharacterEquipment(characterId: String, itemName: String, onComplete: (Boolean) -> Unit) {
-        val itemDocumentPath = "equipments/${characterId}_eq/items"
-
-        val itemDocument = firestore.collection(itemDocumentPath).document(itemName)
-        itemDocument.delete()
-            .addOnSuccessListener {
-                onComplete(true)
-            }
-            .addOnFailureListener { exception ->
-                onComplete(false)
-            }
-    }
-
-
 
     fun deleteItemFromCharacterEquipmentInUse(characterId: String, itemName: String, onComplete: (Boolean) -> Unit) {
         val itemDocumentPath = "equipments/${characterId}_eq/items_in_use"
