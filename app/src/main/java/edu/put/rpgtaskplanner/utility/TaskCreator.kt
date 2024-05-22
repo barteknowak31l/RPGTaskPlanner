@@ -84,7 +84,7 @@ class TaskCreator {
                 calendar.add(Calendar.MINUTE, (240.0 * cooldownReduction).toInt())
             }
             1 -> {
-                calendar.add(Calendar.MINUTE, (240.0 * cooldownReduction).toInt())
+                calendar.add(Calendar.MINUTE, (480.0 * cooldownReduction).toInt())
 
             }
             2 -> {
